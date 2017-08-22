@@ -8,6 +8,9 @@
  */
 package org.antframework.boot.core;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.env.AbstractEnvironment;
+
 /**
  * 应用操作类
  */
@@ -73,6 +76,17 @@ public final class Apps {
      */
     public static String getLogPath() {
         return app.logPath;
+    }
+
+    /**
+     * 如果profile未被设置，则设置profile
+     */
+    public static void setProfileIfNotExists(String profile) {
+        String envPropertyName = AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME.toUpperCase().replace('.', '_');
+        if (StringUtils.isEmpty(System.getProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME))
+                && StringUtils.isEmpty(System.getenv(envPropertyName))) {
+            System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, profile);
+        }
     }
 
     // 应用
