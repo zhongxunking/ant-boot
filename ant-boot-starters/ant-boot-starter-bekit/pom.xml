@@ -17,11 +17,15 @@
             <artifactId>ant-common-util</artifactId>
         </dependency>
         <dependency>
-            <groupId>top.bekit</groupId>
+            <groupId>org.bekit</groupId>
+            <artifactId>event</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.bekit</groupId>
             <artifactId>flow</artifactId>
         </dependency>
         <dependency>
-            <groupId>top.bekit</groupId>
+            <groupId>org.bekit</groupId>
             <artifactId>service</artifactId>
         </dependency>
         <dependency>

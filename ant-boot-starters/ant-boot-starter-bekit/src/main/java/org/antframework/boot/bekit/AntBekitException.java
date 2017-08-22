@@ -4,10 +4,9 @@
 
 /*
  * 修订记录:
- * @author 钟勋 2017-05-19 17:08 创建
+ * @author 钟勋 2017-08-22 11:53 创建
  */
-package org.antframework.boot.bekit.exception;
-
+package org.antframework.boot.bekit;
 
 import org.antframework.common.util.facade.Status;
 

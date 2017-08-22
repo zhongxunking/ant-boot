@@ -4,11 +4,11 @@
 
 /*
  * 修订记录:
- * @author 钟勋 2017-05-19 17:56 创建
+ * @author 钟勋 2017-08-22 11:53 创建
  */
-package org.antframework.boot.bekit.holder;
+package org.antframework.boot.bekit;
 
-import org.antframework.boot.bekit.exception.AntBekitException;
+import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 
 /**
@@ -16,27 +16,27 @@ import org.antframework.common.util.facade.Status;
  */
 public class CodeMessageHolder {
     // 线程变量存储结果信息
-    private static final ThreadLocal<CodeMessageInfo> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<CodeMessageInfo> INFO_HOLDER = new ThreadLocal<>();
 
     /**
      * 设置结果码、结果描述
      */
     public static void set(String code, String message) {
-        threadLocal.set(new CodeMessageInfo(code, message));
+        INFO_HOLDER.set(new CodeMessageInfo(code, message));
     }
 
     /**
      * 获取结果码、结果描述
      */
     public static CodeMessageInfo get() {
-        return threadLocal.get();
+        return INFO_HOLDER.get();
     }
 
     /**
      * 删除结果码、结果描述
      */
     public static void remove() {
-        threadLocal.remove();
+        INFO_HOLDER.remove();
     }
 
     /**
@@ -49,7 +49,11 @@ public class CodeMessageHolder {
         if (codeMessageInfo != null) {
             return new AntBekitException(status, codeMessageInfo.getCode(), codeMessageInfo.getMessage());
         } else {
-            return new AntBekitException(status, "001", "未知描述");
+            if (status == Status.SUCCESS) {
+                return new AntBekitException(status, CommonResultCode.SUCCESS.getCode(), CommonResultCode.SUCCESS.getMessage());
+            } else {
+                return new AntBekitException(status, CommonResultCode.UNKNOWN_ERROR.getCode(), CommonResultCode.UNKNOWN_ERROR.getMessage());
+            }
         }
     }
 

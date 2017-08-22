@@ -4,25 +4,25 @@
 
 /*
  * 修订记录:
- * @author 钟勋 2017-05-02 11:31 创建
+ * @author 钟勋 2017-08-22 11:53 创建
  */
 package org.antframework.boot.bekit.servicelistener;
 
-import org.antframework.boot.bekit.exception.AntBekitException;
+import org.antframework.boot.bekit.AntBekitException;
+import org.bekit.event.annotation.listener.Listen;
+import org.bekit.service.annotation.listener.ServiceListener;
+import org.bekit.service.event.ServiceApplyEvent;
+import org.bekit.service.event.ServiceExceptionEvent;
+import org.bekit.service.event.ServiceFinishEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.bekit.event.annotation.listener.Listen;
-import top.bekit.service.annotation.listener.ServiceListener;
-import top.bekit.service.event.ServiceApplyEvent;
-import top.bekit.service.event.ServiceExceptionEvent;
-import top.bekit.service.event.ServiceFinishEvent;
 
 /**
- * 日志处理-服务监听器
+ * 日志打印-服务监听器
  */
-@ServiceListener(priority = 1)
-public class LogProcessServiceListener {
-    private static final Logger logger = LoggerFactory.getLogger(LogProcessServiceListener.class);
+@ServiceListener(priority = 2)
+public class LogPrintServiceListener {
+    private static final Logger logger = LoggerFactory.getLogger(LogPrintServiceListener.class);
 
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
