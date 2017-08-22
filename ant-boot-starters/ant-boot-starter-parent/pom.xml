@@ -14,6 +14,9 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>ant-boot-starter-parent</name>
+    <description>基于ant-boot应用的父pom</description>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
