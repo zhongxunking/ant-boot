@@ -1,10 +1,10 @@
 /* 
- * Copyright © 2017 www.lvmama.com
+ * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
 /*
  * 修订记录:
- * @author 钟勋（zhongxun@lvmama.com） 2017-08-24 21:51 创建
+ * @author 钟勋 2017-08-24 21:51 创建
  */
 package org.antframework.boot.jpa;
 
