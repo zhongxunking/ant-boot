@@ -41,7 +41,7 @@ public class SpecificationUtils {
      *
      * @param filters 查询条件
      */
-    public static <T> Specification<T> parse(List<SearchFilter> filters) {
+    public static <T> Specification<T> parse(final List<SearchFilter> filters) {
         return new Specification<T>() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
