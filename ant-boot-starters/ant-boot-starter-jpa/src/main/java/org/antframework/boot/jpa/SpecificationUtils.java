@@ -23,6 +23,10 @@ import java.util.Map;
  */
 public class SpecificationUtils {
     /**
+     * 操作符与属性名之间的分隔符
+     */
+    public static final char OPERATOR_ATTRNAME_SEPARATOR = '_';
+    /**
      * 嵌套的属性名分隔符
      */
     public static final char NESTED_ATTRNAME_SEPARATOR = '.';
@@ -30,7 +34,9 @@ public class SpecificationUtils {
     /**
      * 根据Map解析
      *
-     * @param searchParams 查询参数
+     * @param searchParams 查询参数。
+     *                     Map的key格式：操作符_属性名，比如：GT_age表示age大于指定值。如果嵌套的属性，则以“.”隔开，比如：GT_user.age表示以属性user的属性age大于指定值
+     *                     Map的value格式：非IN操作符，就是指定的value；IN操作符，value必须得是数组或Collection类型
      */
     public static <T> Specification<T> parse(Map<String, Object> searchParams) {
         return parse(SearchFilter.parse(searchParams));
@@ -114,11 +120,6 @@ public class SpecificationUtils {
      * 查询条件
      */
     public static class SearchFilter {
-        /**
-         * 操作符与属性名之间的分隔符
-         */
-        public static final char OPERATOR_ATTRNAME_SEPARATOR = '_';
-
         // 属性名
         private String attrName;
         // 操作符
