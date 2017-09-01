@@ -77,13 +77,7 @@ public class SpecificationUtils {
                 predicate = cb.lessThanOrEqualTo(path, (Comparable) filter.value);
                 break;
             case LIKE:
-                predicate = cb.like(path, "%" + filter.value + "%");
-                break;
-            case LLIKE:
-                predicate = cb.like(path, "%" + filter.value);
-                break;
-            case RLIKE:
-                predicate = cb.like(path, filter.value + "%");
+                predicate = cb.like(path, filter.value.toString());
                 break;
             case NULL:
                 predicate = cb.isNull(path);
@@ -175,10 +169,6 @@ public class SpecificationUtils {
         LTE,
         // like操作
         LIKE,
-        // 仅左like
-        LLIKE,
-        // 仅右like
-        RLIKE,
         // 等于null
         NULL,
         // 不等于null
