@@ -17,7 +17,7 @@ import org.springframework.data.repository.config.RepositoryConfigurationExtensi
 import java.lang.annotation.Annotation;
 
 /**
- * ant-jpa配置类（设置repository实现基础类）
+ * jpa-repository配置类（设置repository实现基础类）
  * <p>
  * 参考{@link org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfigureRegistrar}
  */

@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 /**
  * jpa-repository自动配置类（导入相关配置类）
  * <p>
- * 由于spring-boot原生的集成spring-data-jpa没有提供扩展点，需要定制的话只能自己写引导，参考{@link JpaRepositoriesAutoConfiguration}
+ * 由于spring-boot原生的集成spring-data-jpa没有提供扩展点，需要扩展功能的话只能自己写引导，参考{@link JpaRepositoriesAutoConfiguration}
  */
 @Configuration
 @ConditionalOnBean(DataSource.class)
