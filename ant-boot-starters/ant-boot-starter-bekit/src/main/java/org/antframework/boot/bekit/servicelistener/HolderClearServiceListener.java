@@ -21,13 +21,13 @@ import org.bekit.service.event.ServiceFinishEvent;
 public class HolderClearServiceListener {
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
-        // 清理结果码、结果描述持有器
-        CodeMessageHolder.remove();
+        // 结果码、结果描述持有器压入keeper
+        CodeMessageHolder.pushKeeper();
     }
 
     @Listen(priorityAsc = false)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
-        // 清理结果码、结果描述持有器
-        CodeMessageHolder.remove();
+        // 结果码、结果描述持有器弹出keeper
+        CodeMessageHolder.popKeeper();
     }
 }

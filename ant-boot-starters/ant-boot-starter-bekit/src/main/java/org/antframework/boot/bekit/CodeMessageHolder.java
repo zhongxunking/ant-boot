@@ -11,32 +11,40 @@ package org.antframework.boot.bekit;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 结果码、结果描述持有器
  */
 public class CodeMessageHolder {
-    // 线程变量存储结果信息
-    private static final ThreadLocal<CodeMessageInfo> INFO_HOLDER = new ThreadLocal<>();
+    // keeper持有器
+    private static final ThreadLocal<List<Keeper<CodeMessageInfo>>> KEEPERS_HOLDER = new ThreadLocal<List<Keeper<CodeMessageInfo>>>() {
+        @Override
+        protected List<Keeper<CodeMessageInfo>> initialValue() {
+            return new ArrayList<>();
+        }
+    };
 
     /**
      * 设置结果码、结果描述
      */
     public static void set(String code, String message) {
-        INFO_HOLDER.set(new CodeMessageInfo(code, message));
+        getCurrentKeeper().set(new CodeMessageInfo(code, message));
     }
 
     /**
      * 获取结果码、结果描述
      */
     public static CodeMessageInfo get() {
-        return INFO_HOLDER.get();
+        return getCurrentKeeper().get();
     }
 
     /**
      * 删除结果码、结果描述
      */
     public static void remove() {
-        INFO_HOLDER.remove();
+        getCurrentKeeper().set(null);
     }
 
     /**
@@ -55,6 +63,32 @@ public class CodeMessageHolder {
                 return new AntBekitException(status, CommonResultCode.UNKNOWN_ERROR.getCode(), CommonResultCode.UNKNOWN_ERROR.getMessage());
             }
         }
+    }
+
+    /**
+     * push新持有器（本方法由框架调用，使用方不能调用）
+     */
+    public static void pushKeeper() {
+        KEEPERS_HOLDER.get().add(new Keeper<>());
+    }
+
+    /**
+     * 弹出最上层持有器（本方法由框架调用，使用方不能调用）
+     */
+    public static void popKeeper() {
+        List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
+        if (keepers.size() > 0) {
+            keepers.remove(keepers.size() - 1);
+        }
+    }
+
+    // 获取当前持有器
+    private static Keeper<CodeMessageInfo> getCurrentKeeper() {
+        List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
+        if (keepers.size() <= 0) {
+            keepers.add(new Keeper<>());
+        }
+        return keepers.get(keepers.size() - 1);
     }
 
     /**
@@ -77,6 +111,19 @@ public class CodeMessageHolder {
 
         public String getMessage() {
             return message;
+        }
+    }
+
+    // 持有器
+    private static class Keeper<T> {
+        private T t;
+
+        public T get() {
+            return t;
+        }
+
+        public void set(T t) {
+            this.t = t;
         }
     }
 }
