@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.jpa;
 
+import org.antframework.common.util.tostring.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -60,5 +61,10 @@ public abstract class AbstractEntity {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return ToString.toString(this);
     }
 }
