@@ -13,6 +13,7 @@
 
     <modules>
         <module>ant-boot-starter-bekit</module>
+        <module>ant-boot-starter-config</module>
         <module>ant-boot-starter-dubbo</module>
         <module>ant-boot-starter-jpa</module>
         <module>ant-boot-starter-parent</module>
