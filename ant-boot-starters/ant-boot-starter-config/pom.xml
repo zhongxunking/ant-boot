@@ -12,6 +12,9 @@
     <artifactId>ant-boot-starter-config</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.antframework.configcenter</groupId>
+            <artifactId>configcenter-client</artifactId>
+        </dependency>
     </dependencies>
 </project>
