@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-09-25 21:26 创建
  */
-package org.antframework.boot.config;
+package org.antframework.boot.config.core;
 
 import org.antframework.configcenter.client.ConfigProperties;
 import org.springframework.core.env.EnumerablePropertySource;

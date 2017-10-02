@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-09-25 21:25 创建
  */
-package org.antframework.boot.config;
+package org.antframework.boot.config.core;
 
 import org.antframework.boot.core.Apps;
 import org.antframework.configcenter.client.ConfigContext;

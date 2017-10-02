@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-09-25 22:21 创建
  */
-package org.antframework.boot.config;
+package org.antframework.boot.config.core;
 
 import org.antframework.configcenter.client.ConfigListener;
 import org.antframework.configcenter.client.support.ListenerRegistrar;

@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-10-02 18:36 创建
  */
-package org.antframework.boot.config.boot;
+package org.antframework.boot.config.core;
 
 import org.antframework.boot.config.DefaultConfigListener;
 import org.antframework.boot.config.ListenConfigModifiedTrigger;
