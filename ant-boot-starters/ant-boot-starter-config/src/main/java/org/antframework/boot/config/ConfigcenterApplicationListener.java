@@ -17,22 +17,32 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertySource;
 
 /**
- *
+ * 设置配置中心的应用监听器
  */
 public class ConfigcenterApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+    /**
+     * 配置中心服务端地址
+     */
     public static final String SERVER_URL_PROPERTY_NAME = "configcenter.serverUrl";
+    /**
+     * 配置中心使用的zookeeper地址（多个zookeeper以“,”分隔）
+     */
     public static final String ZK_URL_PROPERTY_NAME = "configcenter.zkUrl";
+    // 缓存文件名
+    private static final String CACHE_FILE_NAME = "configcenter.properties";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         ConfigurableEnvironment environment = event.getEnvironment();
-
+        // 构造配置上下文
         ConfigContext configContext = new ConfigContext(buildInitParams(environment));
-        configContext.getListenerRegistrar().register(new DefaultConfigListener());
+        // 将配置中心设置到environment中
         environment.getPropertySources().addLast(buildPropertySource(configContext));
-        ConfigContextHolder.set(configContext);
+        // 初始化配置上下文持有器
+        ConfigContextHolder.init(configContext);
     }
 
+    // 构建初始化参数
     private ConfigContext.InitParams buildInitParams(ConfigurableEnvironment environment) {
         String serverUrl = environment.getProperty(SERVER_URL_PROPERTY_NAME);
         if (StringUtils.isBlank(serverUrl)) {
@@ -40,7 +50,7 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
         }
         String zkUrl = environment.getProperty(ZK_URL_PROPERTY_NAME);
         if (StringUtils.isBlank(zkUrl)) {
-            throw new IllegalArgumentException("未设置配置中心zookeeper地址：" + ZK_URL_PROPERTY_NAME);
+            throw new IllegalArgumentException("未设置配置中心使用的zookeeper地址：" + ZK_URL_PROPERTY_NAME);
         }
 
         ConfigContext.InitParams initParams = new ConfigContext.InitParams();
@@ -48,12 +58,13 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
         initParams.setQueriedAppCode(Apps.getAppCode());
         initParams.setProfileCode(environment.getActiveProfiles()[0]);
         initParams.setServerUrl(serverUrl);
-        initParams.setCacheFilePath(Apps.getConfigPath() + "/configcenter.properties");
+        initParams.setCacheFilePath(Apps.getConfigPath() + "/" + CACHE_FILE_NAME);
         initParams.setZkUrl(zkUrl);
 
         return initParams;
     }
 
+    // 构建配置中心在environment中的属性资源
     private PropertySource buildPropertySource(ConfigContext configContext) {
         return new ConfigcenterPropertySource(ConfigcenterPropertySource.PROPERTY_SOURCE_NAME, configContext.getProperties());
     }

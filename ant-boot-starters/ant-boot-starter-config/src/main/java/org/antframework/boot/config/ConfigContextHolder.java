@@ -11,16 +11,24 @@ package org.antframework.boot.config;
 import org.antframework.configcenter.client.ConfigContext;
 
 /**
- *
+ * 配置上下文持有器
  */
 public class ConfigContextHolder {
-
+    // 配置上下文
     private static ConfigContext configContext;
 
-    public static void set(ConfigContext configContext) {
+    /**
+     * 初始化
+     *
+     * @param configContext 配置上下文
+     */
+    public static void init(ConfigContext configContext) {
         ConfigContextHolder.configContext = configContext;
     }
 
+    /**
+     * 获取配置上下文
+     */
     public static ConfigContext get() {
         return configContext;
     }
