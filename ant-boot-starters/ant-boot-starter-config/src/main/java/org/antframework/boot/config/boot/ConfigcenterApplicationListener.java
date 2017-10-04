@@ -6,10 +6,12 @@
  * 修订记录:
  * @author 钟勋 2017-09-25 21:25 创建
  */
-package org.antframework.boot.config.core;
+package org.antframework.boot.config.boot;
 
+import org.antframework.boot.config.ConfigContextHolder;
 import org.antframework.boot.core.Apps;
 import org.antframework.configcenter.client.ConfigContext;
+import org.antframework.configcenter.client.spring.ConfigcenterPropertySource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
@@ -66,6 +68,6 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
 
     // 构建配置中心在environment中的属性资源
     private PropertySource buildPropertySource(ConfigContext configContext) {
-        return new ConfigcenterPropertySource(ConfigcenterPropertySource.PROPERTY_SOURCE_NAME, configContext.getProperties());
+        return new ConfigcenterPropertySource(ConfigcenterPropertySource.PROPERTY_SOURCE_NAME, configContext);
     }
 }
