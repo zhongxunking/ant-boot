@@ -9,7 +9,7 @@
 package org.antframework.boot.bekit.servicelistener;
 
 import org.antframework.boot.bekit.AntBekitException;
-import org.bekit.event.annotation.listener.Listen;
+import org.bekit.event.annotation.Listen;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceExceptionEvent;

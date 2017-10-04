@@ -13,7 +13,7 @@ import org.antframework.common.util.facade.AbstractOrder;
 import org.antframework.common.util.facade.AbstractResult;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
-import org.bekit.event.annotation.listener.Listen;
+import org.bekit.event.annotation.Listen;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.engine.ServiceContext;
 import org.bekit.service.event.ServiceApplyEvent;
