@@ -30,8 +30,6 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
      * 配置中心使用的zookeeper地址（多个zookeeper以“,”分隔）
      */
     public static final String ZK_URL_PROPERTY_NAME = "configcenter.zkUrl";
-    // 缓存文件名
-    private static final String CACHE_FILE_NAME = "configcenter.properties";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
@@ -60,7 +58,7 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
         initParams.setQueriedAppCode(Apps.getAppCode());
         initParams.setProfileCode(environment.getActiveProfiles()[0]);
         initParams.setServerUrl(serverUrl);
-        initParams.setCacheFilePath(Apps.getConfigPath() + "/" + CACHE_FILE_NAME);
+        initParams.setCacheFilePath(Apps.getConfigPath() + "/" + String.format("configcenter-%s.properties", environment.getActiveProfiles()[0]));
         initParams.setZkUrl(zkUrl);
 
         return initParams;
