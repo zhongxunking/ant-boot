@@ -16,6 +16,7 @@
         <module>ant-boot-starter-config</module>
         <module>ant-boot-starter-dubbo</module>
         <module>ant-boot-starter-jpa</module>
+        <module>ant-boot-starter-log</module>
         <module>ant-boot-starter-parent</module>
     </modules>
 
