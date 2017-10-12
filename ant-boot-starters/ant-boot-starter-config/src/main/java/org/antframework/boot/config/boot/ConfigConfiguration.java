@@ -11,17 +11,24 @@ package org.antframework.boot.config.boot;
 import org.antframework.boot.config.ConfigContextHolder;
 import org.antframework.configcenter.client.spring.support.DefaultConfigListener;
 import org.antframework.configcenter.client.spring.support.ListenConfigModifiedTrigger;
-import org.bekit.event.boot.EventBusConfiguration;
+import org.bekit.event.boot.EventBusAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
  * 配置中心配置类
  */
 @Configuration
-@Import(EventBusConfiguration.class)
+@ConditionalOnProperty(name = ConfigConfiguration.LISTEN_ENABLE_PROPERTY_NAME, matchIfMissing = true)
+@AutoConfigureAfter(EventBusAutoConfiguration.class)
 public class ConfigConfiguration {
+    /**
+     * 是否开启监听的属性名
+     */
+    public static final String LISTEN_ENABLE_PROPERTY_NAME = "configcenter.listen.enable";
+
     // 监听属性被修改触发器
     @Bean
     public ListenConfigModifiedTrigger listenConfigModifiedTrigger(DefaultConfigListener defaultConfigListener) {

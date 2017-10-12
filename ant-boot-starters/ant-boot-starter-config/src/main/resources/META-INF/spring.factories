@@ -1,4 +1,4 @@
 org.springframework.context.ApplicationListener=\
   org.antframework.boot.config.boot.ConfigcenterApplicationListener
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.antframework.boot.config.boot.ConfigAutoConfiguration
+  org.antframework.boot.config.boot.ConfigConfiguration
