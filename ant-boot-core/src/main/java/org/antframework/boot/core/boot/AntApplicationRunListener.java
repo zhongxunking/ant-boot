@@ -10,7 +10,7 @@ package org.antframework.boot.core.boot;
 
 import org.antframework.boot.core.AntBootApplication;
 import org.antframework.boot.core.Apps;
-import org.antframework.boot.core.ContextHolder;
+import org.antframework.boot.core.Contexts;
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.springframework.boot.ApplicationArguments;
@@ -18,13 +18,16 @@ import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.Ordered;
 import org.springframework.core.SpringVersion;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * ant应用RunListener
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class AntApplicationRunListener implements SpringApplicationRunListener {
     private static final String SERVER_PORT_PROPERTY_NAME = "server.port";
 
@@ -52,11 +55,12 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         if (environment.getActiveProfiles().length != 1) {
             throw new IllegalStateException("profile必须设置，且必须为一个");
         }
+        Contexts.setEnvironment(environment);
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
-        ContextHolder.initContext(context);
+        Contexts.setApplicationContext(context);
     }
 
     @Override
