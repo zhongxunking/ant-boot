@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-10-19 22:17 创建
  */
-package org.antframework.boot.log;
+package org.antframework.boot.log.core;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

@@ -8,6 +8,8 @@
  */
 package org.antframework.boot.log;
 
+import org.antframework.boot.log.core.LogContext;
+
 /**
  * 日志初始化器
  */
