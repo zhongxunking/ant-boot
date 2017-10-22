@@ -9,10 +9,14 @@
 package org.antframework.boot.log;
 
 /**
- *
+ * 日志初始化器
  */
 public interface LogInitializer {
 
+    /**
+     * 初始化
+     *
+     * @param logContext 日志上下文
+     */
     void init(LogContext logContext);
-
 }

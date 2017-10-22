@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * spring-boot原生的{@link org.springframework.boot.logging.logback.LogbackConfigurator}很好用，但由于是私有的不能直接用，所以复制一份进行使用
  */
 public class LogbackConfigurator {
 
@@ -43,7 +43,7 @@ public class LogbackConfigurator {
         return this.context.getConfigurationLock();
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void conversionRule(String conversionWord,
                                Class<? extends Converter> converterClass) {
         Assert.hasLength(conversionWord, "Conversion word must not be empty");

@@ -12,12 +12,14 @@ import ch.qos.logback.classic.LoggerContext;
 import org.springframework.core.env.Environment;
 
 /**
- *
+ * 日志上下文
  */
 public class LogContext {
-
+    // logback的logger上下文
     private LoggerContext context;
+    // spring环境
     private Environment environment;
+    // 易用的logback配置器
     private LogbackConfigurator configurator;
 
     public LogContext(LoggerContext context, Environment environment) {
