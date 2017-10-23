@@ -69,7 +69,7 @@ public class ErrorFileLogInitializer implements LogInitializer {
         /**
          * 默认的日志格式
          */
-        public static final String DEFAULT_PATTERN = "";
+        public static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}:%L- %msg%n%wEx";
 
         // 是否开启
         private boolean enable = true;

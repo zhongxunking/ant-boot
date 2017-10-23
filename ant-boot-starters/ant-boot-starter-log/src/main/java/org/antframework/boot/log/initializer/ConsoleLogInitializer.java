@@ -64,7 +64,7 @@ public class ConsoleLogInitializer implements LogInitializer {
         /**
          * 默认的日志格式
          */
-        public static final String DEFAULT_PATTERN = "";
+        public static final String DEFAULT_PATTERN = "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%-5level) %clr([%thread]){faint} %clr(%logger{0}){cyan}%clr(:%L){faint}%clr(-){red} %msg%n%wEx";
 
         // 是否开启
         private boolean enable = true;
