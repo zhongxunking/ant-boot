@@ -29,8 +29,8 @@ public class LevelLogInitializer implements LogInitializer {
         config.root(Level.INFO);
 
         // 设置特定logger级别
-        config.logger("org.apache.curator", Level.WARN);
         config.logger("org.apache.zookeeper", Level.WARN);
+        config.logger("org.apache.curator", Level.WARN);
         // 参考：DefaultLogbackConfiguration#base
         LevelRemappingAppender debugRemapAppender = new LevelRemappingAppender(
                 "org.springframework.boot");
