@@ -25,10 +25,4 @@ public @interface AntBootApplication {
      * 应用编码
      */
     String appCode();
-
-    /**
-     * http端口（-1：关闭端口，0：随机端口，大于0：固定端口）
-     */
-    int httpPort();
-
 }

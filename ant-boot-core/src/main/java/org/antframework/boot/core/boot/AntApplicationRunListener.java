@@ -30,7 +30,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class AntApplicationRunListener implements SpringApplicationRunListener {
-    private static final String SERVER_PORT_PROPERTY_NAME = "server.port";
 
     private SpringApplication springApplication;
     private ApplicationArguments arguments;
@@ -66,7 +65,6 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
-        System.setProperty(SERVER_PORT_PROPERTY_NAME, Integer.toString(Apps.getHttpPort()));
     }
 
     @Override
@@ -91,7 +89,7 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
             throw new IllegalArgumentException("sources中无@AntBootApplication注解");
         }
         // 初始化App
-        Apps.initApp(annotation.appCode(), annotation.httpPort());
+        Apps.initApp(annotation.appCode());
         // 创建配置、数据、日志目录（如果不存在）
         String[] dirPaths = {Apps.getConfigPath(), Apps.getDataPath(), Apps.getLogPath()};
         for (String dirPath : dirPaths) {

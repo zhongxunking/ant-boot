@@ -15,12 +15,18 @@ import org.springframework.core.env.AbstractEnvironment;
  * 应用操作类
  */
 public final class Apps {
-    // 配置文件夹路径前缀
-    private static final String CONFIG_PATH_PREFIX = "/var/config/";
-    // 数据文件夹路径前缀
-    private static final String DATA_PATH_PREFIX = "/var/data/";
-    // 日志文件夹路径前缀
-    private static final String LOG_PATH_PREFIX = "/var/log/";
+    /**
+     * 配置目录属性名
+     */
+    public static final String CONFIG_PATH_PROPERTY_NAME = "app.config.path";
+    /**
+     * 数据目录属性名
+     */
+    public static final String DATA_PATH_PROPERTY_NAME = "app.data.path";
+    /**
+     * 日志目录属性名
+     */
+    public static final String LOG_PATH_PROPERTY_NAME = "app.log.path";
 
     // 应用
     private static App app;
@@ -28,19 +34,17 @@ public final class Apps {
     /**
      * 初始化
      *
-     * @param appCode  应用编码
-     * @param httpPort http端口
+     * @param appCode 应用编码
      */
-    public static void initApp(String appCode, int httpPort) {
+    public static void initApp(String appCode) {
         if (app != null) {
             throw new IllegalStateException("App已经初始化，不能重复初始化");
         }
         app = new App();
         app.appCode = appCode;
-        app.httpPort = httpPort;
-        app.configPath = CONFIG_PATH_PREFIX + appCode;
-        app.dataPath = DATA_PATH_PREFIX + appCode;
-        app.logPath = LOG_PATH_PREFIX + appCode;
+        app.configPath = System.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/config/" + appCode);
+        app.dataPath = System.getProperty(DATA_PATH_PROPERTY_NAME, "/var/data/" + appCode);
+        app.logPath = System.getProperty(LOG_PATH_PROPERTY_NAME, "/var/log/" + appCode);
     }
 
     /**
@@ -48,13 +52,6 @@ public final class Apps {
      */
     public static String getAppCode() {
         return app.appCode;
-    }
-
-    /**
-     * 获取http端口
-     */
-    public static int getHttpPort() {
-        return app.httpPort;
     }
 
     /**
@@ -93,8 +90,6 @@ public final class Apps {
     private static class App {
         // 应用名
         private String appCode;
-        // http端口
-        private int httpPort;
         // 配置文件夹路径
         private String configPath;
         // 数据文件夹路径
