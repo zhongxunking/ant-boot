@@ -11,6 +11,7 @@ package org.antframework.boot.core.boot;
 import org.antframework.boot.core.AntBootApplication;
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
+import org.antframework.common.util.file.FileUtils;
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.springframework.boot.ApplicationArguments;
@@ -75,6 +76,7 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
 
     // 初始化App
     private void initApp(SpringApplication springApplication) {
+        // 查找@AntBootApplication
         AntBootApplication annotation = null;
         for (Object source : springApplication.getSources()) {
             if (!(source instanceof Class)) {
@@ -88,7 +90,12 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         if (annotation == null) {
             throw new IllegalArgumentException("sources中无@AntBootApplication注解");
         }
-
+        // 初始化App
         Apps.initApp(annotation.appCode(), annotation.httpPort());
+        // 创建配置、数据、日志目录（如果不存在）
+        String[] dirPaths = {Apps.getConfigPath(), Apps.getDataPath(), Apps.getLogPath()};
+        for (String dirPath : dirPaths) {
+            FileUtils.createDirIfAbsent(dirPath);
+        }
     }
 }
