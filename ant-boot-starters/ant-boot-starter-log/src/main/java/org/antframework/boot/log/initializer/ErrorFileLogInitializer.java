@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * error日志文件初始化器
  */
-@Order(0)
+@Order(1)
 public class ErrorFileLogInitializer implements LogInitializer {
     /**
      * appender名称

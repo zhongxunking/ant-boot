@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * info日志文件初始化器
  */
-@Order(0)
+@Order(1)
 public class InfoFileLogInitializer implements LogInitializer {
     /**
      * appender名称

@@ -8,7 +8,6 @@
  */
 package org.antframework.boot.log.core;
 
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.jul.LevelChangePropagator;
 import org.antframework.boot.log.LogInitializer;
@@ -16,7 +15,10 @@ import org.slf4j.ILoggerFactory;
 import org.slf4j.impl.StaticLoggerBinder;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.boot.logging.LoggingInitializationContext;
-import org.springframework.boot.logging.logback.*;
+import org.springframework.boot.logging.logback.ColorConverter;
+import org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter;
+import org.springframework.boot.logging.logback.LogbackLoggingSystem;
+import org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.util.Assert;
 
@@ -61,26 +63,6 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
         config.conversionRule("clr", ColorConverter.class);
         config.conversionRule("wex", WhitespaceThrowableProxyConverter.class);
         config.conversionRule("wEx", ExtendedWhitespaceThrowableProxyConverter.class);
-        LevelRemappingAppender debugRemapAppender = new LevelRemappingAppender(
-                "org.springframework.boot");
-        config.start(debugRemapAppender);
-        config.appender("DEBUG_LEVEL_REMAPPER", debugRemapAppender);
-        config.logger("org.apache.catalina.startup.DigesterFactory", Level.ERROR);
-        config.logger("org.apache.catalina.util.LifecycleBase", Level.ERROR);
-        config.logger("org.apache.coyote.http11.Http11NioProtocol", Level.WARN);
-        config.logger("org.apache.sshd.common.util.SecurityUtils", Level.WARN);
-        config.logger("org.apache.tomcat.util.net.NioSelectorPool", Level.WARN);
-        config.logger("org.crsh.plugin", Level.WARN);
-        config.logger("org.crsh.ssh", Level.WARN);
-        config.logger("org.eclipse.jetty.util.component.AbstractLifeCycle", Level.ERROR);
-        config.logger("org.hibernate.validator.internal.util.Version", Level.WARN);
-        config.logger("org.springframework.boot.actuate.autoconfigure."
-                + "CrshAutoConfiguration", Level.WARN);
-        config.logger("org.springframework.boot.actuate.endpoint.jmx", null, false,
-                debugRemapAppender);
-        config.logger("org.thymeleaf", null, false, debugRemapAppender);
-        // 设置root为info级别（可以通过属性logging.level.root覆盖）
-        config.root(Level.INFO);
     }
 
     //------ 以下方法由于在LogbackLoggingSystem中是私有的，不能调用，所以拷贝过来 ------

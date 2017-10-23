@@ -21,7 +21,7 @@ import org.springframework.core.annotation.Order;
 /**
  * 控制台日志初始化器
  */
-@Order(0)
+@Order(1)
 public class ConsoleLogInitializer implements LogInitializer {
     /**
      * appender名称
