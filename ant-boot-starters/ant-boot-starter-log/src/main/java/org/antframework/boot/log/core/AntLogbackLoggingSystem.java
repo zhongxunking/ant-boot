@@ -49,7 +49,7 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
     // 初始化日志
     private void initLog(LogContext logContext) {
         // 加载日志初始化器
-        List<LogInitializer> initializers = SpringFactoriesLoader.loadFactories(LogInitializer.class, null);
+        List<LogInitializer> initializers = SpringFactoriesLoader.loadFactories(LogInitializer.class, getClassLoader());
         for (LogInitializer initializer : initializers) {
             // 初始化
             initializer.init(logContext);
