@@ -13,10 +13,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.antframework.common</groupId>
-            <artifactId>ant-common-util</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.bekit</groupId>
             <artifactId>event</artifactId>
         </dependency>
