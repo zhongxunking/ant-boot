@@ -11,7 +11,7 @@ package org.antframework.boot.log;
 import org.antframework.boot.log.core.LogContext;
 
 /**
- * 日志初始化器
+ * 日志初始化器（实现类必须具有默认构造函数）
  */
 public interface LogInitializer {
 

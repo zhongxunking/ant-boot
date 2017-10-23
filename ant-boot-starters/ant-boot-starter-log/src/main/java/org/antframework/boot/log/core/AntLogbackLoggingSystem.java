@@ -79,6 +79,8 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
         config.logger("org.springframework.boot.actuate.endpoint.jmx", null, false,
                 debugRemapAppender);
         config.logger("org.thymeleaf", null, false, debugRemapAppender);
+        // 设置root为info级别（可以通过属性logging.level.root覆盖）
+        config.root(Level.INFO);
     }
 
     //------ 以下方法由于在LogbackLoggingSystem中是私有的，不能调用，所以拷贝过来 ------
