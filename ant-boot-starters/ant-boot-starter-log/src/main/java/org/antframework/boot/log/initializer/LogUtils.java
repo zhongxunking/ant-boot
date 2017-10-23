@@ -63,7 +63,10 @@ public class LogUtils {
         appender.setName(name);
         appender.setEncoder(encoder);
         appender.setFile(filePath);
+        // 完成policy设置---start
         policy.setParent(appender);
+        logContext.getConfigurator().start(policy);
+        // 完成policy设置---end
         appender.setRollingPolicy(policy);
         for (Filter filter : filters) {
             appender.addFilter(filter);
@@ -97,7 +100,6 @@ public class LogUtils {
         if (totalSizeCap != null) {
             policy.setTotalSizeCap(FileSize.valueOf(totalSizeCap));
         }
-        logContext.getConfigurator().start(policy);
 
         return policy;
     }
