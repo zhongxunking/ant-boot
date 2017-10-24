@@ -66,9 +66,13 @@ public class ConsoleLogInitializer implements LogInitializer {
          */
         public static final String DEFAULT_PATTERN = "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%-5level) %clr([%thread]){faint} %clr(%logger{0}){cyan}%clr(:%L){faint}%clr(-){red} %msg%n%wEx";
 
-        // 是否开启
+        /**
+         * 选填：是否开启（默认开启）
+         */
         private boolean enable = true;
-        // 日志格式
+        /**
+         * 选填：日志格式
+         */
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
 

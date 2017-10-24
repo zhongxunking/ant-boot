@@ -71,23 +71,37 @@ public class InfoFileLogInitializer implements LogInitializer {
          */
         public static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}:%L- %msg%n%wEx";
 
-        // 是否开启
+        /**
+         * 选填：是否开启（默认开启）
+         */
         private boolean enable = true;
-        // 日志格式
+        /**
+         * 选填：日志格式
+         */
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
-        // 文件名
+        /**
+         * 选填：文件名（默认${appCode}-info.log）
+         */
         @NotBlank
         private String fileName = Apps.getAppCode() + "-info.log";
-        // 滚动文件名
+        /**
+         * 选填：滚动文件名（默认${appCode}-info.log.%d{yyyyMMdd}-%i）
+         */
         @NotBlank
         private String rollingFileName = Apps.getAppCode() + "-info.log.%d{yyyyMMdd}-%i";
-        // 单个文件最大容量
+        /**
+         * 选填：单个文件最大容量
+         */
         @NotBlank
         private String maxFileSize = "1GB";
-        // 最多保存的文件个数（null表示不限制）
+        /**
+         * 选填：最多保存的文件个数（默认不限制）
+         */
         private Integer maxHistory;
-        // 日志最大保存容量（null表示不限制）
+        /**
+         * 选填：日志最大保存容量（默认不限制）
+         */
         private String totalSizeCap;
 
         public boolean isEnable() {
