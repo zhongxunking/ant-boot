@@ -18,15 +18,15 @@ public final class Apps {
     /**
      * 配置目录属性名
      */
-    public static final String CONFIG_PATH_PROPERTY_NAME = "app.config.path";
+    public static final String CONFIG_PATH_PROPERTY_NAME = "app.config-path";
     /**
      * 数据目录属性名
      */
-    public static final String DATA_PATH_PROPERTY_NAME = "app.data.path";
+    public static final String DATA_PATH_PROPERTY_NAME = "app.data-path";
     /**
      * 日志目录属性名
      */
-    public static final String LOG_PATH_PROPERTY_NAME = "app.log.path";
+    public static final String LOG_PATH_PROPERTY_NAME = "app.log-path";
 
     // 应用
     private static App app;
