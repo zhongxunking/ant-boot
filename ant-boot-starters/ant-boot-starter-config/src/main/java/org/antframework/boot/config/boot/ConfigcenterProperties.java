@@ -26,10 +26,14 @@ public class ConfigcenterProperties {
      */
     public static final String LISTEN_ENABLE_PROPERTY_NAME = PREFIX + ".listen.enable";
 
-    // 配置中心服务端地址
+    /**
+     * 必填：配置中心服务端地址（比如：http://localhost:8080）
+     */
     @NotBlank
     private String serverUrl;
-    // 配置中心使用的zookeeper地址（多个zookeeper以“,”分隔）
+    /**
+     * 必填：配置中心使用的zookeeper地址，存在多个zookeeper的话以“,”分隔（比如：192.168.0.1:2181,192.168.0.2:2181）
+     */
     @NotEmpty
     private String[] zkUrls;
 
