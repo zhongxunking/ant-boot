@@ -21,14 +21,9 @@ import org.springframework.context.annotation.Configuration;
  * 配置中心配置类
  */
 @Configuration
-@ConditionalOnProperty(name = ConfigConfiguration.LISTEN_ENABLE_PROPERTY_NAME, matchIfMissing = true)
+@ConditionalOnProperty(name = ConfigcenterProperties.LISTEN_ENABLE_PROPERTY_NAME, matchIfMissing = true)
 @AutoConfigureAfter(EventBusAutoConfiguration.class)
 public class ConfigConfiguration {
-    /**
-     * 是否开启监听的属性名
-     */
-    public static final String LISTEN_ENABLE_PROPERTY_NAME = "configcenter.listen.enable";
-
     // 监听属性被修改触发器
     @Bean
     public ListenConfigModifiedTrigger listenConfigModifiedTrigger(DefaultConfigListener defaultConfigListener) {

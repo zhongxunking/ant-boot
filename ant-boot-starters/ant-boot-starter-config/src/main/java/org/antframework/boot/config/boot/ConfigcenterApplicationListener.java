@@ -18,6 +18,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertySource;
 
+import java.io.File;
+
 /**
  * 配置中心应用监听器（将配置中心加入到environment）
  */
@@ -43,7 +45,7 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
         initParams.setQueriedAppCode(Apps.getAppCode());
         initParams.setProfileCode(environment.getActiveProfiles()[0]);
         initParams.setServerUrl(properties.getServerUrl());
-        initParams.setCacheFilePath(Apps.getConfigPath() + "/" + String.format("configcenter-%s.properties", environment.getActiveProfiles()[0]));
+        initParams.setCacheFilePath(Apps.getConfigPath() + File.separator + String.format("configcenter-%s.properties", environment.getActiveProfiles()[0]));
         initParams.setZkUrls(properties.getZkUrls());
 
         return initParams;

@@ -21,6 +21,10 @@ public class ConfigcenterProperties {
      * 属性前缀
      */
     public static final String PREFIX = "configcenter";
+    /**
+     * 是否开启监听的属性名
+     */
+    public static final String LISTEN_ENABLE_PROPERTY_NAME = PREFIX + ".listen.enable";
 
     // 配置中心服务端地址
     @NotBlank
