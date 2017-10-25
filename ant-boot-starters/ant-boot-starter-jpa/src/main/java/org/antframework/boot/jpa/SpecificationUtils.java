@@ -70,6 +70,9 @@ public class SpecificationUtils {
             case EQ:
                 predicate = cb.equal(path, filter.value);
                 break;
+            case NOTEQ:
+                predicate = cb.notEqual(path, filter.value);
+                break;
             case GT:
                 predicate = cb.greaterThan(path, (Comparable) filter.value);
                 break;
@@ -135,6 +138,18 @@ public class SpecificationUtils {
             this.value = value;
         }
 
+        public String getAttrName() {
+            return attrName;
+        }
+
+        public Operator getOperator() {
+            return operator;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
         /**
          * 解析
          *
@@ -160,6 +175,8 @@ public class SpecificationUtils {
     public enum Operator {
         // 等于
         EQ,
+        // 不等于
+        NOTEQ,
         // 大于
         GT,
         // 大于等于
