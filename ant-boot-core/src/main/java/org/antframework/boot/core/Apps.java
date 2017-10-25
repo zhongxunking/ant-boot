@@ -42,9 +42,9 @@ public final class Apps {
         }
         app = new App();
         app.appCode = appCode;
-        app.configPath = System.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/config/" + appCode);
-        app.dataPath = System.getProperty(DATA_PATH_PROPERTY_NAME, "/var/data/" + appCode);
-        app.logPath = System.getProperty(LOG_PATH_PROPERTY_NAME, "/var/log/" + appCode);
+        app.configPath = System.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appCode);
+        app.dataPath = System.getProperty(DATA_PATH_PROPERTY_NAME, "/var/apps/data/" + appCode);
+        app.logPath = System.getProperty(LOG_PATH_PROPERTY_NAME, "/var/apps/log/" + appCode);
     }
 
     /**
@@ -55,21 +55,21 @@ public final class Apps {
     }
 
     /**
-     * 获取配置文件夹路径
+     * 获取本应用的配置目录
      */
     public static String getConfigPath() {
         return app.configPath;
     }
 
     /**
-     * 获取数据文件夹路径
+     * 获取本应用的数据目录
      */
     public static String getDataPath() {
         return app.dataPath;
     }
 
     /**
-     * 获取日志文件路径
+     * 获取本应用的日志目录
      */
     public static String getLogPath() {
         return app.logPath;
@@ -88,13 +88,13 @@ public final class Apps {
 
     // 应用
     private static class App {
-        // 应用名
+        // 应用编码
         private String appCode;
-        // 配置文件夹路径
+        // 配置目录
         private String configPath;
-        // 数据文件夹路径
+        // 数据目录
         private String dataPath;
-        // 日志文件夹路径
+        // 日志目录
         private String logPath;
     }
 }
