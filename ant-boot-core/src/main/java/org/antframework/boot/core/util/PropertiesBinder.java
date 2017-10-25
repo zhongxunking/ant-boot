@@ -72,7 +72,7 @@ public class PropertiesBinder {
      * @param prefix                 属性前缀
      * @param ignoreInvalidFields    是否忽略类型不匹配的字段
      * @param ignoreNestedProperties 是否忽略内嵌型的属性
-     * @param ignoreUnknownFields    是否忽略为止字段
+     * @param ignoreUnknownFields    是否忽略未知字段
      */
     public void bind(Object target, String prefix, boolean ignoreInvalidFields, boolean ignoreNestedProperties, boolean ignoreUnknownFields) {
         PropertiesConfigurationFactory factory = new PropertiesConfigurationFactory(target);
