@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.core;
 
+import org.antframework.common.util.system.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.AbstractEnvironment;
 
@@ -42,9 +43,9 @@ public final class Apps {
         }
         app = new App();
         app.appCode = appCode;
-        app.configPath = System.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appCode);
-        app.dataPath = System.getProperty(DATA_PATH_PROPERTY_NAME, "/var/apps/data/" + appCode);
-        app.logPath = System.getProperty(LOG_PATH_PROPERTY_NAME, "/var/apps/log/" + appCode);
+        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appCode);
+        app.dataPath = PropertyUtils.getProperty(DATA_PATH_PROPERTY_NAME, "/var/apps/data/" + appCode);
+        app.logPath = PropertyUtils.getProperty(LOG_PATH_PROPERTY_NAME, "/var/apps/log/" + appCode);
     }
 
     /**
@@ -79,9 +80,7 @@ public final class Apps {
      * 如果profile未被设置，则设置profile
      */
     public static void setProfileIfNotExists(String profile) {
-        String envPropertyName = AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME.toUpperCase().replace('.', '_');
-        if (StringUtils.isEmpty(System.getProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME))
-                && StringUtils.isEmpty(System.getenv(envPropertyName))) {
+        if (StringUtils.isEmpty(PropertyUtils.getProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME))) {
             System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, profile);
         }
     }
