@@ -62,10 +62,10 @@ spring-boot原生集成的jpa大部分情况已经很好了，但是对于简单
             <artifactId>ant-boot-starter-jpa</artifactId>
         </dependency>
         
-分页查询是可用SpecificationUtils定义的语法进行查询，很方便。具体使用时可参考：https://github.com/zhongxunking/configcenter/blob/master/configcenter-biz/src/main/java/org/antframework/configcenter/biz/service/QueryPropertyValueService.java
+分页查询是采用SpecificationUtils定义的语法进行查询，很方便。具体使用时可参考：https://github.com/zhongxunking/configcenter/blob/master/configcenter-biz/src/main/java/org/antframework/configcenter/biz/service/QueryPropertyValueService.java
 
 ## 5. 集成bekit
-[bekit](https://github.com/zhongxunking/bekit)是一个很好用的业务框架，里面包含事件总线、流程引擎、服务引擎。同时本框架借助与服务引擎提供了一套[服务调用契约](https://github.com/zhongxunking/ant-common-util#3-服务调用契约)，来规范服务调用。
+[bekit](https://github.com/zhongxunking/bekit)是一个很好用的业务框架，里面包含事件总线、流程引擎、服务引擎。同时ant-boot借助bekit的服务引擎提供了一套[服务调用契约](https://github.com/zhongxunking/ant-common-util#3-服务调用契约)，来规范服务调用。
 
 引入依赖：
 
