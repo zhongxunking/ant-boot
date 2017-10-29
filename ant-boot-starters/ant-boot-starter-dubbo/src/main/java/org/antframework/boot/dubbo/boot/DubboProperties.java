@@ -53,7 +53,7 @@ public class DubboProperties {
     @NotNull
     private Integer providerTimeout = 60000;
     /**
-     * 必填：监控地址
+     * 必填：监控器地址
      */
     @NotBlank
     private String monitorAddress;
