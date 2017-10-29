@@ -43,9 +43,9 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
         ConfigContext.InitParams initParams = new ConfigContext.InitParams();
         initParams.setAppCode(Apps.getAppCode());
         initParams.setQueriedAppCode(Apps.getAppCode());
-        initParams.setProfileCode(environment.getActiveProfiles()[0]);
+        initParams.setProfileCode(Contexts.getProfile());
         initParams.setServerUrl(properties.getServerUrl());
-        initParams.setCacheFilePath(Apps.getConfigPath() + File.separator + String.format("configcenter-%s.properties", environment.getActiveProfiles()[0]));
+        initParams.setCacheFilePath(Apps.getConfigPath() + File.separator + String.format("configcenter-%s.properties", Contexts.getProfile()));
         initParams.setZkUrls(properties.getZkUrls());
 
         return initParams;

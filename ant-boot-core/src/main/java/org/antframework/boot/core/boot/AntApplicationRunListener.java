@@ -52,9 +52,6 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
-        if (environment.getActiveProfiles().length != 1) {
-            throw new IllegalStateException("profile必须设置，且必须为一个");
-        }
         Contexts.setEnvironment(environment);
     }
 

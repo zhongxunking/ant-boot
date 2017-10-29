@@ -67,6 +67,13 @@ public class Contexts {
     }
 
     /**
+     * 获取当前环境
+     */
+    public static String getProfile() {
+        return getEnvironment().getActiveProfiles()[0];
+    }
+
+    /**
      * 根据environment构建属性对象
      *
      * @param targetClass 目标类型
