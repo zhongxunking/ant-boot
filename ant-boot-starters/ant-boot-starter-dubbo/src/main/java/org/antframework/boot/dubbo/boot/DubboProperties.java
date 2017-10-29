@@ -43,10 +43,15 @@ public class DubboProperties {
     @NotNull
     private Integer protocolPort;
     /**
-     * 必填：服务提供者超时时间
+     * 选填：线程池大小（默认200）
      */
     @NotNull
-    private Integer providerTimeout;
+    private Integer protocolThreads = 200;
+    /**
+     * 选填：远程调用超时时间（默认60秒）
+     */
+    @NotNull
+    private Integer providerTimeout = 60000;
     /**
      * 必填：监控地址
      */
@@ -80,6 +85,14 @@ public class DubboProperties {
 
     public void setProtocolPort(Integer protocolPort) {
         this.protocolPort = protocolPort;
+    }
+
+    public Integer getProtocolThreads() {
+        return protocolThreads;
+    }
+
+    public void setProtocolThreads(Integer protocolThreads) {
+        this.protocolThreads = protocolThreads;
     }
 
     public Integer getProviderTimeout() {

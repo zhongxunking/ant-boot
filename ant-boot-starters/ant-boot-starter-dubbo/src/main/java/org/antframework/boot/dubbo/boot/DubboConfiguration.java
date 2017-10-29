@@ -59,7 +59,7 @@ public class DubboConfiguration {
         ProtocolConfig protocolConfig = new ProtocolConfig();
         protocolConfig.setName("dubbo");
         protocolConfig.setPort(properties.getProtocolPort());
-        protocolConfig.setThreads(200);
+        protocolConfig.setThreads(properties.getProtocolThreads());
         return protocolConfig;
     }
 
