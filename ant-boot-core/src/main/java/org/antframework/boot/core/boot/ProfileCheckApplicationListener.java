@@ -12,6 +12,7 @@ import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.env.AbstractEnvironment;
 
 /**
  * 校验环境的应用监听器
@@ -22,7 +23,7 @@ public class ProfileCheckApplicationListener implements ApplicationListener<Appl
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         if (event.getEnvironment().getActiveProfiles().length != 1) {
-            throw new IllegalStateException("profile必须设置，且必须为一个");
+            throw new IllegalStateException(String.format("当前环境[%s]必须设置，且必须为一个", AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME));
         }
     }
 }
