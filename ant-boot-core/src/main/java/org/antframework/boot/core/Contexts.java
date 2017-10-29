@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 上下文持有器
  */
-public class Contexts {
+public final class Contexts {
     // spring环境
     private static ConfigurableEnvironment environment;
     // spring容器
