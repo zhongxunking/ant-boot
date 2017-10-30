@@ -76,12 +76,23 @@ spring-boot原生集成的jpa大部分情况已经很好了，但是对于简单
 
 具体使用可查看：https://github.com/zhongxunking/configcenter/blob/master/configcenter-biz/src/main/java/org/antframework/configcenter/biz/provider/AppManageServiceProvider.java
 
+## 6. 集成redis
+spring-boot原生的集成redis缺少命名空间功能，由于在大型互联网公司不同应用很有可能使用到相同缓存的key，进而导致缓存冲突。所以本框架对redis增加命名空间功能：从spring容器获取到的RedisTemplate和StringRedisTemplate增加命名空间（${appCode}:），也就是每个缓存key在发送到redis服务端前都会自动增加前缀${appCode}:。如果不想要前缀，可以自己创建RedisTemplate，而不是从spring容器获取。
+
+直接使用RedisTemplate缓存key格式：
+
+${appCode}:你自己定义的key
+
+使用spring的Cache注解（Cacheable）缓存key格式：
+
+${appCode}:${cacheName}:你自己定义的key
+
+当使用的spring的Cache注解的实现是Redis时，本框架提供以“ant.cache.redis.”开头的配置进行配置缓存实效时间。
 
 ---------------------------------------后续计划---------------------------------------
 
 1. 集成dubbo
-2. 增强redis命名空间
-3. 开发全站统一流水号生成方案
-4. 开发对应用透明的分库分表方案
-5. 开发对应用透明化的监控
-6. ...
+2. 开发全站统一流水号生成方案
+3. 开发对应用透明的分库分表方案
+4. 开发对应用透明化的监控
+5. ...
