@@ -12,11 +12,13 @@ import com.alibaba.dubbo.config.*;
 import com.alibaba.dubbo.config.spring.AnnotationBean;
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
+import org.antframework.boot.dubbo.DubboReferenceFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * dubbo配置类
@@ -89,5 +91,11 @@ public class DubboConfiguration {
         monitorConfig.setProtocol("dubbo");
         monitorConfig.setAddress(properties.getMonitorAddress());
         return monitorConfig;
+    }
+
+    // dubbo服务引用工厂
+    @Bean
+    public DubboReferenceFactory dubboReferenceFactory(ApplicationConfig applicationConfig, List<RegistryConfig> registryConfigs) {
+        return new DubboReferenceFactory(applicationConfig, registryConfigs);
     }
 }
