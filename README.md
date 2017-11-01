@@ -79,20 +79,38 @@ spring-boot原生集成的jpa大部分情况已经很好了，但是对于简单
 ## 6. 集成redis
 spring-boot原生的集成redis缺少命名空间功能，由于在大型互联网公司不同应用很有可能使用到相同缓存的key，进而导致缓存冲突。所以本框架对redis增加命名空间功能：从spring容器获取到的RedisTemplate和StringRedisTemplate增加命名空间（${appCode}:），也就是每个缓存key在发送到redis服务端前都会自动增加前缀${appCode}:。如果不想要前缀，可以自己创建RedisTemplate，而不是从spring容器获取。
 
+引入依赖：
+
+        <dependency>
+            <groupId>org.antframework.boot</groupId>
+            <artifactId>ant-boot-starter-redis</artifactId>
+        </dependency>
+
 直接使用RedisTemplate缓存key格式：
 
 ${appCode}:你自己定义的key
 
-使用spring的Cache注解（Cacheable）缓存key格式：
+spring的Cache注解（@Cacheable）的实现是rendis时，缓存key格式：
 
 ${appCode}:${cacheName}:你自己定义的key
 
-当使用的spring的Cache注解的实现是Redis时，本框架提供以“ant.cache.redis.”开头的配置进行配置缓存实效时间。
+当spring的Cache注解的实现是Redis时，本框架提供以“ant.cache.redis.”开头的配置进行配置缓存实效时间。
+
+## 7. 集成dubbo
+dubbo是很好用的rpc框架，本框架提供集成dubbo。
+
+引入依赖：
+
+        <dependency>
+            <groupId>org.antframework.boot</groupId>
+            <artifactId>ant-boot-starter-dubbo</artifactId>
+        </dependency>
+
+通过以“dubbo.”开头的配置对dubbo进行配置。同时本框架提供dubbo服务引用工厂类（DubboReferenceFactory），对于需要在执行阶段才能确定需要执行的dubbo服务这种情况，可以通过它动态的引用dubbo服务。该工厂类已配置到spring容器，使用时直接从spring容器获取即可。
 
 ---------------------------------------后续计划---------------------------------------
 
-1. 集成dubbo
-2. 开发全站统一流水号生成方案
-3. 开发对应用透明的分库分表方案
-4. 开发对应用透明化的监控
-5. ...
+1. 开发全站统一流水号生成方案
+2. 开发对应用透明的分库分表方案
+3. 开发对应用透明化的监控
+4. ...
