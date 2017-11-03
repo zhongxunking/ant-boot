@@ -17,7 +17,7 @@ import org.bekit.service.event.ServiceFinishEvent;
 /**
  * 持有器清理-服务监听器
  */
-@ServiceListener(priority = 1)
+@ServiceListener(priority = 10)
 public class HolderClearServiceListener {
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {

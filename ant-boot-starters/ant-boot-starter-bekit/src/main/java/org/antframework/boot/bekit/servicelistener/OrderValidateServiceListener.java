@@ -21,7 +21,7 @@ import org.bekit.service.event.ServiceApplyEvent;
 /**
  * order校验-服务监听器
  */
-@ServiceListener(priority = 4)
+@ServiceListener(priority = 40)
 public class OrderValidateServiceListener {
 
     @Listen

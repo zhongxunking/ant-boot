@@ -22,7 +22,7 @@ import org.bekit.service.event.ServiceExceptionEvent;
 /**
  * result维护-服务监听器
  */
-@ServiceListener(priority = 3)
+@ServiceListener(priority = 30)
 public class ResultMaintainServiceListener {
 
     @Listen
