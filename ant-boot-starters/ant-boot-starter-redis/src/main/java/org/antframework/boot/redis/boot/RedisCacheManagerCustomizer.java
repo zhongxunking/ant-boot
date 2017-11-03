@@ -26,8 +26,8 @@ public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<Redis
         if (properties.getDefaultExpire() != null) {
             cacheManager.setDefaultExpiration(properties.getDefaultExpire());
         }
-        if (!properties.getExpire().isEmpty()) {
-            cacheManager.setExpires(properties.getExpire());
+        if (properties.getExpires() != null && !properties.getExpires().isEmpty()) {
+            cacheManager.setExpires(properties.getExpires());
         }
     }
 
@@ -40,7 +40,7 @@ public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<Redis
         /**
          * 选填：设置指定的缓存有效时间（单位：秒），0或不填表示永远有效
          */
-        private Map<String, Long> expire;
+        private Map<String, Long> expires;
 
         public Long getDefaultExpire() {
             return defaultExpire;
@@ -50,12 +50,12 @@ public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<Redis
             this.defaultExpire = defaultExpire;
         }
 
-        public Map<String, Long> getExpire() {
-            return expire;
+        public Map<String, Long> getExpires() {
+            return expires;
         }
 
-        public void setExpire(Map<String, Long> expire) {
-            this.expire = expire;
+        public void setExpires(Map<String, Long> expires) {
+            this.expires = expires;
         }
     }
 }
