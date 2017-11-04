@@ -8,10 +8,14 @@
  */
 package org.antframework.boot.redis.boot;
 
+import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCachePrefix;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Map;
 
@@ -28,6 +32,21 @@ public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<Redis
         }
         if (properties.getExpires() != null && !properties.getExpires().isEmpty()) {
             cacheManager.setExpires(properties.getExpires());
+        }
+        // 设置自定义的cache前缀
+        cacheManager.setCachePrefix(new AntRedisCachePrefix());
+    }
+
+    /**
+     * redis缓存前缀（${appCode}:${cacheName}:）
+     */
+    public static class AntRedisCachePrefix implements RedisCachePrefix {
+        // 序列器
+        private RedisSerializer serializer = new StringRedisSerializer();
+
+        @Override
+        public byte[] prefix(String cacheName) {
+            return serializer.serialize(Apps.getAppCode() + ":" + cacheName + ":");
         }
     }
 
