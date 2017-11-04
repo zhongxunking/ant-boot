@@ -9,13 +9,11 @@
 package org.antframework.boot.bekit.servicelistener;
 
 import org.antframework.boot.bekit.AntBekitException;
-import org.antframework.common.util.facade.AbstractOrder;
 import org.antframework.common.util.facade.AbstractResult;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 import org.bekit.event.annotation.Listen;
 import org.bekit.service.annotation.listener.ServiceListener;
-import org.bekit.service.engine.ServiceContext;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceExceptionEvent;
 
@@ -27,19 +25,22 @@ public class ResultMaintainServiceListener {
 
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
-        ServiceContext<AbstractOrder, AbstractResult> serviceContext = event.getServiceContext();
-        initResult(serviceContext.getResult());
+        Object result = event.getServiceContext().getResult();
+        if (result instanceof AbstractResult) {
+            initResult((AbstractResult) result);
+        }
     }
 
     @Listen(priorityAsc = false)
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
-        ServiceContext<AbstractOrder, AbstractResult> serviceContext = event.getServiceContext();
-
-        Throwable throwable = event.getTargetException();
-        if (throwable instanceof AntBekitException) {
-            setResultByAntBekitException(serviceContext.getResult(), (AntBekitException) throwable);
-        } else {
-            setResultByUnknownException(serviceContext.getResult(), throwable);
+        Object result = event.getServiceContext().getResult();
+        if (result instanceof AbstractResult) {
+            Throwable throwable = event.getTargetException();
+            if (throwable instanceof AntBekitException) {
+                setResultByAntBekitException((AbstractResult) result, (AntBekitException) throwable);
+            } else {
+                setResultByUnknownException((AbstractResult) result, throwable);
+            }
         }
     }
 
