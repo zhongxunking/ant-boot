@@ -34,7 +34,7 @@ public class LogPrintServiceListener {
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         if (!properties.getIgnoreServices().contains(event.getService())) {
-            logger.info("服务[{}]收到请求：order={}", event.getService(), event.getServiceContext().getOrder());
+            logger.info("服务收到请求：service={}, order={}", event.getService(), event.getServiceContext().getOrder());
         }
     }
 
@@ -54,7 +54,7 @@ public class LogPrintServiceListener {
     @Listen(priorityAsc = false)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
         if (!properties.getIgnoreServices().contains(event.getService())) {
-            logger.info("服务[{}]执行结果：result={}", event.getService(), event.getServiceContext().getResult());
+            logger.info("服务执行结果：service={}, result={}", event.getService(), event.getServiceContext().getResult());
         }
     }
 
