@@ -20,7 +20,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.util.Map;
 
 /**
- * redis缓存管理定制器
+ * redis注解式缓存管理器-定制器
  */
 public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<RedisCacheManager> {
 
@@ -50,14 +50,17 @@ public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<Redis
         }
     }
 
+    /**
+     * redis注解式缓存属性
+     */
     @ConfigurationProperties("ant.cache.redis")
     public static class RedisExpireProperties {
         /**
-         * 选填：默认的缓存有效时间（单位：秒），0或不填表示永远有效
+         * 选填：默认的注解式缓存有效时间（单位：秒），0或不填表示永远有效
          */
         private Long defaultExpire;
         /**
-         * 选填：设置指定的缓存有效时间（单位：秒），0或不填表示永远有效
+         * 选填：设置指定的注解式缓存有效时间。key：cacheName（缓存名称），value：有效时间（单位：秒）。不填或value为0表示该缓存永远有效。
          */
         private Map<String, Long> expires;
 
