@@ -34,7 +34,7 @@ public class LogPrintServiceListener {
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         if (!properties.getIgnoreServices().contains(event.getService())) {
-            logger.info("收到请求：serviceName={}, order={}", event.getService(), event.getServiceContext().getOrder());
+            logger.info("服务[{}]收到请求：order={}", event.getService(), event.getServiceContext().getOrder());
         }
     }
 
@@ -44,17 +44,17 @@ public class LogPrintServiceListener {
         if (throwable instanceof AntBekitException) {
             if (!properties.getIgnoreServices().contains(event.getServiceName())) {
                 AntBekitException antBekitException = (AntBekitException) throwable;
-                logger.warn("收到手动异常：status={}, code={}, message={}", antBekitException.getStatus(), antBekitException.getCode(), antBekitException.getMessage());
+                logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getServiceName(), antBekitException.getStatus(), antBekitException.getCode(), antBekitException.getMessage());
             }
         } else {
-            logger.error("服务执行中发生未知异常：", throwable);
+            logger.error("服务[{}]抛出未知异常：", event.getServiceName(), throwable);
         }
     }
 
     @Listen(priorityAsc = false)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
         if (!properties.getIgnoreServices().contains(event.getService())) {
-            logger.info("执行结果：serviceName={}, result={}", event.getService(), event.getServiceContext().getResult());
+            logger.info("服务[{}]执行结果：result={}", event.getService(), event.getServiceContext().getResult());
         }
     }
 
