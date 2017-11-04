@@ -38,9 +38,6 @@ public final class Apps {
      * @param appCode 应用编码
      */
     public static void initApp(String appCode) {
-        if (app != null) {
-            throw new IllegalStateException("App已经初始化，不能重复初始化");
-        }
         app = new App();
         app.appCode = appCode;
         app.configPath = PropertyUtils.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appCode);
