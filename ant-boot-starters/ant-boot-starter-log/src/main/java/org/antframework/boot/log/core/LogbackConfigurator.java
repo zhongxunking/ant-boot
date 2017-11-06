@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * spring-boot原生的{@link org.springframework.boot.logging.logback.LogbackConfigurator}很好用，但由于是私有的不能直接用，所以复制一份进行使用
+ * spring-boot原生的org.springframework.boot.logging.logback.LogbackConfigurator很好用，但由于不是公开的不能直接用，所以复制一份进行使用
  */
 public class LogbackConfigurator {
 

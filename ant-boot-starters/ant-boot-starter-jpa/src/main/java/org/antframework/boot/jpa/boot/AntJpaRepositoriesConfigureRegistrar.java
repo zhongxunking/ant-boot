@@ -19,7 +19,7 @@ import java.lang.annotation.Annotation;
 /**
  * jpa-repository配置类（设置repository实现基础类）
  * <p>
- * 参考{@link org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfigureRegistrar}
+ * 参考：org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfigureRegistrar
  */
 public class AntJpaRepositoriesConfigureRegistrar extends AbstractRepositoryConfigurationSourceSupport {
 

@@ -37,6 +37,8 @@ public class SpecificationUtils {
      * @param searchParams 查询参数。
      *                     Map的key格式：操作符_属性名，比如：GT_age表示age大于指定值。如果嵌套的属性，则以“.”隔开，比如：GT_user.age表示以属性user的属性age大于指定值
      *                     Map的value格式：非IN操作符，就是指定的value；IN操作符，value必须得是数组或Collection类型
+     * @param <T>          实体类型
+     * @return 解析得到的Specification
      */
     public static <T> Specification<T> parse(Map<String, Object> searchParams) {
         return parse(SearchFilter.parse(searchParams));
@@ -46,6 +48,8 @@ public class SpecificationUtils {
      * 根据查询条件解析
      *
      * @param filters 查询条件
+     * @param <T>     实体类型
+     * @return 解析得到的Specification
      */
     public static <T> Specification<T> parse(final List<SearchFilter> filters) {
         return new Specification<T>() {
@@ -154,6 +158,7 @@ public class SpecificationUtils {
          * 解析
          *
          * @param searchParams 需被解析的查询参数
+         * @return 解析得到的查询条件
          */
         public static List<SearchFilter> parse(Map<String, Object> searchParams) {
             List<SearchFilter> filters = new ArrayList<>();

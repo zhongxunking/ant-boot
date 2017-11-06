@@ -30,6 +30,7 @@ public interface QueryRepository<T, ID extends Serializable> extends Repository<
      *
      * @param searchParams 条件参数
      * @param pageable     分页信息
+     * @return 查询结果
      */
     Page<T> query(Map<String, Object> searchParams, Pageable pageable);
 
@@ -37,6 +38,7 @@ public interface QueryRepository<T, ID extends Serializable> extends Repository<
      * 查询
      *
      * @param searchParams 条件参数
+     * @return 查询结果
      */
     List<T> query(Map<String, Object> searchParams);
 
@@ -45,6 +47,7 @@ public interface QueryRepository<T, ID extends Serializable> extends Repository<
      *
      * @param searchParams 条件参数
      * @param sort         排序
+     * @return 查询结果
      */
     List<T> query(Map<String, Object> searchParams, Sort sort);
 
@@ -52,6 +55,7 @@ public interface QueryRepository<T, ID extends Serializable> extends Repository<
      * 统计
      *
      * @param searchParams 条件参数
+     * @return 统计结果
      */
     long count(Map<String, Object> searchParams);
 }
