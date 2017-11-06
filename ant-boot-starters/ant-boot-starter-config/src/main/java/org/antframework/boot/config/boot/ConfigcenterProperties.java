@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Set;
+
 /**
  * 配置中心属性
  */
@@ -35,7 +37,7 @@ public class ConfigcenterProperties {
      * 必填：配置中心使用的zookeeper地址，存在多个zookeeper的话以“,”分隔（比如：192.168.0.1:2181,192.168.0.2:2181）
      */
     @NotEmpty
-    private String[] zkUrls;
+    private Set<String> zkUrls;
 
     public String getServerUrl() {
         return serverUrl;
@@ -45,11 +47,11 @@ public class ConfigcenterProperties {
         this.serverUrl = serverUrl;
     }
 
-    public String[] getZkUrls() {
+    public Set<String> getZkUrls() {
         return zkUrls;
     }
 
-    public void setZkUrls(String[] zkUrls) {
+    public void setZkUrls(Set<String> zkUrls) {
         this.zkUrls = zkUrls;
     }
 }
