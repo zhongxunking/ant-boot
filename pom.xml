@@ -19,7 +19,6 @@
     <modules>
         <module>ant-boot-core</module>
         <module>ant-boot-starters</module>
-        <module>ant-boot-test</module>
     </modules>
 
     <dependencyManagement>
