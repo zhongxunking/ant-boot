@@ -28,13 +28,13 @@ import java.util.Set;
 @ServiceListener(priority = 20)
 public class LogPrintServiceListener {
     private static final Logger logger = LoggerFactory.getLogger(LogPrintServiceListener.class);
-    // 属性
-    private ServiceLogProperties properties = Contexts.buildProperties(ServiceLogProperties.class);
+    // 需忽略日志打印的服务
+    private Set<String> ignoreServices = Contexts.buildProperties(ServiceLogProperties.class).getIgnoreServices();
 
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
-        if (!properties.getIgnoreServices().contains(event.getService())) {
-            logger.info("服务收到请求：service={}, order={}", event.getService(), event.getServiceContext().getOrder());
+        if (!ignoreServices.contains(event.getService())) {
+            logger.info("收到请求：service={}, order={}", event.getService(), event.getServiceContext().getOrder());
         }
     }
 
@@ -42,7 +42,7 @@ public class LogPrintServiceListener {
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
         Throwable throwable = event.getTargetException();
         if (throwable instanceof AntBekitException) {
-            if (!properties.getIgnoreServices().contains(event.getServiceName())) {
+            if (!ignoreServices.contains(event.getServiceName())) {
                 AntBekitException antBekitException = (AntBekitException) throwable;
                 logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getServiceName(), antBekitException.getStatus(), antBekitException.getCode(), antBekitException.getMessage());
             }
@@ -53,16 +53,21 @@ public class LogPrintServiceListener {
 
     @Listen(priorityAsc = false)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
-        if (!properties.getIgnoreServices().contains(event.getService())) {
-            logger.info("服务执行结果：service={}, result={}", event.getService(), event.getServiceContext().getResult());
+        if (!ignoreServices.contains(event.getService())) {
+            logger.info("执行结果：service={}, result={}", event.getService(), event.getServiceContext().getResult());
         }
     }
 
     /**
      * 服务日志属性
      */
-    @ConfigurationProperties("bekit.log")
+    @ConfigurationProperties(ServiceLogProperties.PREFIX)
     public static class ServiceLogProperties {
+        /**
+         * 属性前缀
+         */
+        public static final String PREFIX = "bekit.log";
+
         /**
          * 选填：不打印日志的服务
          */
