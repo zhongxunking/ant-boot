@@ -69,7 +69,7 @@ public class LogPrintServiceListener {
         public static final String PREFIX = "bekit.log";
 
         /**
-         * 选填：不打印日志的服务
+         * 选填：不打印日志的服务（以","分隔）
          */
         private Set<String> ignoreServices = new HashSet<>();
 
