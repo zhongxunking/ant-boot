@@ -22,7 +22,7 @@ public class CodeMessageHolder {
     private static final ThreadLocal<List<Keeper<CodeMessageInfo>>> KEEPERS_HOLDER = new ThreadLocal<List<Keeper<CodeMessageInfo>>>() {
         @Override
         protected List<Keeper<CodeMessageInfo>> initialValue() {
-            return new ArrayList<>();
+            return new ArrayList<>(2);
         }
     };
 
@@ -79,6 +79,9 @@ public class CodeMessageHolder {
         List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
         if (keepers.size() > 0) {
             keepers.remove(keepers.size() - 1);
+        }
+        if (keepers.size() <= 0) {
+            KEEPERS_HOLDER.remove();
         }
     }
 
