@@ -35,7 +35,7 @@ public class ResultMaintainServiceListener {
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
         Object result = event.getServiceContext().getResult();
         if (result instanceof AbstractResult) {
-            Throwable throwable = event.getTargetException();
+            Throwable throwable = event.getThrowable();
             if (throwable instanceof AntBekitException) {
                 setResultByAntBekitException((AbstractResult) result, (AntBekitException) throwable);
             } else {

@@ -40,14 +40,14 @@ public class LogPrintServiceListener {
 
     @Listen(priorityAsc = false)
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
-        Throwable throwable = event.getTargetException();
+        Throwable throwable = event.getThrowable();
         if (throwable instanceof AntBekitException) {
-            if (!ignoreServices.contains(event.getServiceName())) {
+            if (!ignoreServices.contains(event.getService())) {
                 AntBekitException antBekitException = (AntBekitException) throwable;
-                logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getServiceName(), antBekitException.getStatus(), antBekitException.getCode(), antBekitException.getMessage());
+                logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getService(), antBekitException.getStatus(), antBekitException.getCode(), antBekitException.getMessage());
             }
         } else {
-            logger.error("服务[{}]抛出未知异常：", event.getServiceName(), throwable);
+            logger.error("服务[{}]抛出未知异常：", event.getService(), throwable);
         }
     }
 
