@@ -77,10 +77,10 @@ public class CodeMessageHolder {
      */
     public static void popKeeper() {
         List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
-        if (keepers.size() > 0) {
+        if (!keepers.isEmpty()) {
             keepers.remove(keepers.size() - 1);
         }
-        if (keepers.size() <= 0) {
+        if (keepers.isEmpty()) {
             KEEPERS_HOLDER.remove();
         }
     }
@@ -88,7 +88,7 @@ public class CodeMessageHolder {
     // 获取当前持有器
     private static Keeper<CodeMessageInfo> getCurrentKeeper() {
         List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
-        if (keepers.size() <= 0) {
+        if (keepers.isEmpty()) {
             keepers.add(new Keeper<>());
         }
         return keepers.get(keepers.size() - 1);
