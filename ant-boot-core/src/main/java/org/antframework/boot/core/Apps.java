@@ -8,7 +8,7 @@
  */
 package org.antframework.boot.core;
 
-import org.antframework.common.util.system.PropertyUtils;
+import org.antframework.common.util.other.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.AbstractEnvironment;
 
