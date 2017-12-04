@@ -76,7 +76,7 @@ public final class Apps {
     /**
      * 如果profile未被设置，则设置profile
      */
-    public static void setProfileIfNotExists(String profile) {
+    public static void setProfileIfAbsent(String profile) {
         if (StringUtils.isEmpty(PropertyUtils.getProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME))) {
             System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, profile);
         }

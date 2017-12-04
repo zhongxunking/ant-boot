@@ -30,6 +30,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class AntApplicationRunListener implements SpringApplicationRunListener {
+    // 应用名属性名
+    private static final String APPLICATION_NAME_PROPERTY_NAME = "spring.application.name";
 
     private SpringApplication springApplication;
     private ApplicationArguments arguments;
@@ -92,5 +94,7 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         for (String dirPath : dirPaths) {
             FileUtils.createDirIfAbsent(dirPath);
         }
+        // 向系统属性设置应用名
+        System.setProperty(APPLICATION_NAME_PROPERTY_NAME, Apps.getAppCode());
     }
 }
