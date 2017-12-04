@@ -14,7 +14,9 @@ import org.antframework.boot.core.Contexts;
 import org.antframework.configcenter.client.ConfigContext;
 import org.antframework.configcenter.client.spring.ConfigcenterPropertySource;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.boot.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertySource;
 
@@ -23,6 +25,7 @@ import java.io.File;
 /**
  * 配置中心应用监听器（将配置中心加入到environment）
  */
+@Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
 public class ConfigcenterApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
     @Override
