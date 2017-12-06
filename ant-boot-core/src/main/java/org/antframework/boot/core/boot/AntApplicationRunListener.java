@@ -24,6 +24,7 @@ import org.springframework.core.SpringVersion;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.util.Assert;
 
 /**
  * ant应用RunListener
@@ -77,16 +78,14 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         AntBootApplication annotation = null;
         for (Object source : springApplication.getSources()) {
             if (!(source instanceof Class)) {
-                throw new IllegalArgumentException("source必须是Class");
+                continue;
             }
             annotation = AnnotatedElementUtils.findMergedAnnotation((Class) source, AntBootApplication.class);
             if (annotation != null) {
                 break;
             }
         }
-        if (annotation == null) {
-            throw new IllegalArgumentException("sources中无@AntBootApplication注解");
-        }
+        Assert.notNull(annotation, "sources中无@AntBootApplication注解");
         // 初始化App
         Apps.initApp(annotation.appCode());
         // 创建配置、数据、日志目录（如果不存在）
