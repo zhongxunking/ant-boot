@@ -41,7 +41,7 @@
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
-                <artifactId>ant-boot-starter-log</artifactId>
+                <artifactId>ant-boot-starter-logging</artifactId>
                 <version>1.0.0.RELEASE</version>
             </dependency>
             <dependency>
