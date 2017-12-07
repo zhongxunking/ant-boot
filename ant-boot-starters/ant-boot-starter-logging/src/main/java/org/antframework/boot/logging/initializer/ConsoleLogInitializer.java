@@ -6,14 +6,14 @@
  * 修订记录:
  * @author 钟勋 2017-10-20 16:44 创建
  */
-package org.antframework.boot.log.initializer;
+package org.antframework.boot.logging.initializer;
 
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.encoder.Encoder;
 import org.antframework.boot.core.Contexts;
-import org.antframework.boot.log.LogInitializer;
-import org.antframework.boot.log.core.LogContext;
+import org.antframework.boot.logging.LogInitializer;
+import org.antframework.boot.logging.core.LogContext;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;

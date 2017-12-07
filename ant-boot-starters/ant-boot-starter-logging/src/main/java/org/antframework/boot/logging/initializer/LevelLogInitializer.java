@@ -6,12 +6,12 @@
  * 修订记录:
  * @author 钟勋 2017-10-23 17:42 创建
  */
-package org.antframework.boot.log.initializer;
+package org.antframework.boot.logging.initializer;
 
 import ch.qos.logback.classic.Level;
-import org.antframework.boot.log.LogInitializer;
-import org.antframework.boot.log.core.LogContext;
-import org.antframework.boot.log.core.LogbackConfigurator;
+import org.antframework.boot.logging.LogInitializer;
+import org.antframework.boot.logging.core.LogContext;
+import org.antframework.boot.logging.core.LogbackConfigurator;
 import org.springframework.boot.logging.logback.LevelRemappingAppender;
 import org.springframework.core.annotation.Order;
 

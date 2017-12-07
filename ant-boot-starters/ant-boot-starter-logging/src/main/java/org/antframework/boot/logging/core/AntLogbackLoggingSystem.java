@@ -6,11 +6,11 @@
  * 修订记录:
  * @author 钟勋 2017-10-19 19:38 创建
  */
-package org.antframework.boot.log.core;
+package org.antframework.boot.logging.core;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.jul.LevelChangePropagator;
-import org.antframework.boot.log.LogInitializer;
+import org.antframework.boot.logging.LogInitializer;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.impl.StaticLoggerBinder;
 import org.springframework.boot.logging.LogFile;

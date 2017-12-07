@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-10-21 23:56 创建
  */
-package org.antframework.boot.log.initializer;
+package org.antframework.boot.logging.initializer;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
@@ -17,7 +17,7 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.RollingPolicy;
 import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
-import org.antframework.boot.log.core.LogContext;
+import org.antframework.boot.logging.core.LogContext;
 
 import java.nio.charset.Charset;
 

@@ -6,9 +6,9 @@
  * 修订记录:
  * @author 钟勋 2017-10-22 22:55 创建
  */
-package org.antframework.boot.log.boot;
+package org.antframework.boot.logging.boot;
 
-import org.antframework.boot.log.core.AntLogbackLoggingSystem;
+import org.antframework.boot.logging.core.AntLogbackLoggingSystem;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.boot.logging.LoggingApplicationListener;

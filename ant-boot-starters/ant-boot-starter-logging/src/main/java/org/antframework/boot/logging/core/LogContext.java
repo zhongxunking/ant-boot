@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-10-20 16:07 创建
  */
-package org.antframework.boot.log.core;
+package org.antframework.boot.logging.core;
 
 import ch.qos.logback.classic.LoggerContext;
 import org.springframework.core.env.Environment;
