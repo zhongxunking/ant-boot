@@ -15,9 +15,9 @@ import org.antframework.common.util.facade.Status;
  */
 public class AntBekitException extends RuntimeException {
     // 执行结果状态
-    private Status status;
+    private final Status status;
     // 结果码
-    private String code;
+    private final String code;
 
     public AntBekitException(Status status, String code, String message) {
         super(message);
