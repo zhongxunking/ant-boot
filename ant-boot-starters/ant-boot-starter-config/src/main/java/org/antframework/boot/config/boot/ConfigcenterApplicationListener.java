@@ -32,7 +32,7 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         ConfigurableEnvironment environment = event.getEnvironment();
         // 构造配置上下文
-        ConfigContext configContext = new ConfigContext(buildInitParams(environment));
+        ConfigContext configContext = new ConfigContext(buildInitParams());
         // 将配置中心设置到environment中
         environment.getPropertySources().addLast(buildPropertySource(configContext));
         // 初始化配置上下文持有器
@@ -40,7 +40,7 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
     }
 
     // 构建初始化参数
-    private ConfigContext.InitParams buildInitParams(ConfigurableEnvironment environment) {
+    private ConfigContext.InitParams buildInitParams() {
         ConfigcenterProperties properties = Contexts.buildProperties(ConfigcenterProperties.class);
 
         ConfigContext.InitParams initParams = new ConfigContext.InitParams();

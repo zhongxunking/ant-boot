@@ -13,18 +13,19 @@ import org.antframework.common.util.facade.Status;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * 结果码、结果描述持有器
  */
 public class CodeMessageHolder {
     // keeper持有器
-    private static final ThreadLocal<List<Keeper<CodeMessageInfo>>> KEEPERS_HOLDER = new ThreadLocal<List<Keeper<CodeMessageInfo>>>() {
+    private static final ThreadLocal<List<Keeper<CodeMessageInfo>>> KEEPERS_HOLDER = ThreadLocal.withInitial(new Supplier<List<Keeper<CodeMessageInfo>>>() {
         @Override
-        protected List<Keeper<CodeMessageInfo>> initialValue() {
+        public List<Keeper<CodeMessageInfo>> get() {
             return new ArrayList<>(2);
         }
-    };
+    });
 
     /**
      * 设置结果码、结果描述

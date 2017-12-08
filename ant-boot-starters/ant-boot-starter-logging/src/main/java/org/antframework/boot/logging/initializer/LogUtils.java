@@ -79,15 +79,13 @@ public class LogUtils {
     /**
      * 构建基于文件大小和时间的滚动策略
      *
-     * @param logContext      日志上下文
      * @param rollingFilePath 滚动文件路径
      * @param maxFileSize     单个文件最大容量
      * @param maxHistory      最多保存的文件个数（null表示不限制）
      * @param totalSizeCap    日志最大保存容量（null表示不限制）
      * @return 策略
      */
-    public static SizeAndTimeBasedRollingPolicy buildSizeAndTimeBasedRollingPolicy(LogContext logContext,
-                                                                                   String rollingFilePath,
+    public static SizeAndTimeBasedRollingPolicy buildSizeAndTimeBasedRollingPolicy(String rollingFilePath,
                                                                                    String maxFileSize,
                                                                                    Integer maxHistory,
                                                                                    String totalSizeCap) {

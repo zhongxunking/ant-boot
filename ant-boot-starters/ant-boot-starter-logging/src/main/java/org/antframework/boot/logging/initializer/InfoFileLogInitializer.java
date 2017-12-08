@@ -41,7 +41,7 @@ public class InfoFileLogInitializer implements LogInitializer {
         // 构建格式化器
         Encoder encoder = LogUtils.buildEncoder(logContext, properties.getPattern());
         // 构建滚动策略
-        RollingPolicy policy = LogUtils.buildSizeAndTimeBasedRollingPolicy(logContext,
+        RollingPolicy policy = LogUtils.buildSizeAndTimeBasedRollingPolicy(
                 Apps.getLogPath() + File.separator + properties.getRollingFileName(),
                 properties.getMaxFileSize(),
                 properties.getMaxHistory(),
