@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.jpa;
 
+import org.antframework.common.util.jpa.query.QueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,12 +16,11 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 查询repository
- * （所有方法的searchParams参数的格式参照{@link SpecificationUtils#parse(Map)}）
  */
 @NoRepositoryBean
 public interface QueryRepository<T, ID extends Serializable> extends Repository<T, ID> {
@@ -28,34 +28,34 @@ public interface QueryRepository<T, ID extends Serializable> extends Repository<
     /**
      * 分页查询
      *
-     * @param searchParams 条件参数
-     * @param pageable     分页信息
+     * @param queryParams 查询参数
+     * @param pageable    分页信息
      * @return 查询结果
      */
-    Page<T> query(Map<String, Object> searchParams, Pageable pageable);
+    Page<T> query(Collection<QueryParam> queryParams, Pageable pageable);
 
     /**
      * 查询
      *
-     * @param searchParams 条件参数
+     * @param queryParams 查询参数
      * @return 查询结果
      */
-    List<T> query(Map<String, Object> searchParams);
+    List<T> query(Collection<QueryParam> queryParams);
 
     /**
      * 排序查询
      *
-     * @param searchParams 条件参数
-     * @param sort         排序
+     * @param queryParams 查询参数
+     * @param sort        排序
      * @return 查询结果
      */
-    List<T> query(Map<String, Object> searchParams, Sort sort);
+    List<T> query(Collection<QueryParam> queryParams, Sort sort);
 
     /**
      * 统计
      *
-     * @param searchParams 条件参数
+     * @param queryParams 查询参数
      * @return 统计结果
      */
-    long count(Map<String, Object> searchParams);
+    long count(Collection<QueryParam> queryParams);
 }

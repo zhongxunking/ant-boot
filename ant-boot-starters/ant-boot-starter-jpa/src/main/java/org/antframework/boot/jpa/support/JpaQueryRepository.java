@@ -9,7 +9,8 @@
 package org.antframework.boot.jpa.support;
 
 import org.antframework.boot.jpa.QueryRepository;
-import org.antframework.boot.jpa.SpecificationUtils;
+import org.antframework.common.util.jpa.query.QueryParam;
+import org.antframework.common.util.jpa.query.SpecificationUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,8 +19,8 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 包含易使用查询功能的Repository实现基类
@@ -31,22 +32,22 @@ public class JpaQueryRepository<T, ID extends Serializable> extends SimpleJpaRep
     }
 
     @Override
-    public Page<T> query(Map<String, Object> searchParams, Pageable pageable) {
-        return findAll(SpecificationUtils.parse(searchParams), pageable);
+    public Page<T> query(Collection<QueryParam> queryParams, Pageable pageable) {
+        return findAll(SpecificationUtils.parse(queryParams), pageable);
     }
 
     @Override
-    public List<T> query(Map<String, Object> searchParams) {
-        return findAll(SpecificationUtils.parse(searchParams));
+    public List<T> query(Collection<QueryParam> queryParams) {
+        return findAll(SpecificationUtils.parse(queryParams));
     }
 
     @Override
-    public List<T> query(Map<String, Object> searchParams, Sort sort) {
-        return findAll(SpecificationUtils.parse(searchParams), sort);
+    public List<T> query(Collection<QueryParam> queryParams, Sort sort) {
+        return findAll(SpecificationUtils.parse(queryParams), sort);
     }
 
     @Override
-    public long count(Map<String, Object> searchParams) {
-        return count(SpecificationUtils.parse(searchParams));
+    public long count(Collection<QueryParam> queryParams) {
+        return count(SpecificationUtils.parse(queryParams));
     }
 }
