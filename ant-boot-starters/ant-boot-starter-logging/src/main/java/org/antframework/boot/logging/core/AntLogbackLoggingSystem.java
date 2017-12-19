@@ -54,7 +54,7 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
         List<LogInitializer> initializers = SpringFactoriesLoader.loadFactories(LogInitializer.class, getClassLoader());
         for (LogInitializer initializer : initializers) {
             // 初始化
-            initializer.init(logContext);
+            initializer.initialize(logContext);
         }
     }
 

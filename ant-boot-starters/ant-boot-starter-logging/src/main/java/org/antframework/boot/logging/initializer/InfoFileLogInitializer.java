@@ -33,7 +33,7 @@ public class InfoFileLogInitializer implements LogInitializer {
     public static final String APPENDER_NAME = "info-file";
 
     @Override
-    public void init(LogContext logContext) {
+    public void initialize(LogContext logContext) {
         InfoFileLogProperties properties = Contexts.buildProperties(InfoFileLogProperties.class);
         if (!properties.isEnable()) {
             return;

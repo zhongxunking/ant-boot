@@ -20,5 +20,5 @@ public interface LogInitializer {
      *
      * @param logContext 日志上下文
      */
-    void init(LogContext logContext);
+    void initialize(LogContext logContext);
 }

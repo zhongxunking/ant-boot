@@ -29,7 +29,7 @@ public class ConsoleLogInitializer implements LogInitializer {
     public static final String APPENDER_NAME = "console";
 
     @Override
-    public void init(LogContext logContext) {
+    public void initialize(LogContext logContext) {
         ConsoleLogProperties properties = Contexts.buildProperties(ConsoleLogProperties.class);
         if (!properties.isEnable()) {
             return;

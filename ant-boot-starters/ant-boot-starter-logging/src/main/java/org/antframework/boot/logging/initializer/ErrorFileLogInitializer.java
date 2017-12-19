@@ -33,7 +33,7 @@ public class ErrorFileLogInitializer implements LogInitializer {
     public static final String APPENDER_NAME = "error-file";
 
     @Override
-    public void init(LogContext logContext) {
+    public void initialize(LogContext logContext) {
         ErrorFileLogProperties properties = Contexts.buildProperties(ErrorFileLogProperties.class);
         if (!properties.isEnable()) {
             return;

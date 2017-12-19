@@ -22,7 +22,7 @@ import org.springframework.core.annotation.Order;
 public class LevelLogInitializer implements LogInitializer {
 
     @Override
-    public void init(LogContext logContext) {
+    public void initialize(LogContext logContext) {
         LogbackConfigurator config = logContext.getConfigurator();
 
         // 设置root为info级别（可以通过属性logging.level.root覆盖）
