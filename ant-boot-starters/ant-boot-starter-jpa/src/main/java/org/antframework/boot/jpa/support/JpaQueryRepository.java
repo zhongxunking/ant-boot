@@ -10,7 +10,6 @@ package org.antframework.boot.jpa.support;
 
 import org.antframework.boot.jpa.QueryRepository;
 import org.antframework.common.util.query.QueryParam;
-import org.antframework.common.util.query.SpecificationUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
