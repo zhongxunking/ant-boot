@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.antframework.boot.bekit.boot.BekitConfiguration
+  org.antframework.boot.bekit.boot.BekitAutoConfiguration
