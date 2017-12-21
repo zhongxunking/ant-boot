@@ -21,10 +21,10 @@ import java.io.File;
 import java.util.List;
 
 /**
- * dubbo配置类
+ * dubbo自动配置类
  */
 @Configuration
-public class DubboConfiguration {
+public class DubboAutoConfiguration {
     // dubbo属性
     private DubboProperties properties = Contexts.buildProperties(DubboProperties.class);
 
