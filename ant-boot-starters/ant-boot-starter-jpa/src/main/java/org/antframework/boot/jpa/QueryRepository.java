@@ -8,7 +8,7 @@
  */
 package org.antframework.boot.jpa;
 
-import org.antframework.common.util.jpa.query.QueryParam;
+import org.antframework.common.util.query.QueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
