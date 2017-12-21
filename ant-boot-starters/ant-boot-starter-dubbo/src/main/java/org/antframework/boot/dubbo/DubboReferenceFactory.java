@@ -11,12 +11,11 @@ package org.antframework.boot.dubbo;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
+import org.antframework.common.util.other.Cache;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * dubbo服务引用工厂
@@ -32,7 +31,12 @@ public class DubboReferenceFactory {
     // dubbo服务注册配置
     private List<RegistryConfig> registryConfigs;
     // dubbo服务引用缓存
-    private Map<CacheKey, ReferenceConfig> cache = new ConcurrentHashMap<>();
+    private Cache<CacheKey, ReferenceConfig> cache = new Cache<>(new Cache.Supplier<CacheKey, ReferenceConfig>() {
+        @Override
+        public ReferenceConfig get(CacheKey key) {
+            return buildReferenceConfig(key.interfaceClass, key.group, key.version, key.timeout);
+        }
+    });
 
     public DubboReferenceFactory(ApplicationConfig applicationConfig, List<RegistryConfig> registryConfigs) {
         this.applicationConfig = applicationConfig;
@@ -64,27 +68,16 @@ public class DubboReferenceFactory {
      */
     public <T> T getReference(Class<T> interfaceClass, String group, String version, int timeout) {
         CacheKey cacheKey = new CacheKey(interfaceClass, group, version, timeout);
-        ReferenceConfig<T> referenceConfig = cache.get(cacheKey);
-        if (referenceConfig == null) {
-            synchronized (cache) {
-                referenceConfig = cache.get(cacheKey);
-                if (referenceConfig == null) {
-                    referenceConfig = buildReferenceConfig(interfaceClass, group, version, timeout);
-                    cache.put(cacheKey, referenceConfig);
-                }
-            }
-        }
-        return referenceConfig.get();
+        return (T) cache.get(cacheKey).get();
     }
 
     /**
      * 关闭
      */
     public void close() {
-        for (ReferenceConfig referenceConfig : cache.values()) {
+        for (ReferenceConfig referenceConfig : cache.getAll().values()) {
             referenceConfig.destroy();
         }
-        cache.clear();
     }
 
     // 构建dubbo服务引用
@@ -95,6 +88,7 @@ public class DubboReferenceFactory {
         referenceConfig.setInterface(interfaceClass);
         referenceConfig.setGroup(group);
         referenceConfig.setVersion(version);
+        referenceConfig.setCheck(false);
         if (timeout != PROVIDER_TIME_OUT) {
             referenceConfig.setTimeout(timeout);
         }
