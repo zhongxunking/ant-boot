@@ -69,7 +69,7 @@ public class InfoFileLogInitializer implements LogInitializer {
         /**
          * 默认的日志格式
          */
-        public static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}:%L- %msg%n%wEx";
+        public static final String DEFAULT_PATTERN = "%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %logger{0}:%L- %msg%n%wEx";
 
         /**
          * 选填：是否开启（默认开启）
