@@ -26,33 +26,43 @@ public class CommonQueryResult extends AbstractResult {
     }
 
     /**
-     * 转换为其他类型result
+     * 转换为指定的目标类型
      *
-     * @param resultClass 需转换成的类型
-     * @param <T>         result类型
-     * @return 其他类型result
+     * @param targetType 目标类型
+     * @param <T>        目标类型
+     * @return 目标类型对象
      */
-    public <T extends AbstractQueryResult> T convertTo(Class<T> resultClass) {
-        return convertTo(resultClass, null);
+    public <T extends AbstractQueryResult> T convertTo(Class<T> targetType) {
+        return convertTo(targetType, null);
     }
 
     /**
-     * 转换为其他类型result
+     * 转换为指定的目标类型
      *
-     * @param resultClass   需转换成的类型
+     * @param targetType    目标类型
      * @param infoConverter info转换器
-     * @param <T>           result类型
-     * @return 其他类型result
+     * @param <T>           目标类型
+     * @return 目标类型对象
      */
-    public <T extends AbstractQueryResult> T convertTo(Class<T> resultClass, Converter infoConverter) {
-        T result = BeanUtils.instantiate(resultClass);
-        BeanUtils.copyProperties(this, result, "pageExtractor");
-        if (infoConverter == null) {
-            FacadeUtils.setQueryResult(result, pageExtractor);
-        } else {
-            FacadeUtils.setQueryResult(result, pageExtractor, infoConverter);
-        }
+    public <T extends AbstractQueryResult> T convertTo(Class<T> targetType, Converter infoConverter) {
+        T target = BeanUtils.instantiate(targetType);
+        convertTo(target, infoConverter);
+        return target;
+    }
 
-        return result;
+    /**
+     * 转换到指定目标对象
+     *
+     * @param target        目标对象
+     * @param infoConverter info转换器
+     * @param <T>           目标对象类型
+     */
+    public <T extends AbstractQueryResult> void convertTo(T target, Converter infoConverter) {
+        BeanUtils.copyProperties(this, target, "pageExtractor");
+        if (infoConverter == null) {
+            FacadeUtils.setQueryResult(target, pageExtractor);
+        } else {
+            FacadeUtils.setQueryResult(target, pageExtractor, infoConverter);
+        }
     }
 }
