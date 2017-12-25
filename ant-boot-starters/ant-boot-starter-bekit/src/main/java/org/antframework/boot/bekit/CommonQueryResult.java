@@ -59,6 +59,9 @@ public class CommonQueryResult extends AbstractResult {
      */
     public <T extends AbstractQueryResult> void convertTo(T target, Converter infoConverter) {
         BeanUtils.copyProperties(this, target, "pageExtractor");
+        if (!isSuccess()) {
+            return;
+        }
         if (infoConverter == null) {
             FacadeUtils.setQueryResult(target, pageExtractor);
         } else {
