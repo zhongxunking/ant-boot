@@ -56,7 +56,7 @@ public class BekitAutoConfiguration {
     }
 
     /**
-     * 服务自动配置类
+     * 服务配置类
      */
     @Configuration
     @ConditionalOnClass(QueryRepository.class)
