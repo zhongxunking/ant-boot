@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.bekit;
 
+import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 
@@ -49,19 +50,19 @@ public class CodeMessageHolder {
     }
 
     /**
-     * 根据现有的结果信息创建AntBekitException
+     * 根据现有的结果信息创建BizException
      *
      * @param status 结果状态
      */
-    public static AntBekitException newAntBekitException(Status status) {
+    public static BizException newBizException(Status status) {
         CodeMessageInfo codeMessageInfo = get();
         if (codeMessageInfo != null) {
-            return new AntBekitException(status, codeMessageInfo.getCode(), codeMessageInfo.getMessage());
+            return new BizException(status, codeMessageInfo.getCode(), codeMessageInfo.getMessage());
         } else {
             if (status == Status.SUCCESS) {
-                return new AntBekitException(status, CommonResultCode.SUCCESS.getCode(), CommonResultCode.SUCCESS.getMessage());
+                return new BizException(status, CommonResultCode.SUCCESS.getCode(), CommonResultCode.SUCCESS.getMessage());
             } else {
-                return new AntBekitException(status, CommonResultCode.UNKNOWN_ERROR.getCode(), CommonResultCode.UNKNOWN_ERROR.getMessage());
+                return new BizException(status, CommonResultCode.UNKNOWN_ERROR.getCode(), CommonResultCode.UNKNOWN_ERROR.getMessage());
             }
         }
     }

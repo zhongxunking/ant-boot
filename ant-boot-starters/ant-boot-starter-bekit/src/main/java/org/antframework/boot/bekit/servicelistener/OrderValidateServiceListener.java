@@ -8,8 +8,8 @@
  */
 package org.antframework.boot.bekit.servicelistener;
 
-import org.antframework.boot.bekit.AntBekitException;
 import org.antframework.common.util.facade.AbstractOrder;
+import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 import org.bekit.event.annotation.Listen;
@@ -29,7 +29,7 @@ public class OrderValidateServiceListener {
             try {
                 ((AbstractOrder) order).check();
             } catch (Throwable e) {
-                throw new AntBekitException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), CommonResultCode.INVALID_PARAMETER.getMessage() + "：" + e.getMessage());
+                throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), CommonResultCode.INVALID_PARAMETER.getMessage() + "：" + e.getMessage());
             }
         }
     }

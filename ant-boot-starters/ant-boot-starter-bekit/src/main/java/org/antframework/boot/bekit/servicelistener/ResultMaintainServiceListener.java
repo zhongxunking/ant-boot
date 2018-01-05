@@ -8,8 +8,8 @@
  */
 package org.antframework.boot.bekit.servicelistener;
 
-import org.antframework.boot.bekit.AntBekitException;
 import org.antframework.common.util.facade.AbstractResult;
+import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 import org.bekit.event.annotation.Listen;
@@ -36,8 +36,8 @@ public class ResultMaintainServiceListener {
         Object result = event.getServiceContext().getResult();
         if (result instanceof AbstractResult) {
             Throwable throwable = event.getThrowable();
-            if (throwable instanceof AntBekitException) {
-                setResultByAntBekitException((AbstractResult) result, (AntBekitException) throwable);
+            if (throwable instanceof BizException) {
+                setResultByBizException((AbstractResult) result, (BizException) throwable);
             } else {
                 setResultByUnknownException((AbstractResult) result, throwable);
             }
@@ -51,11 +51,11 @@ public class ResultMaintainServiceListener {
         result.setMessage(CommonResultCode.SUCCESS.getMessage());
     }
 
-    // 依据AntBekitException设置result
-    private void setResultByAntBekitException(AbstractResult result, AntBekitException antBekitException) {
-        result.setStatus(antBekitException.getStatus());
-        result.setCode(antBekitException.getCode());
-        result.setMessage(antBekitException.getMessage());
+    // 依据BizException设置result
+    private void setResultByBizException(AbstractResult result, BizException bizException) {
+        result.setStatus(bizException.getStatus());
+        result.setCode(bizException.getCode());
+        result.setMessage(bizException.getMessage());
     }
 
     // 依据未知异常设置result

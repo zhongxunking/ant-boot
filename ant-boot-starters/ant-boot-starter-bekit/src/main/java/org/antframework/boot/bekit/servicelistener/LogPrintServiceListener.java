@@ -8,8 +8,8 @@
  */
 package org.antframework.boot.bekit.servicelistener;
 
-import org.antframework.boot.bekit.AntBekitException;
 import org.antframework.boot.core.Contexts;
+import org.antframework.common.util.facade.BizException;
 import org.bekit.event.annotation.Listen;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
@@ -41,10 +41,10 @@ public class LogPrintServiceListener {
     @Listen(priorityAsc = false)
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
         Throwable throwable = event.getThrowable();
-        if (throwable instanceof AntBekitException) {
+        if (throwable instanceof BizException) {
             if (!ignoreServices.contains(event.getService())) {
-                AntBekitException antBekitException = (AntBekitException) throwable;
-                logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getService(), antBekitException.getStatus(), antBekitException.getCode(), antBekitException.getMessage());
+                BizException bizException = (BizException) throwable;
+                logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getService(), bizException.getStatus(), bizException.getCode(), bizException.getMessage());
             }
         } else {
             logger.error("服务[{}]抛出未知异常：", event.getService(), throwable);
