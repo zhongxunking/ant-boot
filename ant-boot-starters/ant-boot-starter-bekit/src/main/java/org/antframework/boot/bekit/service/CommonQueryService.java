@@ -65,14 +65,14 @@ public class CommonQueryService {
         // 获取查询方法
         Method queryMethod = ReflectionUtils.findMethod(daoClass, "query", Collection.class, Pageable.class);
         if (queryMethod == null) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]需要定义query方法（Page<T> query(Collection<QueryParam> queryParams, Pageable pageable)），或者继承[%s]", daoClass.getName(), QueryRepository.class.getName()));
+            throw new BizException(Status.PROCESSING, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]需要定义query方法（Page<T> query(Collection<QueryParam> queryParams, Pageable pageable)），或者继承[%s]", daoClass.getName(), QueryRepository.class.getName()));
         }
         Class genericClass = ResolvableType.forMethodParameter(queryMethod, 0).getGeneric(0).resolve(Object.class);
         if (genericClass != QueryParam.class) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]定义的query方法[%s]入参Collection的抽象类型必须是%s", daoClass.getName(), queryMethod, QueryParam.class.getName()));
+            throw new BizException(Status.PROCESSING, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]定义的query方法[%s]入参Collection的抽象类型必须是%s", daoClass.getName(), queryMethod, QueryParam.class.getName()));
         }
         if (queryMethod.getReturnType() != Page.class) {
-            throw new BizException(Status.FAIL, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]定义的query方法[%s]返回类型必须是%s", daoClass.getName(), queryMethod, Page.class.getName()));
+            throw new BizException(Status.PROCESSING, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]定义的query方法[%s]返回类型必须是%s", daoClass.getName(), queryMethod, Page.class.getName()));
         }
         // 创建查询执行器
         return new QueryExecutor(applicationContext.getBean(daoClass), queryMethod);

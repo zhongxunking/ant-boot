@@ -29,7 +29,7 @@ public class OrderValidateServiceListener {
             try {
                 ((AbstractOrder) order).check();
             } catch (Throwable e) {
-                throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), CommonResultCode.INVALID_PARAMETER.getMessage() + "：" + e.getMessage());
+                throw new BizException(Status.FAIL, CommonResultCode.INVALID_PARAMETER.getCode(), CommonResultCode.INVALID_PARAMETER.getMessage() + "：" + e.getMessage(), e);
             }
         }
     }
