@@ -13,9 +13,9 @@ import com.alibaba.dubbo.config.spring.AnnotationBean;
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.dubbo.DubboReferenceFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.List;
@@ -32,7 +32,7 @@ public class DubboAutoConfiguration {
     @Bean
     public static AnnotationBean annotationBean() {
         AnnotationBean annotationBean = new AnnotationBean();
-        annotationBean.setPackage(StringUtils.arrayToCommaDelimitedString(Contexts.getBasePackages()));
+        annotationBean.setPackage(StringUtils.join(Contexts.getBasePackages(), ','));
         return annotationBean;
     }
 
