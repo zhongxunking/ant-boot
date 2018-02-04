@@ -36,6 +36,11 @@
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
+                <artifactId>ant-boot-starter-ids</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-jpa</artifactId>
                 <version>1.0.0.RELEASE</version>
             </dependency>
