@@ -75,8 +75,8 @@ public class DubboReferenceFactory {
      * 关闭
      */
     public void close() {
-        for (ReferenceConfig referenceConfig : cache.getAll().values()) {
-            referenceConfig.destroy();
+        for (CacheKey key : cache.getAllKeys()) {
+            cache.get(key).destroy();
         }
     }
 
