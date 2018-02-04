@@ -12,5 +12,9 @@
     <artifactId>ant-boot-starter-ids</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.antframework.ids</groupId>
+            <artifactId>ids</artifactId>
+        </dependency>
     </dependencies>
 </project>
