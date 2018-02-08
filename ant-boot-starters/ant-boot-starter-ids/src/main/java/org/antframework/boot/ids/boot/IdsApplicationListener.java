@@ -30,7 +30,7 @@ public class IdsApplicationListener implements ApplicationListener<ApplicationEn
         IdsProperties properties = Contexts.buildProperties(IdsProperties.class);
         // 设置ids初始化所需要的数据
         System.setProperty(IdsParams.APP_CODE_PROPERTY_NAME, Apps.getAppCode());
-        System.setProperty(IdsParams.APP_PORT_PROPERTY_NAME, event.getEnvironment().getProperty(SERVER_PORT_PROPERTY_NAME));
+        System.setProperty(IdsParams.APP_PORT_PROPERTY_NAME, event.getEnvironment().getProperty(SERVER_PORT_PROPERTY_NAME, "8080"));
         System.setProperty(IdsParams.SERVER_URL_PROPERTY_NAME, properties.getServerUrl());
         System.setProperty(IdsParams.ZK_URLS_PROPERTY_NAME, StringUtils.join(properties.getZkUrls(), ','));
         System.setProperty(IdsParams.HOME_PATH_PROPERTY_NAME, Apps.getConfigPath());
