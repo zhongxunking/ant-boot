@@ -8,7 +8,6 @@
  */
 package org.antframework.boot.bekit;
 
-import org.antframework.boot.bekit.servicelistener.ServiceStacks;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
@@ -17,26 +16,35 @@ import org.antframework.common.util.facade.Status;
  * 结果码、描述持有器
  */
 public final class CodeMessageHolder {
+    // 持有器
+    private static final ThreadLocal<CodeMessage> HOLDER = new ThreadLocal<>();
 
     /**
      * 设置结果码、描述
      */
     public static void set(String code, String message) {
-        ServiceStacks.peek().put(CodeMessageHolder.class, new CodeMessage(code, message));
+        HOLDER.set(new CodeMessage(code, message));
+    }
+
+    /**
+     * 设置结果码、描述
+     */
+    public static void set(CodeMessage codeMessage) {
+        HOLDER.set(codeMessage);
     }
 
     /**
      * 获取结果码、描述
      */
     public static CodeMessage get() {
-        return (CodeMessage) ServiceStacks.peek().get(CodeMessageHolder.class);
+        return HOLDER.get();
     }
 
     /**
      * 删除结果码、描述
      */
     public static void remove() {
-        ServiceStacks.peek().remove(CodeMessageHolder.class);
+        HOLDER.remove();
     }
 
     /**
