@@ -22,21 +22,21 @@ public final class CodeMessageHolder {
      * 设置结果码、描述
      */
     public static void set(String code, String message) {
-        ServiceStacks.getHead().put(CodeMessageHolder.class, new CodeMessage(code, message));
+        ServiceStacks.peek().put(CodeMessageHolder.class, new CodeMessage(code, message));
     }
 
     /**
      * 获取结果码、描述
      */
     public static CodeMessage get() {
-        return (CodeMessage) ServiceStacks.getHead().get(CodeMessageHolder.class);
+        return (CodeMessage) ServiceStacks.peek().get(CodeMessageHolder.class);
     }
 
     /**
      * 删除结果码、描述
      */
     public static void remove() {
-        ServiceStacks.getHead().remove(CodeMessageHolder.class);
+        ServiceStacks.peek().remove(CodeMessageHolder.class);
     }
 
     /**

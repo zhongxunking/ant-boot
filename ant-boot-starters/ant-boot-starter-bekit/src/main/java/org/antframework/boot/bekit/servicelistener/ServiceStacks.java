@@ -26,13 +26,13 @@ public final class ServiceStacks {
         }
     });
 
-    // 压入新节点
+    // 压入新栈头
     static void push() {
         STACK_HOLDER.get().push(new HashMap());
     }
 
-    // 弹出节点
-    static Map pop() {
+    // 弹出栈头
+    static Map<Object, Object> pop() {
         Deque<Map> stack = STACK_HOLDER.get();
         Map node = stack.pop();
         if (stack.isEmpty()) {
@@ -44,7 +44,7 @@ public final class ServiceStacks {
     /**
      * 获取栈头
      */
-    public static Map<Object, Object> getHead() {
+    public static Map<Object, Object> peek() {
         return STACK_HOLDER.get().peek();
     }
 }
