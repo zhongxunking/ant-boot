@@ -9,10 +9,7 @@
 package org.antframework.boot.bekit.boot;
 
 import org.antframework.boot.bekit.service.CommonQueryService;
-import org.antframework.boot.bekit.servicelistener.LogPrintServiceListener;
-import org.antframework.boot.bekit.servicelistener.OrderValidateServiceListener;
-import org.antframework.boot.bekit.servicelistener.ResultMaintainServiceListener;
-import org.antframework.boot.bekit.servicelistener.ServiceStackServiceListener;
+import org.antframework.boot.bekit.servicelistener.*;
 import org.antframework.boot.jpa.QueryRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +31,12 @@ public class BekitAutoConfiguration {
         @Bean
         public ServiceStackServiceListener serviceStackServiceListener() {
             return new ServiceStackServiceListener();
+        }
+
+        // 持有器-服务监听器
+        @Bean
+        public HolderServiceListener holderServiceListener() {
+            return new HolderServiceListener();
         }
 
         // 日志打印-服务监听器
