@@ -8,56 +8,46 @@
  */
 package org.antframework.boot.bekit;
 
+import org.antframework.boot.bekit.servicelistener.ServiceStacks;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 /**
- * 结果码、结果描述持有器
+ * 结果码、描述持有器
  */
-public class CodeMessageHolder {
-    // keeper持有器
-    private static final ThreadLocal<List<Keeper<CodeMessageInfo>>> KEEPERS_HOLDER = ThreadLocal.withInitial(new Supplier<List<Keeper<CodeMessageInfo>>>() {
-        @Override
-        public List<Keeper<CodeMessageInfo>> get() {
-            return new ArrayList<>(2);
-        }
-    });
+public final class CodeMessageHolder {
 
     /**
-     * 设置结果码、结果描述
+     * 设置结果码、描述
      */
     public static void set(String code, String message) {
-        getCurrentKeeper().set(new CodeMessageInfo(code, message));
+        ServiceStacks.getHead().put(CodeMessageHolder.class, new CodeMessage(code, message));
     }
 
     /**
-     * 获取结果码、结果描述
+     * 获取结果码、描述
      */
-    public static CodeMessageInfo get() {
-        return getCurrentKeeper().get();
+    public static CodeMessage get() {
+        return (CodeMessage) ServiceStacks.getHead().get(CodeMessageHolder.class);
     }
 
     /**
-     * 删除结果码、结果描述
+     * 删除结果码、描述
      */
     public static void remove() {
-        getCurrentKeeper().set(null);
+        ServiceStacks.getHead().remove(CodeMessageHolder.class);
     }
 
     /**
-     * 根据现有的结果信息创建BizException
+     * 根据现有的结果码、描述创建BizException
      *
      * @param status 结果状态
      */
     public static BizException newBizException(Status status) {
-        CodeMessageInfo codeMessageInfo = get();
-        if (codeMessageInfo != null) {
-            return new BizException(status, codeMessageInfo.getCode(), codeMessageInfo.getMessage());
+        CodeMessage codeMessage = get();
+        if (codeMessage != null) {
+            return new BizException(status, codeMessage.getCode(), codeMessage.getMessage());
         } else {
             if (status == Status.SUCCESS) {
                 return new BizException(status, CommonResultCode.SUCCESS.getCode(), CommonResultCode.SUCCESS.getMessage());
@@ -68,44 +58,15 @@ public class CodeMessageHolder {
     }
 
     /**
-     * push新持有器（本方法由框架调用，使用方不能调用）
+     * 结果码、描述
      */
-    public static void pushKeeper() {
-        KEEPERS_HOLDER.get().add(new Keeper<>());
-    }
-
-    /**
-     * 弹出最上层持有器（本方法由框架调用，使用方不能调用）
-     */
-    public static void popKeeper() {
-        List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
-        if (!keepers.isEmpty()) {
-            keepers.remove(keepers.size() - 1);
-        }
-        if (keepers.isEmpty()) {
-            KEEPERS_HOLDER.remove();
-        }
-    }
-
-    // 获取当前持有器
-    private static Keeper<CodeMessageInfo> getCurrentKeeper() {
-        List<Keeper<CodeMessageInfo>> keepers = KEEPERS_HOLDER.get();
-        if (keepers.isEmpty()) {
-            keepers.add(new Keeper<>());
-        }
-        return keepers.get(keepers.size() - 1);
-    }
-
-    /**
-     * 结果码、结果描述-信息
-     */
-    public static class CodeMessageInfo {
+    public static final class CodeMessage {
         // 结果码
-        private String code;
-        // 结果描述
-        private String message;
+        private final String code;
+        // 描述
+        private final String message;
 
-        public CodeMessageInfo(String code, String message) {
+        public CodeMessage(String code, String message) {
             this.code = code;
             this.message = message;
         }
@@ -116,19 +77,6 @@ public class CodeMessageHolder {
 
         public String getMessage() {
             return message;
-        }
-    }
-
-    // 持有器
-    private static class Keeper<T> {
-        private T t;
-
-        public T get() {
-            return t;
-        }
-
-        public void set(T t) {
-            this.t = t;
         }
     }
 }

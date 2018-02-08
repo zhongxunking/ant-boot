@@ -25,7 +25,7 @@ import java.util.Set;
 /**
  * 日志打印-服务监听器
  */
-@ServiceListener(priority = 20)
+@ServiceListener(priority = 10)
 public class LogPrintServiceListener {
     private static final Logger logger = LoggerFactory.getLogger(LogPrintServiceListener.class);
     // 需忽略日志打印的服务
