@@ -6,12 +6,12 @@
     <parent>
         <groupId>org.antframework</groupId>
         <artifactId>ant-parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.1.0.RELEASE</version>
     </parent>
 
     <groupId>org.antframework.boot</groupId>
     <artifactId>ant-boot-starter-parent</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <version>1.1.0.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>ant-boot-starter-parent</name>
@@ -57,7 +57,7 @@
             <dependency>
                 <groupId>org.antframework.common</groupId>
                 <artifactId>ant-common-util</artifactId>
-                <version>1.0.0.RELEASE</version>
+                <version>1.1.0.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
