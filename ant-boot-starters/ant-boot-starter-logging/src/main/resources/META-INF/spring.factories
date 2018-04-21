@@ -5,5 +5,5 @@ org.springframework.context.ApplicationListener=\
 org.antframework.boot.logging.LogInitializer=\
   org.antframework.boot.logging.initializer.LevelLogInitializer,\
   org.antframework.boot.logging.initializer.ConsoleLogInitializer,\
-  org.antframework.boot.logging.initializer.InfoFileLogInitializer,\
+  org.antframework.boot.logging.initializer.FileLogInitializer,\
   org.antframework.boot.logging.initializer.ErrorFileLogInitializer

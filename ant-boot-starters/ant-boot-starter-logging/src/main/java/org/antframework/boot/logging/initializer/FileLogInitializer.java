@@ -8,7 +8,6 @@
  */
 package org.antframework.boot.logging.initializer;
 
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.encoder.Encoder;
 import ch.qos.logback.core.rolling.RollingPolicy;
@@ -23,18 +22,18 @@ import org.springframework.core.annotation.Order;
 import java.io.File;
 
 /**
- * info日志文件初始化器
+ * 日志文件初始化器
  */
 @Order(1)
-public class InfoFileLogInitializer implements LogInitializer {
+public class FileLogInitializer implements LogInitializer {
     /**
      * appender名称
      */
-    public static final String APPENDER_NAME = "info-file";
+    public static final String APPENDER_NAME = "file";
 
     @Override
     public void initialize(LogContext logContext) {
-        InfoFileLogProperties properties = Contexts.buildProperties(InfoFileLogProperties.class);
+        FileLogProperties properties = Contexts.buildProperties(FileLogProperties.class);
         if (!properties.isEnable()) {
             return;
         }
@@ -51,21 +50,20 @@ public class InfoFileLogInitializer implements LogInitializer {
                 APPENDER_NAME,
                 encoder,
                 Apps.getLogPath() + File.separator + properties.getFileName(),
-                policy,
-                LogUtils.buildThresholdFilter(logContext, Level.INFO));
+                policy);
         // 将在appender配置到root下
         logContext.getConfigurator().root(null, appender);
     }
 
     /**
-     * info日志文件的属性
+     * 日志文件的属性
      */
-    @ConfigurationProperties(InfoFileLogProperties.PREFIX)
-    public static class InfoFileLogProperties {
+    @ConfigurationProperties(FileLogProperties.PREFIX)
+    public static class FileLogProperties {
         /**
          * 属性前缀
          */
-        public static final String PREFIX = "ant.logging.info-file";
+        public static final String PREFIX = "ant.logging.file";
         /**
          * 默认的日志格式
          */
@@ -81,15 +79,15 @@ public class InfoFileLogInitializer implements LogInitializer {
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
         /**
-         * 选填：文件名（默认${appCode}-info.log）
+         * 选填：文件名（默认${appCode}.log）
          */
         @NotBlank
-        private String fileName = Apps.getAppCode() + "-info.log";
+        private String fileName = Apps.getAppCode() + ".log";
         /**
-         * 选填：滚动文件名（默认${appCode}-info.log.%d{yyyyMMdd}-%i）
+         * 选填：滚动文件名（默认${appCode}.log.%d{yyyyMMdd}-%i）
          */
         @NotBlank
-        private String rollingFileName = Apps.getAppCode() + "-info.log.%d{yyyyMMdd}-%i";
+        private String rollingFileName = Apps.getAppCode() + ".log.%d{yyyyMMdd}-%i";
         /**
          * 选填：单个文件最大容量
          */
