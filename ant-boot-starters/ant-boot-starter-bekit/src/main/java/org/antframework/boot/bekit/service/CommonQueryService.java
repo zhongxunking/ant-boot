@@ -8,8 +8,8 @@
  */
 package org.antframework.boot.bekit.service;
 
-import org.antframework.boot.bekit.CommonQueryConstant;
-import org.antframework.boot.bekit.CommonQueryResult;
+import org.antframework.boot.bekit.CommonQueries;
+import org.antframework.boot.bekit.IgnoreGateLogging;
 import org.antframework.boot.jpa.QueryRepository;
 import org.antframework.common.util.facade.*;
 import org.antframework.common.util.other.Cache;
@@ -35,6 +35,7 @@ import java.util.Collection;
  * 通用查询服务
  */
 @Service
+@IgnoreGateLogging
 public class CommonQueryService {
     @Autowired
     private ApplicationContext applicationContext;
@@ -47,14 +48,14 @@ public class CommonQueryService {
     });
 
     @ServiceExecute
-    public void execute(ServiceContext<AbstractQueryOrder, CommonQueryResult> context) throws Throwable {
+    public void execute(ServiceContext<AbstractQueryOrder, CommonQueries.CommonQueryResult> context) throws Throwable {
         AbstractQueryOrder order = context.getOrder();
-        CommonQueryResult result = context.getResult();
+        CommonQueries.CommonQueryResult result = context.getResult();
         // 获取dao类型
-        Class daoClass = context.getAttachmentAttr(CommonQueryConstant.DAO_CLASS_KEY);
+        Class daoClass = context.getAttachmentAttr(CommonQueries.DAO_CLASS_KEY);
         Assert.notNull(daoClass, "附件中缺少DAO_CLASS");
         // 查询
-        Pageable pageable = new PageRequest(order.getPageNo() - 1, order.getPageSize(), context.getAttachmentAttr(CommonQueryConstant.SORT_KEY));
+        Pageable pageable = new PageRequest(order.getPageNo() - 1, order.getPageSize(), context.getAttachmentAttr(CommonQueries.SORT_KEY));
         Page page = queryExecutorCache.get(daoClass).execute(QueryParamsParser.parse(order), pageable);
         // 设置查询结果
         result.setPageExtractor(new FacadeUtils.SpringDataPageExtractor(page));
