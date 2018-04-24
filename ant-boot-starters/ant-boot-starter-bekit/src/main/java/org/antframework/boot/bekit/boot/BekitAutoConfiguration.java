@@ -12,7 +12,6 @@ import org.antframework.boot.bekit.service.CommonQueryService;
 import org.antframework.boot.bekit.servicelistener.*;
 import org.antframework.boot.jpa.QueryRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -26,36 +25,12 @@ public class BekitAutoConfiguration {
      * 服务监听器配置类
      */
     @Configuration
+    @Import({ServiceStackServiceListener.class,
+            HolderServiceListener.class,
+            GateLoggingServiceListener.class,
+            ResultMaintainServiceListener.class,
+            OrderValidateServiceListener.class})
     public static class ServiceListenerConfiguration {
-        // 服务栈-服务监听器
-        @Bean
-        public ServiceStackServiceListener serviceStackServiceListener() {
-            return new ServiceStackServiceListener();
-        }
-
-        // 持有器-服务监听器
-        @Bean
-        public HolderServiceListener holderServiceListener() {
-            return new HolderServiceListener();
-        }
-
-        // 出入口日志打印-服务监听器
-        @Bean
-        public GateLoggingServiceListener gateLoggingServiceListener() {
-            return new GateLoggingServiceListener();
-        }
-
-        // result维护-服务监听器
-        @Bean
-        public ResultMaintainServiceListener resultMaintainServiceListener() {
-            return new ResultMaintainServiceListener();
-        }
-
-        // order校验-服务监听器
-        @Bean
-        public OrderValidateServiceListener orderValidateServiceListener() {
-            return new OrderValidateServiceListener();
-        }
     }
 
     /**
