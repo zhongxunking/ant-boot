@@ -8,19 +8,19 @@
  */
 package org.antframework.boot.bekit.servicelistener;
 
-import org.antframework.boot.core.Contexts;
+import org.antframework.boot.bekit.IgnoreGateLogging;
 import org.antframework.common.util.facade.BizException;
+import org.antframework.common.util.other.Cache;
 import org.bekit.event.annotation.Listen;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceExceptionEvent;
 import org.bekit.service.event.ServiceFinishEvent;
+import org.bekit.service.service.ServicesHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 日志打印-服务监听器
@@ -28,12 +28,21 @@ import java.util.Set;
 @ServiceListener(priority = 20)
 public class LogPrintServiceListener {
     private static final Logger logger = LoggerFactory.getLogger(LogPrintServiceListener.class);
-    // 需忽略日志打印的服务
-    private Set<String> ignoreServices = Contexts.buildProperties(ServiceLogProperties.class).getIgnoreServices();
+    @Autowired
+    private ServicesHolder servicesHolder;
+    // 服务是否忽略打印出入口日志缓存
+    private Cache<String, Boolean> cache = new Cache<>(new Cache.Supplier<String, Boolean>() {
+        @Override
+        public Boolean get(String key) {
+            Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
+            Class serviceClass = AopUtils.getTargetClass(service);
+            return !serviceClass.isAnnotationPresent(IgnoreGateLogging.class);
+        }
+    });
 
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
-        if (!ignoreServices.contains(event.getService())) {
+        if (cache.get(event.getService())) {
             logger.info("收到请求：service={}, order={}", event.getService(), event.getServiceContext().getOrder());
         }
     }
@@ -42,7 +51,7 @@ public class LogPrintServiceListener {
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
         Throwable throwable = event.getThrowable();
         if (throwable instanceof BizException) {
-            if (!ignoreServices.contains(event.getService())) {
+            if (cache.get(event.getService())) {
                 BizException bizException = (BizException) throwable;
                 logger.warn("服务[{}]抛出手动异常：status={}, code={}, message={}", event.getService(), bizException.getStatus(), bizException.getCode(), bizException.getMessage());
             }
@@ -53,32 +62,8 @@ public class LogPrintServiceListener {
 
     @Listen(priorityAsc = false)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
-        if (!ignoreServices.contains(event.getService())) {
+        if (cache.get(event.getService())) {
             logger.info("执行结果：service={}, result={}", event.getService(), event.getServiceContext().getResult());
-        }
-    }
-
-    /**
-     * 服务日志属性
-     */
-    @ConfigurationProperties(ServiceLogProperties.PREFIX)
-    public static class ServiceLogProperties {
-        /**
-         * 属性前缀
-         */
-        public static final String PREFIX = "bekit.log";
-
-        /**
-         * 选填：不打印日志的服务（以","分隔）
-         */
-        private Set<String> ignoreServices = new HashSet<>();
-
-        public Set<String> getIgnoreServices() {
-            return ignoreServices;
-        }
-
-        public void setIgnoreServices(Set<String> ignoreServices) {
-            this.ignoreServices = new HashSet<>(ignoreServices);
         }
     }
 }
