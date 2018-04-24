@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.AnnotationUtils;
 
 /**
  * 出入口日志打印-服务监听器
@@ -36,7 +37,7 @@ public class GateLoggingServiceListener {
         public Boolean get(String key) {
             Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
             Class serviceClass = AopUtils.getTargetClass(service);
-            return !serviceClass.isAnnotationPresent(IgnoreGateLogging.class);
+            return AnnotationUtils.findAnnotation(serviceClass, IgnoreGateLogging.class) == null;
         }
     });
 

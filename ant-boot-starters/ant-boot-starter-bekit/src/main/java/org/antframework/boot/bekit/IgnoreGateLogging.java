@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  * 忽略打印出入口日志
  */
 @Documented
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IgnoreGateLogging {
 }
