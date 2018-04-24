@@ -39,10 +39,10 @@ public class BekitAutoConfiguration {
             return new HolderServiceListener();
         }
 
-        // 日志打印-服务监听器
+        // 出入口日志打印-服务监听器
         @Bean
-        public LogPrintServiceListener logPrintServiceListener() {
-            return new LogPrintServiceListener();
+        public GateLoggingServiceListener gateLoggingServiceListener() {
+            return new GateLoggingServiceListener();
         }
 
         // result维护-服务监听器

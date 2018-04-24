@@ -23,11 +23,11 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 日志打印-服务监听器
+ * 出入口日志打印-服务监听器
  */
 @ServiceListener(priority = 20)
-public class LogPrintServiceListener {
-    private static final Logger logger = LoggerFactory.getLogger(LogPrintServiceListener.class);
+public class GateLoggingServiceListener {
+    private static final Logger logger = LoggerFactory.getLogger(GateLoggingServiceListener.class);
     @Autowired
     private ServicesHolder servicesHolder;
     // 服务是否忽略打印出入口日志缓存
