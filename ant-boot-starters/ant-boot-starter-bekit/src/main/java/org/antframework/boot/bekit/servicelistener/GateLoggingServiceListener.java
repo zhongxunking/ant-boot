@@ -30,7 +30,7 @@ public class GateLoggingServiceListener {
     private static final Logger logger = LoggerFactory.getLogger(GateLoggingServiceListener.class);
     @Autowired
     private ServicesHolder servicesHolder;
-    // 服务是否忽略打印出入口日志缓存
+    // 服务是否打印出入口日志-缓存
     private Cache<String, Boolean> cache = new Cache<>(new Cache.Supplier<String, Boolean>() {
         @Override
         public Boolean get(String key) {

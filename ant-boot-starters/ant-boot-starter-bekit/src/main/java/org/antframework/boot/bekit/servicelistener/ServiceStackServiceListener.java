@@ -14,7 +14,7 @@ import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceFinishEvent;
 
 /**
- * 服务栈服务监听器
+ * 服务栈-服务监听器
  */
 @ServiceListener(priority = 0)
 public class ServiceStackServiceListener {

@@ -15,7 +15,7 @@ import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceFinishEvent;
 
 /**
- * 持有器服务监听器
+ * 持有器-服务监听器
  */
 @ServiceListener(priority = 10)
 public class HolderServiceListener {
