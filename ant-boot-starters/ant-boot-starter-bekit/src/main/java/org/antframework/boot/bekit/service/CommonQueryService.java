@@ -9,7 +9,6 @@
 package org.antframework.boot.bekit.service;
 
 import org.antframework.boot.bekit.CommonQueries;
-import org.antframework.boot.bekit.IgnoreGateLogging;
 import org.antframework.boot.jpa.QueryRepository;
 import org.antframework.common.util.facade.*;
 import org.antframework.common.util.other.Cache;
@@ -35,7 +34,6 @@ import java.util.Collection;
  * 通用查询服务
  */
 @Service
-@IgnoreGateLogging
 public class CommonQueryService {
     @Autowired
     private ApplicationContext applicationContext;
