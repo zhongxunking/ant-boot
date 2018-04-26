@@ -10,7 +10,8 @@ package org.antframework.boot.bekit.service;
 
 import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.boot.jpa.QueryRepository;
-import org.antframework.common.util.facade.*;
+import org.antframework.common.util.facade.AbstractQueryOrder;
+import org.antframework.common.util.facade.FacadeUtils;
 import org.antframework.common.util.other.Cache;
 import org.antframework.common.util.query.QueryParam;
 import org.antframework.common.util.query.annotation.QueryParamsParser;
@@ -38,7 +39,7 @@ public class CommonQueryService {
     @Autowired
     private ApplicationContext applicationContext;
     // 查询执行器缓存
-    private final Cache<Class, QueryExecutor> queryExecutorCache = new Cache<>(new Cache.Supplier<Class, QueryExecutor>() {
+    private final Cache<Class, QueryExecutor> queryExecutorsCache = new Cache<>(new Cache.Supplier<Class, QueryExecutor>() {
         @Override
         public QueryExecutor get(Class key) {
             return parseToQueryExecutor(key);
@@ -54,7 +55,7 @@ public class CommonQueryService {
         Assert.notNull(daoClass, "附件中缺少DAO_CLASS");
         // 查询
         Pageable pageable = new PageRequest(order.getPageNo() - 1, order.getPageSize(), context.getAttachmentAttr(CommonQueries.SORT_KEY));
-        Page page = queryExecutorCache.get(daoClass).execute(QueryParamsParser.parse(order), pageable);
+        Page page = queryExecutorsCache.get(daoClass).execute(QueryParamsParser.parse(order), pageable);
         // 设置查询结果
         result.setPageExtractor(new FacadeUtils.SpringDataPageExtractor(page));
     }
@@ -64,14 +65,14 @@ public class CommonQueryService {
         // 获取查询方法
         Method queryMethod = ReflectionUtils.findMethod(daoClass, "query", Collection.class, Pageable.class);
         if (queryMethod == null) {
-            throw new BizException(Status.PROCESSING, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]需要定义query方法（Page<T> query(Collection<QueryParam> queryParams, Pageable pageable)），或者继承[%s]", daoClass.getName(), QueryRepository.class.getName()));
+            throw new IllegalArgumentException(String.format("dao[%s]需要定义query方法（Page<T> query(Collection<QueryParam> queryParams, Pageable pageable)），或者继承[%s]", daoClass.getName(), QueryRepository.class.getName()));
         }
         Class genericClass = ResolvableType.forMethodParameter(queryMethod, 0).getGeneric(0).resolve(Object.class);
         if (genericClass != QueryParam.class) {
-            throw new BizException(Status.PROCESSING, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]定义的query方法[%s]入参Collection的抽象类型必须是%s", daoClass.getName(), queryMethod, QueryParam.class.getName()));
+            throw new IllegalArgumentException(String.format("dao[%s]定义的query方法[%s]入参Collection的范型必须是%s", daoClass.getName(), queryMethod, QueryParam.class.getName()));
         }
         if (queryMethod.getReturnType() != Page.class) {
-            throw new BizException(Status.PROCESSING, CommonResultCode.ILLEGAL_STATE.getCode(), String.format("dao[%s]定义的query方法[%s]返回类型必须是%s", daoClass.getName(), queryMethod, Page.class.getName()));
+            throw new IllegalArgumentException(String.format("dao[%s]定义的query方法[%s]返回类型必须是%s", daoClass.getName(), queryMethod, Page.class.getName()));
         }
         // 创建查询执行器
         return new QueryExecutor(applicationContext.getBean(daoClass), queryMethod);
