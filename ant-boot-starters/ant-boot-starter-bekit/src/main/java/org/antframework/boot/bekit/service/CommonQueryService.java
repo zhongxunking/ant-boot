@@ -52,7 +52,7 @@ public class CommonQueryService {
         CommonQueries.CommonQueryResult result = context.getResult();
         // 获取dao类型
         Class daoClass = context.getAttachmentAttr(CommonQueries.DAO_CLASS_KEY);
-        Assert.notNull(daoClass, "附件中缺少DAO_CLASS");
+        Assert.notNull(daoClass, "附件中缺少" + CommonQueries.DAO_CLASS_KEY);
         // 查询
         Pageable pageable = new PageRequest(order.getPageNo() - 1, order.getPageSize(), context.getAttachmentAttr(CommonQueries.SORT_KEY));
         Page page = queryExecutorsCache.get(daoClass).execute(QueryParamsParser.parse(order), pageable);
