@@ -8,7 +8,9 @@
  */
 package org.antframework.boot.config.listener.annotation;
 
+import org.antframework.boot.core.Apps;
 import org.antframework.configcenter.client.core.ChangedProperty;
+import org.apache.commons.lang3.StringUtils;
 import org.bekit.event.extension.ListenResolver;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -30,6 +32,10 @@ public class ListenConfigChangedResolver implements ListenResolver {
         if (configListenerAnnotation == null) {
             throw new IllegalArgumentException("@ListenConfigModified只能标注在配置监听器（@ConfigListener）的方法上");
         }
+        String appCode = configListenerAnnotation.appCode();
+        if (StringUtils.isEmpty(appCode)) {
+            appCode = Apps.getAppCode();
+        }
         // 校验入参
         Class[] parameterTypes = listenMethod.getParameterTypes();
         if (parameterTypes.length != 1) {
@@ -44,7 +50,7 @@ public class ListenConfigChangedResolver implements ListenResolver {
         }
         // 设置事件类型
         ListenConfigChanged listenConfigChangedAnnotation = AnnotatedElementUtils.findMergedAnnotation(listenMethod, ListenConfigChanged.class);
-        eventType = new ConfigChangedEventType(configListenerAnnotation.configContextName(), listenConfigChangedAnnotation.prefix());
+        eventType = new ConfigChangedEventType(appCode, listenConfigChangedAnnotation.prefix());
     }
 
     @Override

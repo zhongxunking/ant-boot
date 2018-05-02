@@ -16,21 +16,21 @@ import java.util.List;
  * 配置被修改事件
  */
 public class ConfigChangedEvent {
-    // 配置上下文名称
-    private String configContextName;
+    // 应用编码
+    private String appCode;
     // 被修改的属性名前缀
     private String prefix;
     // 被修改的属性
     private List<ChangedProperty> changedProperties;
 
-    public ConfigChangedEvent(String configContextName, String prefix, List<ChangedProperty> changedProperties) {
-        this.configContextName = configContextName;
+    public ConfigChangedEvent(String appCode, String prefix, List<ChangedProperty> changedProperties) {
+        this.appCode = appCode;
         this.prefix = prefix;
         this.changedProperties = changedProperties;
     }
 
-    public String getConfigContextName() {
-        return configContextName;
+    public String getAppCode() {
+        return appCode;
     }
 
     public String getPrefix() {
