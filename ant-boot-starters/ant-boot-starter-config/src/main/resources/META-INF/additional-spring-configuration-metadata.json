@@ -1,7 +1,7 @@
 {
   "properties": [
     {
-      "sourceType": "org.antframework.boot.config.boot.ConfigcenterProperties",
+      "sourceType": "org.antframework.boot.config.boot.ConfigContextsLifeCycle",
       "name": "configcenter.listen.enable",
       "description": "选填：是否开启监听配置是否被修改（默认开启）",
       "type": "java.lang.Boolean",
