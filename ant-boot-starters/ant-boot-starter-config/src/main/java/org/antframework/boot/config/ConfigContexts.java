@@ -66,7 +66,7 @@ public class ConfigContexts {
      * 配置中心属性
      */
     @ConfigurationProperties(prefix = ConfigcenterProperties.PREFIX)
-    public class ConfigcenterProperties {
+    public static class ConfigcenterProperties {
         /**
          * 属性前缀
          */
