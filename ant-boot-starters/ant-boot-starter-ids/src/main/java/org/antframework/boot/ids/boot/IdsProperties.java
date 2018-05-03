@@ -25,13 +25,13 @@ public class IdsProperties {
     public static final String PREFIX = "ids";
 
     /**
-     * 必填：id中心服务端地址
+     * 必填：id中心服务端地址（比如：http://localhost:6210）
      */
     @NotBlank
     private String serverUrl;
 
     /**
-     * 必填：注册worker使用的zookeeper地址，存在多个zookeeper的话以“,”分隔（比如：192.168.0.1:2181,192.168.0.2:2181）
+     * 必填：注册worker使用的zookeeper地址（存在多个zookeeper的话以“,”分隔（比如：192.168.0.1:2181,192.168.0.2:2181））
      */
     @NotEmpty
     private Set<String> zkUrls;
