@@ -23,6 +23,7 @@ import org.springframework.core.env.PropertySource;
  */
 @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
 public class ConfigcenterApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         // 创建配置上下文属性资源

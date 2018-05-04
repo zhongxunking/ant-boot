@@ -30,6 +30,7 @@ import org.springframework.core.ResolvableType;
  * 所有配置上下文的生命周期
  */
 public class ConfigContextsLifeCycle implements GenericApplicationListener {
+
     @Override
     public boolean supportsEventType(ResolvableType eventType) {
         return ApplicationReadyEvent.class.isAssignableFrom(eventType.getRawClass())
