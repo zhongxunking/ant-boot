@@ -41,7 +41,7 @@ public class RedisCacheManagerCustomizer implements CacheManagerCustomizer<Redis
          */
         private Long defaultExpire;
         /**
-         * 选填：设置指定的注解式缓存有效时间。key：cacheName（缓存名称），value：有效时间（单位：秒）。不填或value为0表示该缓存永远有效。
+         * 选填：设置指定的注解式缓存有效时间。key：cacheName（缓存名称），value：有效时间（单位：秒）。value为0表示该缓存永远有效，不填表示使用默认有效时间。
          */
         private Map<String, Long> expires;
 
