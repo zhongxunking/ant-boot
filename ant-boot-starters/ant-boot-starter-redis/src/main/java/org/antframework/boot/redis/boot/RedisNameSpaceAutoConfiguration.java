@@ -19,10 +19,10 @@ import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
 
 /**
- * spring-boot预置的redisTemplate配置类
+ * redis命名空间自动配置类
  */
 @Configuration
-public class RedisTemplateConfiguration {
+public class RedisNameSpaceAutoConfiguration {
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
