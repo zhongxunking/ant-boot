@@ -21,7 +21,7 @@ import org.springframework.core.annotation.Order;
 /**
  * ids应用监听器
  */
-@Order(LoggingApplicationListener.DEFAULT_ORDER + 2)
+@Order(LoggingApplicationListener.DEFAULT_ORDER + 3)
 public class IdsApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     // 应用端口属性名
     private static final String SERVER_PORT_PROPERTY_NAME = "server.port";
@@ -31,6 +31,9 @@ public class IdsApplicationListener implements ApplicationListener<ApplicationEn
         IdsProperties properties = Contexts.buildProperties(IdsProperties.class);
         String worker = IPUtils.getIPV4() + ":" + event.getEnvironment().getProperty(SERVER_PORT_PROPERTY_NAME, "8080");
         // 设置ids初始化所需要的数据
+        if (properties.getRoomId() != null) {
+            System.setProperty(IdsParams.ROOM_ID_PROPERTY_NAME, properties.getRoomId());
+        }
         System.setProperty(IdsParams.SERVER_URL_PROPERTY_NAME, properties.getServerUrl());
         System.setProperty(IdsParams.HOME_PATH_PROPERTY_NAME, Apps.getConfigPath());
         System.setProperty(IdsParams.WORKER_PROPERTY_NAME, worker);
