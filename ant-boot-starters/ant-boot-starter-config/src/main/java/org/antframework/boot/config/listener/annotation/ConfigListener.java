@@ -22,9 +22,9 @@ import java.lang.annotation.*;
 @Listener(type = ConfigListenerType.class)
 public @interface ConfigListener {
     /**
-     * 被监听的应用编码（默认为当前应用）
+     * 被监听的应用id（默认为当前应用）
      */
-    String appCode() default "";
+    String appId() default "";
 
     /**
      * 优先级

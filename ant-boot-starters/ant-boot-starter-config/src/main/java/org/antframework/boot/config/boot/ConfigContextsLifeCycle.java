@@ -64,10 +64,10 @@ public class ConfigContextsLifeCycle implements GenericApplicationListener {
         EventBusesHolder eventBusesHolder = Contexts.getApplicationContext().getBean(EventBusesHolder.class);
         EventPublisher eventPublisher = new DefaultEventPublisher(eventBusesHolder.getEventBus(ConfigListenerType.class));
 
-        for (String appCode : ConfigContexts.getAppCodes()) {
-            ConfigContext configContext = ConfigContexts.get(appCode);
+        for (String appId : ConfigContexts.getAppIds()) {
+            ConfigContext configContext = ConfigContexts.get(appId);
             // 添加默认监听器
-            configContext.getListenerRegistrar().register(new DefaultConfigListener(appCode, eventPublisher));
+            configContext.getListenerRegistrar().register(new DefaultConfigListener(appId, eventPublisher));
             // 判断是否监听配置被修改
             boolean listenEnable = Contexts.getEnvironment().getProperty(ConfigContexts.ConfigcenterProperties.LISTEN_ENABLE_PROPERTY_NAME, Boolean.class, Boolean.TRUE);
             if (listenEnable) {
@@ -81,8 +81,8 @@ public class ConfigContextsLifeCycle implements GenericApplicationListener {
 
     // 关闭所有配置上下文
     private void closeConfigContexts() {
-        for (String appCode : ConfigContexts.getAppCodes()) {
-            ConfigContexts.get(appCode).close();
+        for (String appId : ConfigContexts.getAppIds()) {
+            ConfigContexts.get(appId).close();
         }
     }
 }

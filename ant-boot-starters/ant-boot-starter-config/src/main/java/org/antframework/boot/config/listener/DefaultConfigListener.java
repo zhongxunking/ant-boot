@@ -29,13 +29,13 @@ public class DefaultConfigListener implements ConfigListener {
     // key的分隔符
     private static final char KEY_SEPARATOR = '.';
 
-    // 应用编码
-    private String appCode;
+    // 应用id
+    private String appId;
     // 事件发布器
     private EventPublisher eventPublisher;
 
-    public DefaultConfigListener(String appCode, EventPublisher eventPublisher) {
-        this.appCode = appCode;
+    public DefaultConfigListener(String appId, EventPublisher eventPublisher) {
+        this.appId = appId;
         this.eventPublisher = eventPublisher;
     }
 
@@ -67,7 +67,7 @@ public class DefaultConfigListener implements ConfigListener {
             dispatch(nextPrefixKey, dispatchedCps.get(prefix));
         }
         // 发送事件
-        eventPublisher.publish(new ConfigChangedEvent(appCode, prefixKey == null ? NONE_PREFIX : prefixKey, cps));
+        eventPublisher.publish(new ConfigChangedEvent(appId, prefixKey == null ? NONE_PREFIX : prefixKey, cps));
     }
 
     // 获取前缀（aa.bb.cc返回aa）

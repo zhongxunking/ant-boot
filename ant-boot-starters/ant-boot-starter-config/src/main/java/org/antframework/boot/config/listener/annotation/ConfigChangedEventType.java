@@ -16,19 +16,19 @@ import java.util.Objects;
  * 配置被修改事件类型
  */
 public class ConfigChangedEventType {
-    // 应用编码
-    private String appCode;
+    // 应用id
+    private String appId;
     // 被修改的属性名前缀
     private String prefix;
 
-    public ConfigChangedEventType(String appCode, String prefix) {
-        this.appCode = appCode;
+    public ConfigChangedEventType(String appId, String prefix) {
+        this.appId = appId;
         this.prefix = prefix;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appCode, prefix);
+        return Objects.hash(appId, prefix);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ConfigChangedEventType {
             return false;
         }
         ConfigChangedEventType other = (ConfigChangedEventType) obj;
-        return StringUtils.equals(appCode, other.appCode)
+        return StringUtils.equals(appId, other.appId)
                 && StringUtils.equals(prefix, other.prefix);
     }
 }

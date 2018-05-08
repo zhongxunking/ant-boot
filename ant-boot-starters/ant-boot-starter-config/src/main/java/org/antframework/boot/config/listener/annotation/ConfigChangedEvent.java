@@ -16,21 +16,21 @@ import java.util.List;
  * 配置被修改事件
  */
 public class ConfigChangedEvent {
-    // 应用编码
-    private String appCode;
+    // 应用id
+    private String appId;
     // 被修改的属性名前缀
     private String prefix;
     // 被修改的属性
     private List<ChangedProperty> changedProperties;
 
-    public ConfigChangedEvent(String appCode, String prefix, List<ChangedProperty> changedProperties) {
-        this.appCode = appCode;
+    public ConfigChangedEvent(String appId, String prefix, List<ChangedProperty> changedProperties) {
+        this.appId = appId;
         this.prefix = prefix;
         this.changedProperties = changedProperties;
     }
 
-    public String getAppCode() {
-        return appCode;
+    public String getAppId() {
+        return appId;
     }
 
     public String getPrefix() {

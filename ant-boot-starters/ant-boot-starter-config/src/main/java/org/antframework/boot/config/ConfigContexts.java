@@ -34,29 +34,29 @@ public class ConfigContexts {
     /**
      * 获取配置上下文
      *
-     * @param appCode 被查询配置的应用编码
+     * @param appId 被查询配置的应用id
      */
-    public static ConfigContext get(String appCode) {
-        return CACHE.get(appCode);
+    public static ConfigContext get(String appId) {
+        return CACHE.get(appId);
     }
 
     /**
-     * 获取已缓存的应用编码
+     * 获取已缓存的应用id
      */
-    public static Set<String> getAppCodes() {
+    public static Set<String> getAppIds() {
         return CACHE.getAllKeys();
     }
 
     // 构建配置上下文
-    private static ConfigContext buildConfigContext(String queriedAppCode) {
+    private static ConfigContext buildConfigContext(String queriedAppId) {
         ConfigcenterProperties properties = Contexts.buildProperties(ConfigcenterProperties.class);
 
         ConfigContext.InitParams initParams = new ConfigContext.InitParams();
-        initParams.setAppCode(Apps.getAppCode());
-        initParams.setQueriedAppCode(queriedAppCode);
+        initParams.setAppCode(Apps.getAppId());
+        initParams.setQueriedAppCode(queriedAppId);
         initParams.setProfileCode(Contexts.getProfile());
         initParams.setServerUrl(properties.getServerUrl());
-        initParams.setCacheFilePath(Apps.getConfigPath() + File.separator + String.format("configcenter-%s-%s.properties", queriedAppCode, Contexts.getProfile()));
+        initParams.setCacheFilePath(Apps.getConfigPath() + File.separator + String.format("configcenter-%s-%s.properties", queriedAppId, Contexts.getProfile()));
         initParams.setZkUrls(properties.getZkUrls().toArray(new String[0]));
 
         return new ConfigContext(initParams);

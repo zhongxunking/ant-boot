@@ -27,7 +27,7 @@ public class ConfigcenterApplicationListener implements ApplicationListener<Appl
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         // 创建配置上下文属性资源
-        PropertySource propertySource = new ConfigContextPropertySource(ConfigContexts.get(Apps.getAppCode()));
+        PropertySource propertySource = new ConfigContextPropertySource(ConfigContexts.get(Apps.getAppId()));
         // 将属性资源添加到environment中
         event.getEnvironment().getPropertySources().addLast(propertySource);
     }
