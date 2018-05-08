@@ -40,7 +40,7 @@ public class DubboAutoConfiguration {
     @Bean
     public ApplicationConfig applicationConfig() {
         ApplicationConfig applicationConfig = new ApplicationConfig();
-        applicationConfig.setName(Apps.getAppCode());
+        applicationConfig.setName(Apps.getAppId());
         applicationConfig.setOwner(properties.getOwner());
         return applicationConfig;
     }
