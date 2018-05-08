@@ -2,7 +2,7 @@
 
 1. 简介
 
-> spring-boot带来的高效、便捷，让越来越多的公司采用它作为自己的应用框架。spring-boot官方集成了一些常用的第三方工具，但也不是所有都集成（比如dubbo），对于大型互联网公司很重要的配置中心、应用编码这些方案也未直接提供（众口难调，spring-boot也不可能面面俱到）。但是spring-boot提供强大的扩展能力，根据这些能力可以集成spring-boot未集成的第三方工具。但是如果每个系统都自己去集成一遍这些第三方工具，显然是没有必要的。为此本框架继承spring-boot，集成一些常用的工具，并根据具体情况对spring-boot原有的功能进行一些增强。
+> spring-boot带来的高效、便捷，让越来越多的公司采用它作为自己的应用框架。spring-boot官方集成了一些常用的第三方工具，但也不是所有都集成（比如dubbo），对于大型互联网公司很重要的配置中心、应用id这些方案也未直接提供（众口难调，spring-boot也不可能面面俱到）。但是spring-boot提供强大的扩展能力，根据这些能力可以集成spring-boot未集成的第三方工具。但是如果每个系统都自己去集成一遍这些第三方工具，显然是没有必要的。为此本框架继承spring-boot，集成一些常用的工具，并根据具体情况对spring-boot原有的功能进行一些增强。
 
 2. 环境要求：
 
@@ -12,9 +12,9 @@
 > 注意：本框架已经上传到[maven中央库](http://search.maven.org/#search%7Cga%7C1%7Corg.antframework.boot)
 
 ## 1. 核心
-使用ant-boot时，启动类需使用@AntBootApplication（继承自@SpringBootApplication），并设置appCode（应用编码）。在大型互联网公司中系统会有很多，每个系统需要唯一的编码用于区分。[参考](https://github.com/zhongxunking/configcenter/blob/master/configcenter-assemble/src/main/java/org/antframework/configcenter/Main.java)
+使用ant-boot时，启动类需使用@AntBootApplication（继承自@SpringBootApplication），并设置appId（应用id）。在大型互联网公司中系统会有很多，每个系统需要唯一的id用于区分。[参考](https://github.com/zhongxunking/configcenter/blob/master/configcenter-assemble/src/main/java/org/antframework/configcenter/Main.java)
 
-ant-boot会在启动时给应用创建3个目录，分别是存放配置文件的目录、存放应用自己生成的数据文件目录、存放日志文件的目录，这3个目录可通过静态类Apps获取。这三个目录默认是/var/apps/config/${appCode}、/var/apps/data/${appCode}、/var/apps/log/${appCode}。默认的目录可能不满足你的需求，可以分别通过设置以下系统属性自定义这3个目录：app.config-path、app.data-path、app.log-path。请保证应用有权限创建这三个目录。
+ant-boot会在启动时给应用创建3个目录，分别是存放配置文件的目录、存放应用自己生成的数据文件目录、存放日志文件的目录，这3个目录可通过静态类Apps获取。这三个目录默认是/var/apps/config/${appId}、/var/apps/data/${appId}、/var/apps/log/${appId}。默认的目录可能不满足你的需求，可以分别通过设置以下系统属性自定义这3个目录：app.config-path、app.data-path、app.log-path。请保证应用有权限创建这三个目录。
 
 ant-boot会在启动时校验当前jdk版本，如果小于jdk1.8，则会报错，让启动失败；同时如果未设置活动profile（当前环境），也会启动失败。启动阶段会将Spring容器、environment设置到静态类Contexts中，应用如果需要，可以从中获取。
 
@@ -104,11 +104,11 @@ spring-boot原生的集成redis缺少命名空间功能，由于在大型互联�
 自动应用的key格式
 1. 直接使用spring容器获取到的RedisTemplate缓存key格式：
 
-        ${appCode}:你自己定义的key
+        ${appId}:你自己定义的key
 
 2. redis注解式缓存（@Cacheable），缓存key格式：
 
-        ${cacheName}:${appCode}:你自己定义的key
+        ${cacheName}:${appId}:你自己定义的key
 
 当spring的Cache注解的实现是Redis时，本框架提供以“ant.cache.redis.”开头的配置进行配置缓存失效时间。
 
