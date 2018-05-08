@@ -36,8 +36,8 @@ public class RedisNameSpaceAutoConfiguration {
 
     // 定制key序列化器（使其具备命名空间功能）
     private void customKeySerializer(RedisTemplate redisTemplate) {
-        // 命名空间为"${appCode}:"
-        byte[] namespace = (Apps.getAppCode() + ":").getBytes(Charset.forName("utf-8"));
+        // 命名空间为"${appId}:"
+        byte[] namespace = (Apps.getAppId() + ":").getBytes(Charset.forName("utf-8"));
         NameSpaceRedisSerializer keySerializer = new NameSpaceRedisSerializer(namespace, redisTemplate.getKeySerializer());
         redisTemplate.setKeySerializer(keySerializer);
     }
