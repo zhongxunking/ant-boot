@@ -81,15 +81,15 @@ public class ErrorFileLogInitializer implements LogInitializer {
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
         /**
-         * 选填：文件名（默认${appCode}-error.log）
+         * 选填：文件名（默认${appId}-error.log）
          */
         @NotBlank
-        private String fileName = Apps.getAppCode() + "-error.log";
+        private String fileName = Apps.getAppId() + "-error.log";
         /**
-         * 选填：滚动文件名（默认${appCode}-error.log.%d{yyyyMMdd}-%i）
+         * 选填：滚动文件名（默认${appId}-error.log.%d{yyyyMMdd}-%i）
          */
         @NotBlank
-        private String rollingFileName = Apps.getAppCode() + "-error.log.%d{yyyyMMdd}-%i";
+        private String rollingFileName = Apps.getAppId() + "-error.log.%d{yyyyMMdd}-%i";
         /**
          * 选填：单个文件最大容量
          */

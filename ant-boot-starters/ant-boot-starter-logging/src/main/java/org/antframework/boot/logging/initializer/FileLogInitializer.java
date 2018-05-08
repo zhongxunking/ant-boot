@@ -79,15 +79,15 @@ public class FileLogInitializer implements LogInitializer {
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
         /**
-         * 选填：文件名（默认${appCode}.log）
+         * 选填：文件名（默认${appId}.log）
          */
         @NotBlank
-        private String fileName = Apps.getAppCode() + ".log";
+        private String fileName = Apps.getAppId() + ".log";
         /**
-         * 选填：滚动文件名（默认${appCode}.log.%d{yyyyMMdd}-%i）
+         * 选填：滚动文件名（默认${appId}.log.%d{yyyyMMdd}-%i）
          */
         @NotBlank
-        private String rollingFileName = Apps.getAppCode() + ".log.%d{yyyyMMdd}-%i";
+        private String rollingFileName = Apps.getAppId() + ".log.%d{yyyyMMdd}-%i";
         /**
          * 选填：单个文件最大容量
          */
