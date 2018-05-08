@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 public @interface AntBootApplication {
 
     /**
-     * 应用编码
+     * 应用id
      */
-    String appCode();
+    String appId();
 }

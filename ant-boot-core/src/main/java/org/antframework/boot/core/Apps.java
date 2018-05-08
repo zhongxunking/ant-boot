@@ -35,21 +35,21 @@ public final class Apps {
     /**
      * 初始化
      *
-     * @param appCode 应用编码
+     * @param appId 应用id
      */
-    public static void initApp(String appCode) {
+    public static void initApp(String appId) {
         app = new App();
-        app.appCode = appCode;
-        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appCode);
-        app.dataPath = PropertyUtils.getProperty(DATA_PATH_PROPERTY_NAME, "/var/apps/data/" + appCode);
-        app.logPath = PropertyUtils.getProperty(LOG_PATH_PROPERTY_NAME, "/var/apps/log/" + appCode);
+        app.appId = appId;
+        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appId);
+        app.dataPath = PropertyUtils.getProperty(DATA_PATH_PROPERTY_NAME, "/var/apps/data/" + appId);
+        app.logPath = PropertyUtils.getProperty(LOG_PATH_PROPERTY_NAME, "/var/apps/log/" + appId);
     }
 
     /**
-     * 获取应用编码
+     * 获取应用id
      */
-    public static String getAppCode() {
-        return app.appCode;
+    public static String getAppId() {
+        return app.appId;
     }
 
     /**
@@ -84,8 +84,8 @@ public final class Apps {
 
     // 应用
     private static class App {
-        // 应用编码
-        private String appCode;
+        // 应用id
+        private String appId;
         // 配置目录
         private String configPath;
         // 数据目录
