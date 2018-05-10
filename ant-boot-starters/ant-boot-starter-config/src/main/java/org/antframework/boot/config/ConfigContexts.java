@@ -52,9 +52,9 @@ public class ConfigContexts {
         ConfigcenterProperties properties = Contexts.buildProperties(ConfigcenterProperties.class);
 
         ConfigContext.InitParams initParams = new ConfigContext.InitParams();
-        initParams.setAppCode(Apps.getAppId());
-        initParams.setQueriedAppCode(queriedAppId);
-        initParams.setProfileCode(Contexts.getProfile());
+        initParams.setAppId(Apps.getAppId());
+        initParams.setQueriedAppId(queriedAppId);
+        initParams.setProfileId(Contexts.getProfile());
         initParams.setServerUrl(properties.getServerUrl());
         initParams.setCacheFilePath(Apps.getConfigPath() + File.separator + String.format("configcenter-%s-%s.properties", queriedAppId, Contexts.getProfile()));
         initParams.setZkUrls(properties.getZkUrls().toArray(new String[0]));
