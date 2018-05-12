@@ -31,8 +31,8 @@ public class IdsApplicationListener implements ApplicationListener<ApplicationEn
         IdsProperties properties = Contexts.buildProperties(IdsProperties.class);
         String worker = IPUtils.getIPV4() + ":" + event.getEnvironment().getProperty(SERVER_PORT_PROPERTY_NAME, "8080");
         // 设置ids初始化所需要的数据
-        if (properties.getRoomId() != null) {
-            System.setProperty(IdsParams.ROOM_ID_PROPERTY_NAME, properties.getRoomId());
+        if (properties.getIdcId() != null) {
+            System.setProperty(IdsParams.IDC_ID_PROPERTY_NAME, properties.getIdcId());
         }
         System.setProperty(IdsParams.SERVER_URL_PROPERTY_NAME, properties.getServerUrl());
         System.setProperty(IdsParams.HOME_PATH_PROPERTY_NAME, Apps.getConfigPath());

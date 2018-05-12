@@ -25,9 +25,9 @@ public class IdsProperties {
     public static final String PREFIX = "ids";
 
     /**
-     * 选填：机房id（比如：01。如果不存在多个机房这种情况，则不用填）
+     * 选填：数据中心id（比如：01。如果不存在多个数据中心，则不用填）
      */
-    private String roomId;
+    private String idcId;
 
     /**
      * 必填：id中心服务端地址（比如：http://localhost:6210）
@@ -41,12 +41,12 @@ public class IdsProperties {
     @NotEmpty
     private Set<String> zkUrls;
 
-    public String getRoomId() {
-        return roomId;
+    public String getIdcId() {
+        return idcId;
     }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
+    public void setIdcId(String idcId) {
+        this.idcId = idcId;
     }
 
     public String getServerUrl() {
