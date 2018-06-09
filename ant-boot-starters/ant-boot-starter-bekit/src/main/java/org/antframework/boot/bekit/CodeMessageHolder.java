@@ -23,7 +23,7 @@ public final class CodeMessageHolder {
      * 设置结果码、描述
      */
     public static void set(String code, String message) {
-        HOLDER.set(new CodeMessage(code, message));
+        set(new CodeMessage(code, message));
     }
 
     /**
