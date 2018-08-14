@@ -14,11 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.antframework.configcenter</groupId>
-            <artifactId>configcenter-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.bekit</groupId>
-            <artifactId>event</artifactId>
+            <artifactId>configcenter-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

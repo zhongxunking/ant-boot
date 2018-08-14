@@ -8,56 +8,22 @@
  */
 package org.antframework.boot.config.boot;
 
-import org.antframework.boot.config.ConfigContexts;
 import org.antframework.boot.core.Apps;
-import org.antframework.configcenter.client.ConfigContext;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
-import org.springframework.boot.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.env.EnumerablePropertySource;
-import org.springframework.core.env.PropertySource;
 
 /**
- * 配置中心应用监听器（将配置中心加入到environment）
+ * 配置中心应用监听器
  */
-@Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ConfigcenterApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+    // 配置中心缓存目录属性名
+    private static final String CACHE_DIR_PROPERTY_NAME = "configcenter.cache-dir";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        // 创建配置上下文属性资源
-        PropertySource propertySource = new ConfigContextPropertySource(ConfigContexts.get(Apps.getAppId()));
-        // 将属性资源添加到environment中
-        event.getEnvironment().getPropertySources().addLast(propertySource);
-    }
-
-    /**
-     * 配置上下文属性资源
-     */
-    public static class ConfigContextPropertySource extends EnumerablePropertySource<ConfigContext> {
-        /**
-         * 属性资源名称
-         */
-        public static final String PROPERTY_SOURCE_NAME = "configcenter";
-
-        public ConfigContextPropertySource(ConfigContext source) {
-            super(PROPERTY_SOURCE_NAME, source);
-        }
-
-        @Override
-        public boolean containsProperty(String name) {
-            return source.getProperties().contains(name);
-        }
-
-        @Override
-        public String[] getPropertyNames() {
-            return source.getProperties().getPropertyKeys();
-        }
-
-        @Override
-        public Object getProperty(String name) {
-            return source.getProperties().getProperty(name);
-        }
+        System.setProperty(CACHE_DIR_PROPERTY_NAME, Apps.getConfigPath());
     }
 }
