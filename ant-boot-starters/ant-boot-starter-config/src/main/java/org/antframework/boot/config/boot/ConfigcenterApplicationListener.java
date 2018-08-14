@@ -19,11 +19,14 @@ import org.springframework.core.annotation.Order;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ConfigcenterApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+    // 配置中心使用的应用id属性名
+    private static final String APP_ID_PROPERTY_NAME = "configcenter.app-id";
     // 配置中心缓存目录属性名
     private static final String CACHE_DIR_PROPERTY_NAME = "configcenter.cache-dir";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+        System.setProperty(APP_ID_PROPERTY_NAME, Apps.getAppId());
         System.setProperty(CACHE_DIR_PROPERTY_NAME, Apps.getConfigPath());
     }
 }
