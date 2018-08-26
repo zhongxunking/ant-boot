@@ -17,13 +17,8 @@ import java.util.Set;
 /**
  * ids属性
  */
-@ConfigurationProperties(prefix = IdsProperties.PREFIX)
+@ConfigurationProperties("ids")
 public class IdsProperties {
-    /**
-     * 属性前缀
-     */
-    public static final String PREFIX = "ids";
-
     /**
      * 选填：数据中心id（比如：01。如果不存在多个数据中心，则不用填）
      */
