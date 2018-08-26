@@ -6,12 +6,12 @@
     <parent>
         <groupId>org.antframework</groupId>
         <artifactId>ant-parent</artifactId>
-        <version>1.1.0.RELEASE</version>
+        <version>1.2.0.RELEASE</version>
     </parent>
 
     <groupId>org.antframework.boot</groupId>
     <artifactId>ant-boot-starter-parent</artifactId>
-    <version>1.1.0.RELEASE</version>
+    <version>1.2.0.RELEASE</version>
     <packaging>pom</packaging>
 
     <name>ant-boot-starter-parent</name>
@@ -22,42 +22,42 @@
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-bekit</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-config</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-dubbo</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-ids</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-jpa</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-logging</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-redis</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.antframework.common</groupId>
                 <artifactId>ant-common-util</artifactId>
-                <version>1.1.0.RELEASE</version>
+                <version>1.2.0.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
