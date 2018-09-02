@@ -23,7 +23,7 @@ ant-boot会在启动时校验当前jdk版本，如果小于jdk1.8，则会报错
 <parent>
     <groupId>org.antframework.boot</groupId>
     <artifactId>ant-boot-starter-parent</artifactId>
-    <version>1.2.0.RELEASE</version>
+    <version>1.2.1.RELEASE</version>
 </parent>
 ```
 ## 2. 日志
