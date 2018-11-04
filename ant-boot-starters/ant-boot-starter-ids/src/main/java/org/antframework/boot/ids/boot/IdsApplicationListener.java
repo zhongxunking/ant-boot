@@ -38,5 +38,8 @@ public class IdsApplicationListener implements ApplicationListener<ApplicationEn
         System.setProperty(IdsParams.HOME_PATH_PROPERTY_NAME, Apps.getConfigPath());
         System.setProperty(IdsParams.WORKER_PROPERTY_NAME, worker);
         System.setProperty(IdsParams.ZK_URLS_PROPERTY_NAME, StringUtils.join(properties.getZkUrls(), ','));
+        if (properties.getEncryptionSeed() != null) {
+            System.setProperty(IdsParams.ENCRYPTION_SEED, properties.getEncryptionSeed().toString());
+        }
     }
 }

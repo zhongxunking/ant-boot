@@ -36,6 +36,11 @@ public class IdsProperties {
     @NotEmpty
     private Set<String> zkUrls;
 
+    /**
+     * 选填：加密种子（如果不需要对id进行加密，则不用填）
+     */
+    private Long encryptionSeed;
+
     public String getIdcId() {
         return idcId;
     }
@@ -58,5 +63,13 @@ public class IdsProperties {
 
     public void setZkUrls(Set<String> zkUrls) {
         this.zkUrls = zkUrls;
+    }
+
+    public Long getEncryptionSeed() {
+        return encryptionSeed;
+    }
+
+    public void setEncryptionSeed(Long encryptionSeed) {
+        this.encryptionSeed = encryptionSeed;
     }
 }
