@@ -1,2 +1,4 @@
+org.springframework.context.ApplicationListener=\
+  org.antframework.boot.jpa.boot.JpaApplicationListener
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   org.antframework.boot.jpa.boot.AntJpaRepositoriesAutoConfiguration
