@@ -31,12 +31,7 @@ public class DubboReferenceFactory {
     // dubbo服务注册配置
     private List<RegistryConfig> registryConfigs;
     // dubbo服务引用缓存
-    private Cache<CacheKey, ReferenceConfig> cache = new Cache<>(new Cache.Supplier<CacheKey, ReferenceConfig>() {
-        @Override
-        public ReferenceConfig get(CacheKey key) {
-            return buildReferenceConfig(key.interfaceClass, key.group, key.version, key.timeout);
-        }
-    });
+    private Cache<CacheKey, ReferenceConfig> cache = new Cache<>(key -> buildReferenceConfig(key.interfaceClass, key.group, key.version, key.timeout));
 
     public DubboReferenceFactory(ApplicationConfig applicationConfig, List<RegistryConfig> registryConfigs) {
         this.applicationConfig = applicationConfig;

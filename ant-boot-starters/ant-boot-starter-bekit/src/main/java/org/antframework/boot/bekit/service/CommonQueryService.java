@@ -39,12 +39,7 @@ public class CommonQueryService {
     @Autowired
     private ApplicationContext applicationContext;
     // 查询执行器缓存
-    private final Cache<Class, QueryExecutor> queryExecutorsCache = new Cache<>(new Cache.Supplier<Class, QueryExecutor>() {
-        @Override
-        public QueryExecutor get(Class key) {
-            return parseToQueryExecutor(key);
-        }
-    });
+    private final Cache<Class, QueryExecutor> queryExecutorsCache = new Cache<>(this::parseToQueryExecutor);
 
     @ServiceExecute
     public void execute(ServiceContext<AbstractQueryOrder, CommonQueries.CommonQueryResult> context) throws Throwable {

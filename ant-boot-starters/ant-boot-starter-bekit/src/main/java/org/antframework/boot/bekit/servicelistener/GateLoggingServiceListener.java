@@ -32,13 +32,10 @@ public class GateLoggingServiceListener {
     @Autowired
     private ServicesHolder servicesHolder;
     // 服务是否打印出入口日志-缓存
-    private Cache<String, Boolean> cache = new Cache<>(new Cache.Supplier<String, Boolean>() {
-        @Override
-        public Boolean get(String key) {
-            Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
-            Class serviceClass = AopUtils.getTargetClass(service);
-            return AnnotationUtils.findAnnotation(serviceClass, IgnoreGateLogging.class) == null;
-        }
+    private Cache<String, Boolean> cache = new Cache<>(key -> {
+        Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
+        Class serviceClass = AopUtils.getTargetClass(service);
+        return AnnotationUtils.findAnnotation(serviceClass, IgnoreGateLogging.class) == null;
     });
 
     @Listen
