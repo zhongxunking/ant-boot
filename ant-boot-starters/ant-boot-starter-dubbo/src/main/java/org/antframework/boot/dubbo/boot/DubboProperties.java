@@ -8,6 +8,8 @@
  */
 package org.antframework.boot.dubbo.boot;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -17,6 +19,8 @@ import javax.validation.constraints.NotNull;
  * dubbo属性
  */
 @ConfigurationProperties(DubboProperties.PREFIX)
+@Getter
+@Setter
 public class DubboProperties {
     /**
      * 属性前缀
@@ -62,60 +66,4 @@ public class DubboProperties {
      */
     @NotBlank
     private String registryFile = DEFAULT_REGISTRY_FILE;
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public String getRegistryAddress() {
-        return registryAddress;
-    }
-
-    public void setRegistryAddress(String registryAddress) {
-        this.registryAddress = registryAddress;
-    }
-
-    public Integer getProtocolPort() {
-        return protocolPort;
-    }
-
-    public void setProtocolPort(Integer protocolPort) {
-        this.protocolPort = protocolPort;
-    }
-
-    public Integer getProtocolThreads() {
-        return protocolThreads;
-    }
-
-    public void setProtocolThreads(Integer protocolThreads) {
-        this.protocolThreads = protocolThreads;
-    }
-
-    public Integer getProviderTimeout() {
-        return providerTimeout;
-    }
-
-    public void setProviderTimeout(Integer providerTimeout) {
-        this.providerTimeout = providerTimeout;
-    }
-
-    public String getMonitorAddress() {
-        return monitorAddress;
-    }
-
-    public void setMonitorAddress(String monitorAddress) {
-        this.monitorAddress = monitorAddress;
-    }
-
-    public String getRegistryFile() {
-        return registryFile;
-    }
-
-    public void setRegistryFile(String registryFile) {
-        this.registryFile = registryFile;
-    }
 }

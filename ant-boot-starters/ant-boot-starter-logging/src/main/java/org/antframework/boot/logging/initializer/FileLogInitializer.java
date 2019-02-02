@@ -11,6 +11,8 @@ package org.antframework.boot.logging.initializer;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.encoder.Encoder;
 import ch.qos.logback.core.rolling.RollingPolicy;
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.logging.LogInitializer;
@@ -59,6 +61,8 @@ public class FileLogInitializer implements LogInitializer {
      * 日志文件的属性
      */
     @ConfigurationProperties(FileLogProperties.PREFIX)
+    @Getter
+    @Setter
     public static class FileLogProperties {
         /**
          * 属性前缀
@@ -101,61 +105,5 @@ public class FileLogInitializer implements LogInitializer {
          * 选填：日志最大保存容量（默认不限制）
          */
         private String totalSizeCap;
-
-        public boolean isEnable() {
-            return enable;
-        }
-
-        public void setEnable(boolean enable) {
-            this.enable = enable;
-        }
-
-        public String getPattern() {
-            return pattern;
-        }
-
-        public void setPattern(String pattern) {
-            this.pattern = pattern;
-        }
-
-        public String getFileName() {
-            return fileName;
-        }
-
-        public void setFileName(String fileName) {
-            this.fileName = fileName;
-        }
-
-        public String getRollingFileName() {
-            return rollingFileName;
-        }
-
-        public void setRollingFileName(String rollingFileName) {
-            this.rollingFileName = rollingFileName;
-        }
-
-        public String getMaxFileSize() {
-            return maxFileSize;
-        }
-
-        public void setMaxFileSize(String maxFileSize) {
-            this.maxFileSize = maxFileSize;
-        }
-
-        public Integer getMaxHistory() {
-            return maxHistory;
-        }
-
-        public void setMaxHistory(Integer maxHistory) {
-            this.maxHistory = maxHistory;
-        }
-
-        public String getTotalSizeCap() {
-            return totalSizeCap;
-        }
-
-        public void setTotalSizeCap(String totalSizeCap) {
-            this.totalSizeCap = totalSizeCap;
-        }
     }
 }

@@ -11,6 +11,8 @@ package org.antframework.boot.logging.initializer;
 import ch.qos.logback.core.Appender;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.encoder.Encoder;
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.logging.LogInitializer;
 import org.antframework.boot.logging.core.LogContext;
@@ -56,6 +58,8 @@ public class ConsoleLogInitializer implements LogInitializer {
      * 控制台日志属性
      */
     @ConfigurationProperties(ConsoleLogProperties.PREFIX)
+    @Getter
+    @Setter
     public static class ConsoleLogProperties {
         /**
          * 属性前缀
@@ -75,21 +79,5 @@ public class ConsoleLogInitializer implements LogInitializer {
          */
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
-
-        public boolean isEnable() {
-            return enable;
-        }
-
-        public void setEnable(boolean enable) {
-            this.enable = enable;
-        }
-
-        public String getPattern() {
-            return pattern;
-        }
-
-        public void setPattern(String pattern) {
-            this.pattern = pattern;
-        }
     }
 }
