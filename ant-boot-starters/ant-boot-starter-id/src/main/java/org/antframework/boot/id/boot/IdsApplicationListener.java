@@ -6,17 +6,20 @@
  * 修订记录:
  * @author 钟勋 2018-02-05 00:25 创建
  */
-package org.antframework.boot.ids.boot;
+package org.antframework.boot.id.boot;
 
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
 import org.antframework.common.util.other.IPUtils;
+import org.antframework.idcenter.spring.boot.IdcenterProperties;
 import org.antframework.ids.IdsParams;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.annotation.Order;
+
+import java.io.File;
 
 /**
  * ids应用监听器
@@ -32,14 +35,14 @@ public class IdsApplicationListener implements ApplicationListener<ApplicationEn
         String worker = IPUtils.getIPV4() + ":" + event.getEnvironment().getProperty(SERVER_PORT_PROPERTY_NAME, "8080");
         // 设置ids初始化所需要的数据
         if (properties.getIdcId() != null) {
-            System.setProperty(IdsParams.IDC_ID_PROPERTY_NAME, properties.getIdcId());
+            System.setProperty(IdsParams.IDC_ID_KEY, properties.getIdcId());
         }
-        System.setProperty(IdsParams.SERVER_URL_PROPERTY_NAME, properties.getServerUrl());
-        System.setProperty(IdsParams.HOME_PATH_PROPERTY_NAME, Apps.getConfigPath());
-        System.setProperty(IdsParams.WORKER_PROPERTY_NAME, worker);
-        System.setProperty(IdsParams.ZK_URLS_PROPERTY_NAME, StringUtils.join(properties.getZkUrls(), ','));
+        System.setProperty(IdsParams.IDCENTER_URL_KEY, IdcenterProperties.INSTANCE.getServerUrl());
+        System.setProperty(IdsParams.HOME_PATH_KEY, Apps.getConfigPath() + File.separator + "ids");
+        System.setProperty(IdsParams.WORKER_KEY, worker);
+        System.setProperty(IdsParams.ZK_URLS_KEY, StringUtils.join(properties.getZkUrls(), ','));
         if (properties.getEncryptionSeed() != null) {
-            System.setProperty(IdsParams.ENCRYPTION_SEED, properties.getEncryptionSeed().toString());
+            System.setProperty(IdsParams.ENCRYPTION_SEED_KEY, properties.getEncryptionSeed().toString());
         }
     }
 }

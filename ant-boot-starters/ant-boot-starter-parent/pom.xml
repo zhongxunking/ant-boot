@@ -36,7 +36,7 @@
             </dependency>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
-                <artifactId>ant-boot-starter-ids</artifactId>
+                <artifactId>ant-boot-starter-id</artifactId>
                 <version>1.2.2.RELEASE</version>
             </dependency>
             <dependency>

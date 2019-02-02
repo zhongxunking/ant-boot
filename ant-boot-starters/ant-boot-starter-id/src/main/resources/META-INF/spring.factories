@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationListener=\
+  org.antframework.boot.id.boot.IdsApplicationListener
