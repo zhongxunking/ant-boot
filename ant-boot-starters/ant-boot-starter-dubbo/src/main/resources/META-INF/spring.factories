@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.antframework.boot.dubbo.boot.DubboAutoConfiguration
