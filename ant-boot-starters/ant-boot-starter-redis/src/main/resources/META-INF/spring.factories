@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.antframework.boot.redis.boot.RedisNameSpaceAutoConfiguration,\
-  org.antframework.boot.redis.boot.RedisCacheManagerCustomizer

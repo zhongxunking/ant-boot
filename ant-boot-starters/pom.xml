@@ -19,7 +19,6 @@
         <module>ant-boot-starter-jpa</module>
         <module>ant-boot-starter-logging</module>
         <module>ant-boot-starter-parent</module>
-        <module>ant-boot-starter-redis</module>
     </modules>
 
     <dependencies>

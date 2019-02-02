@@ -50,11 +50,6 @@
                 <version>1.2.2.RELEASE</version>
             </dependency>
             <dependency>
-                <groupId>org.antframework.boot</groupId>
-                <artifactId>ant-boot-starter-redis</artifactId>
-                <version>1.2.2.RELEASE</version>
-            </dependency>
-            <dependency>
                 <groupId>org.antframework.common</groupId>
                 <artifactId>ant-common-util</artifactId>
                 <version>1.2.1.RELEASE</version>
