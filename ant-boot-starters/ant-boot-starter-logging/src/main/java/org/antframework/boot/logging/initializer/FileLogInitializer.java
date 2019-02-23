@@ -20,6 +20,7 @@ import org.antframework.boot.logging.core.LogContext;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
+import org.springframework.validation.annotation.Validated;
 
 import java.io.File;
 
@@ -61,6 +62,7 @@ public class FileLogInitializer implements LogInitializer {
      * 日志文件的属性
      */
     @ConfigurationProperties(FileLogProperties.PREFIX)
+    @Validated
     @Getter
     @Setter
     public static class FileLogProperties {

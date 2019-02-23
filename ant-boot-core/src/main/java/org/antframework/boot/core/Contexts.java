@@ -12,6 +12,7 @@ import org.antframework.boot.core.util.PropertiesBinder;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 
@@ -70,7 +71,11 @@ public final class Contexts {
      * 获取当前环境
      */
     public static String getProfile() {
-        return getEnvironment().getActiveProfiles()[0];
+        String[] profiles = getEnvironment().getActiveProfiles();
+        if (profiles.length != 1) {
+            throw new IllegalStateException(String.format("当前环境[%s]必须设置，且必须为一个", AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME));
+        }
+        return profiles[0];
     }
 
     /**

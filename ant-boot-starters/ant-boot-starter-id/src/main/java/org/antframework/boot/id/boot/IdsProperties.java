@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import java.util.Set;
  * ids配置
  */
 @ConfigurationProperties("ids")
+@Validated
 @Getter
 @Setter
 public class IdsProperties {

@@ -19,6 +19,7 @@ import org.antframework.boot.logging.core.LogContext;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * 控制台日志初始化器
@@ -58,6 +59,7 @@ public class ConsoleLogInitializer implements LogInitializer {
      * 控制台日志属性
      */
     @ConfigurationProperties(ConsoleLogProperties.PREFIX)
+    @Validated
     @Getter
     @Setter
     public static class ConsoleLogProperties {
