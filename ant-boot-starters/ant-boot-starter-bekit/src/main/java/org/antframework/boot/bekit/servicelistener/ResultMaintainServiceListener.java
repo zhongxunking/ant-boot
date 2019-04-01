@@ -8,10 +8,7 @@
  */
 package org.antframework.boot.bekit.servicelistener;
 
-import org.antframework.common.util.facade.AbstractResult;
-import org.antframework.common.util.facade.BizException;
-import org.antframework.common.util.facade.CommonResultCode;
-import org.antframework.common.util.facade.Status;
+import org.antframework.common.util.facade.*;
 import org.bekit.event.annotation.Listen;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
@@ -27,7 +24,7 @@ public class ResultMaintainServiceListener {
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         Object result = event.getServiceContext().getResult();
         if (result instanceof AbstractResult) {
-            initResult((AbstractResult) result);
+            FacadeUtils.initSuccess((AbstractResult) result);
         }
     }
 
@@ -42,13 +39,6 @@ public class ResultMaintainServiceListener {
                 setResultByUnknownException((AbstractResult) result, throwable);
             }
         }
-    }
-
-    // 初始化result
-    private void initResult(AbstractResult result) {
-        result.setStatus(Status.SUCCESS);
-        result.setCode(CommonResultCode.SUCCESS.getCode());
-        result.setMessage(CommonResultCode.SUCCESS.getMessage());
     }
 
     // 依据BizException设置result
