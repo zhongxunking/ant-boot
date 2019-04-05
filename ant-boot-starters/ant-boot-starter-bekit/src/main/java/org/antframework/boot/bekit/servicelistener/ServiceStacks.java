@@ -36,6 +36,13 @@ public final class ServiceStacks {
     }
 
     /**
+     * 获取服务栈深度
+     */
+    public static int getDepth() {
+        return STACK_HOLDER.get().size();
+    }
+
+    /**
      * 获取栈头
      */
     public static Map<Object, Object> peek() {

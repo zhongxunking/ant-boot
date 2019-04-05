@@ -26,7 +26,7 @@ public class BekitAutoConfiguration {
     @Configuration
     @Import({ServiceStackServiceListener.class,
             HolderMaintainServiceListener.class,
-            GateLoggingServiceListener.class,
+            GateLogger.class,
             ResultMaintainServiceListener.class,
             OrderValidateServiceListener.class})
     public static class ServiceListenerConfiguration {
