@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 public class BekitAutoConfiguration {
-
     /**
      * 服务监听器配置类
      */

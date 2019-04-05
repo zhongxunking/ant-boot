@@ -20,7 +20,6 @@ import org.springframework.core.annotation.Order;
  */
 @Order(0)
 public class LevelLogInitializer implements LogInitializer {
-
     @Override
     public void initialize(LogContext logContext) {
         LogbackConfigurator config = logContext.getConfigurator();

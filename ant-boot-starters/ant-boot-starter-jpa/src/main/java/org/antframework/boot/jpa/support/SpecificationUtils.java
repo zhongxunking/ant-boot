@@ -12,7 +12,10 @@ import org.antframework.common.util.query.QueryParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,18 +37,15 @@ public class SpecificationUtils {
      * @return 解析出的Specification
      */
     public static <T> Specification<T> parse(Collection<QueryParam> queryParams) {
-        return new Specification<T>() {
-            @Override
-            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
-                for (QueryParam queryParam : queryParams) {
-                    Path<String> path = getPath(root, queryParam.getAttrName());
-                    Predicate predicate = buildPredicate(cb, path, queryParam);
-                    predicates.add(predicate);
-                }
-
-                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            for (QueryParam queryParam : queryParams) {
+                Path<String> path = getPath(root, queryParam.getAttrName());
+                Predicate predicate = buildPredicate(cb, path, queryParam);
+                predicates.add(predicate);
             }
+
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
 

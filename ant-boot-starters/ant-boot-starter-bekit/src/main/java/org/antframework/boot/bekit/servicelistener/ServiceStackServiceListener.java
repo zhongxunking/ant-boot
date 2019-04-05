@@ -18,7 +18,6 @@ import org.bekit.service.event.ServiceFinishEvent;
  */
 @ServiceListener(priority = 0)
 public class ServiceStackServiceListener {
-
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         ServiceStacks.push();

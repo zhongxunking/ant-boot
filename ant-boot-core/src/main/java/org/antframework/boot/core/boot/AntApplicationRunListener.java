@@ -31,10 +31,12 @@ import org.springframework.util.Assert;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class AntApplicationRunListener implements SpringApplicationRunListener {
-    // 应用名属性名
-    private static final String APPLICATION_NAME_PROPERTY_NAME = "spring.application.name";
+    // 应用名的key
+    private static final String APPLICATION_NAME_KEY = "spring.application.name";
 
+    // spring应用
     private SpringApplication springApplication;
+    // 应用启动参数
     private ApplicationArguments arguments;
 
     public AntApplicationRunListener(SpringApplication springApplication, String[] args) {
@@ -94,6 +96,6 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
             FileUtils.createDirIfAbsent(dirPath);
         }
         // 向系统属性设置应用名
-        System.setProperty(APPLICATION_NAME_PROPERTY_NAME, Apps.getAppId());
+        System.setProperty(APPLICATION_NAME_KEY, Apps.getAppId());
     }
 }

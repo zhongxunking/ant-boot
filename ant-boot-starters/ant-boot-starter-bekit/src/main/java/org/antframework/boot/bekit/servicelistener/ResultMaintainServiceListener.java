@@ -19,7 +19,6 @@ import org.bekit.service.event.ServiceExceptionEvent;
  */
 @ServiceListener(priority = 30)
 public class ResultMaintainServiceListener {
-
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         Object result = event.getServiceContext().getResult();

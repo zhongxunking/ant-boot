@@ -20,7 +20,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootApplication
 public @interface AntBootApplication {
-
     /**
      * 应用id
      */

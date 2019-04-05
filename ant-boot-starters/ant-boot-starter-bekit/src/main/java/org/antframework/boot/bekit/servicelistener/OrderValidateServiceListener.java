@@ -21,7 +21,6 @@ import org.bekit.service.event.ServiceApplyEvent;
  */
 @ServiceListener(priority = 40)
 public class OrderValidateServiceListener {
-
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         Object order = event.getServiceContext().getOrder();

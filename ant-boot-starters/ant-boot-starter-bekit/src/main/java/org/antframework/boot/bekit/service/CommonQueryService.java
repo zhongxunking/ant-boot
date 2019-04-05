@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.bekit.service;
 
+import lombok.AllArgsConstructor;
 import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.boot.jpa.QueryRepository;
 import org.antframework.common.util.facade.AbstractQueryOrder;
@@ -18,7 +19,6 @@ import org.antframework.common.util.query.annotation.QueryParams;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.annotation.service.ServiceExecute;
 import org.bekit.service.engine.ServiceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
 import org.springframework.data.domain.Page;
@@ -35,11 +35,12 @@ import java.util.Collection;
  * 通用查询服务
  */
 @Service
+@AllArgsConstructor
 public class CommonQueryService {
-    @Autowired
-    private ApplicationContext applicationContext;
     // 查询执行器缓存
     private final Cache<Class, QueryExecutor> queryExecutorsCache = new Cache<>(this::parseToQueryExecutor);
+    // 应用上下文
+    private final ApplicationContext applicationContext;
 
     @ServiceExecute
     public void execute(ServiceContext<AbstractQueryOrder, CommonQueries.CommonQueryResult> context) throws Throwable {
@@ -74,26 +75,15 @@ public class CommonQueryService {
     }
 
     // 查询执行器
+    @AllArgsConstructor
     private static class QueryExecutor {
         // dao对象
-        private Object dao;
+        private final Object dao;
         // 查询方法
-        private Method queryMethod;
+        private final Method queryMethod;
 
-        public QueryExecutor(Object dao, Method queryMethod) {
-            this.dao = dao;
-            this.queryMethod = queryMethod;
-        }
-
-        /**
-         * 执行
-         *
-         * @param queryParams 查询参数
-         * @param pageable    分页信息
-         * @return 查询结果
-         * @throws Throwable 如果执行中发生任何异常
-         */
-        public Page execute(Collection<QueryParam> queryParams, Pageable pageable) throws Throwable {
+        // 执行
+        Page execute(Collection<QueryParam> queryParams, Pageable pageable) throws Throwable {
             try {
                 return (Page) queryMethod.invoke(dao, new Object[]{queryParams, pageable});
             } catch (InvocationTargetException e) {

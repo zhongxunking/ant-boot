@@ -9,34 +9,24 @@
 package org.antframework.boot.logging.core;
 
 import ch.qos.logback.classic.LoggerContext;
+import lombok.Getter;
 import org.springframework.core.env.Environment;
 
 /**
  * 日志上下文
  */
+@Getter
 public class LogContext {
     // logback的logger上下文
-    private LoggerContext context;
+    private final LoggerContext context;
     // spring环境
-    private Environment environment;
+    private final Environment environment;
     // 易用的logback配置器
-    private LogbackConfigurator configurator;
+    private final LogbackConfigurator configurator;
 
     public LogContext(LoggerContext context, Environment environment) {
         this.context = context;
         this.environment = environment;
         this.configurator = new LogbackConfigurator(context);
-    }
-
-    public LoggerContext getContext() {
-        return context;
-    }
-
-    public Environment getEnvironment() {
-        return environment;
-    }
-
-    public LogbackConfigurator getConfigurator() {
-        return configurator;
     }
 }

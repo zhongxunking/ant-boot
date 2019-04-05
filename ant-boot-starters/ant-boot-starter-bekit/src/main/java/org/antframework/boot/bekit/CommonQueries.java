@@ -8,6 +8,8 @@
  */
 package org.antframework.boot.bekit;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.boot.bekit.service.CommonQueryService;
 import org.antframework.common.util.facade.AbstractQueryResult;
 import org.antframework.common.util.facade.AbstractResult;
@@ -38,13 +40,11 @@ public final class CommonQueries {
     /**
      * 通用查询结果
      */
+    @Getter
+    @Setter
     public static final class CommonQueryResult extends AbstractResult {
         // 页面提取器
         private FacadeUtils.PageExtractor pageExtractor;
-
-        public void setPageExtractor(FacadeUtils.PageExtractor pageExtractor) {
-            this.pageExtractor = pageExtractor;
-        }
 
         /**
          * 转换为指定的目标类型

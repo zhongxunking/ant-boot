@@ -14,7 +14,6 @@ import org.antframework.boot.logging.core.LogContext;
  * 日志初始化器（实现类必须具有默认构造函数）
  */
 public interface LogInitializer {
-
     /**
      * 初始化
      *

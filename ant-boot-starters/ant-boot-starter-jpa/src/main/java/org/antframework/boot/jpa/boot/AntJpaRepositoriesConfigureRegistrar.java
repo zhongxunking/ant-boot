@@ -22,7 +22,6 @@ import java.lang.annotation.Annotation;
  * 参考：org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfigureRegistrar
  */
 public class AntJpaRepositoriesConfigureRegistrar extends AbstractRepositoryConfigurationSourceSupport {
-
     @Override
     protected Class<? extends Annotation> getAnnotation() {
         return EnableJpaRepositories.class;

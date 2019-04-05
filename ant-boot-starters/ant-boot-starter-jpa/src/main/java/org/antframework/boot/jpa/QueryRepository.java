@@ -24,7 +24,6 @@ import java.util.List;
  */
 @NoRepositoryBean
 public interface QueryRepository<T, ID extends Serializable> extends Repository<T, ID> {
-
     /**
      * 分页查询
      *

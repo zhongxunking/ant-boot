@@ -25,7 +25,6 @@ import java.nio.charset.Charset;
  * 日志工具
  */
 public class LogUtils {
-
     /**
      * 构建格式化器
      *

@@ -19,7 +19,6 @@ import org.bekit.service.event.ServiceFinishEvent;
  */
 @ServiceListener(priority = 10)
 public class HolderMaintainServiceListener {
-
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
         // 入栈结果码、描述

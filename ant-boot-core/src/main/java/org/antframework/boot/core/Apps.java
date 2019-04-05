@@ -17,17 +17,17 @@ import org.springframework.core.env.AbstractEnvironment;
  */
 public final class Apps {
     /**
-     * 配置目录属性名
+     * 配置目录的key
      */
-    public static final String CONFIG_PATH_PROPERTY_NAME = "app.config-path";
+    public static final String CONFIG_PATH_KEY = "app.config-path";
     /**
-     * 数据目录属性名
+     * 数据目录的key
      */
-    public static final String DATA_PATH_PROPERTY_NAME = "app.data-path";
+    public static final String DATA_PATH_KEY = "app.data-path";
     /**
-     * 日志目录属性名
+     * 日志目录的key
      */
-    public static final String LOG_PATH_PROPERTY_NAME = "app.log-path";
+    public static final String LOG_PATH_KEY = "app.log-path";
 
     // 应用
     private static App app;
@@ -40,9 +40,9 @@ public final class Apps {
     public static void initApp(String appId) {
         app = new App();
         app.appId = appId;
-        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_PROPERTY_NAME, "/var/apps/config/" + appId);
-        app.dataPath = PropertyUtils.getProperty(DATA_PATH_PROPERTY_NAME, "/var/apps/data/" + appId);
-        app.logPath = PropertyUtils.getProperty(LOG_PATH_PROPERTY_NAME, "/var/apps/log/" + appId);
+        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_KEY, "/var/apps/config/" + appId);
+        app.dataPath = PropertyUtils.getProperty(DATA_PATH_KEY, "/var/apps/data/" + appId);
+        app.logPath = PropertyUtils.getProperty(LOG_PATH_KEY, "/var/apps/log/" + appId);
     }
 
     /**

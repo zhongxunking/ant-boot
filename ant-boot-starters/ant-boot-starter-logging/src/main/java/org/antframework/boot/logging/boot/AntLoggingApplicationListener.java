@@ -9,7 +9,6 @@
 package org.antframework.boot.logging.boot;
 
 import org.antframework.boot.logging.core.AntLogbackLoggingSystem;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.boot.logging.LoggingApplicationListener;
 import org.springframework.boot.logging.LoggingSystem;
@@ -21,11 +20,10 @@ import org.springframework.core.annotation.Order;
  */
 @Order(LoggingApplicationListener.DEFAULT_ORDER - 1)
 public class AntLoggingApplicationListener implements ApplicationListener<ApplicationStartingEvent> {
-
     @Override
     public void onApplicationEvent(ApplicationStartingEvent event) {
         String loggingSystem = System.getProperty(LoggingSystem.SYSTEM_PROPERTY);
-        if (StringUtils.isBlank(loggingSystem)) {
+        if (loggingSystem == null) {
             // 如果未设置过日志系统，则设置ant-boot日志系统
             System.setProperty(LoggingSystem.SYSTEM_PROPERTY, AntLogbackLoggingSystem.class.getName());
         }

@@ -8,6 +8,8 @@
  */
 package org.antframework.boot.bekit;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.facade.CommonResultCode;
 import org.antframework.common.util.facade.Status;
@@ -68,23 +70,12 @@ public final class CodeMessageHolder {
     /**
      * 结果码、描述
      */
+    @AllArgsConstructor
+    @Getter
     public static final class CodeMessage {
         // 结果码
         private final String code;
         // 描述
         private final String message;
-
-        public CodeMessage(String code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
     }
 }

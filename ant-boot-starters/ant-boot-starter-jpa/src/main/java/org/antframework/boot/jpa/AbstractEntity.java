@@ -8,6 +8,8 @@
  */
 package org.antframework.boot.jpa;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antframework.common.util.tostring.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,13 +18,16 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 抽象实体
  */
 @MappedSuperclass
-public abstract class AbstractEntity {
+@Getter
+@Setter
+public abstract class AbstractEntity implements Serializable {
     // id主键
     @Id
     @GeneratedValue
@@ -38,30 +43,6 @@ public abstract class AbstractEntity {
     @UpdateTimestamp
     @Column
     private Date updateTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     @Override
     public String toString() {
