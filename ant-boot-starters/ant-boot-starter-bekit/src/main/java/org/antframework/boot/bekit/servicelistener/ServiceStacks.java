@@ -12,19 +12,13 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * 服务栈操作类
  */
 public final class ServiceStacks {
     // 服务栈持有器
-    private static final ThreadLocal<Deque<Map>> STACK_HOLDER = ThreadLocal.withInitial(new Supplier<Deque<Map>>() {
-        @Override
-        public Deque<Map> get() {
-            return new LinkedList<>();
-        }
-    });
+    private static final ThreadLocal<Deque<Map>> STACK_HOLDER = ThreadLocal.withInitial(LinkedList::new);
 
     // 压入新栈头
     static void push() {
