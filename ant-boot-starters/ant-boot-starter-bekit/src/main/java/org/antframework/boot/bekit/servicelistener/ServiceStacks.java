@@ -18,17 +18,17 @@ import java.util.Map;
  */
 public final class ServiceStacks {
     // 服务栈持有器
-    private static final ThreadLocal<Deque<Map>> STACK_HOLDER = ThreadLocal.withInitial(LinkedList::new);
+    private static final ThreadLocal<Deque<Map<Object, Object>>> STACK_HOLDER = ThreadLocal.withInitial(LinkedList::new);
 
     // 压入新栈头
     static void push() {
-        STACK_HOLDER.get().push(new HashMap());
+        STACK_HOLDER.get().push(new HashMap<>());
     }
 
     // 弹出栈头
     static Map<Object, Object> pop() {
-        Deque<Map> stack = STACK_HOLDER.get();
-        Map node = stack.pop();
+        Deque<Map<Object, Object>> stack = STACK_HOLDER.get();
+        Map<Object, Object> node = stack.pop();
         if (stack.isEmpty()) {
             STACK_HOLDER.remove();
         }
