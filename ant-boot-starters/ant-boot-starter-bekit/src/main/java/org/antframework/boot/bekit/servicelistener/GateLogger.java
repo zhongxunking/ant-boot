@@ -84,7 +84,7 @@ public class GateLogger {
         }
     }
 
-    // 是否打印info级别日志
+    // 日志级别是否为info
     private boolean isInfoLevel(String service) {
         return ServiceStacks.getDepth() <= 1 || enableTxCache.get(service);
     }
