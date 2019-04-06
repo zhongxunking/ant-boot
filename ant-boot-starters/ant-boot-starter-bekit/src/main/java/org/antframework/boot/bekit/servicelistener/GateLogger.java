@@ -23,6 +23,8 @@ import org.bekit.service.service.ServicesHolder;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
+import java.util.function.Function;
+
 /**
  * 出入口日志打印器
  */
@@ -30,20 +32,26 @@ import org.springframework.core.annotation.AnnotationUtils;
 @AllArgsConstructor
 @Slf4j
 public class GateLogger {
-    // 服务持有器
-    private ServicesHolder servicesHolder;
     // 服务是否打印出入口日志-缓存
-    private final Cache<String, Boolean> ignoreLoggingCache = new Cache<>(key -> {
-        Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
-        Class serviceClass = AopUtils.getTargetClass(service);
-        return AnnotationUtils.findAnnotation(serviceClass, IgnoreGateLogging.class) != null;
+    private final Cache<String, Boolean> ignoreLoggingCache = new Cache<>(new Function<String, Boolean>() {
+        @Override
+        public Boolean apply(String key) {
+            Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
+            Class serviceClass = AopUtils.getTargetClass(service);
+            return AnnotationUtils.findAnnotation(serviceClass, IgnoreGateLogging.class) != null;
+        }
     });
     // 服务是否开启事务-缓存
-    private final Cache<String, Boolean> enableTxCache = new Cache<>(key -> {
-        Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
-        Class serviceClass = AopUtils.getTargetClass(service);
-        return AnnotationUtils.findAnnotation(serviceClass, Service.class).enableTx();
+    private final Cache<String, Boolean> enableTxCache = new Cache<>(new Function<String, Boolean>() {
+        @Override
+        public Boolean apply(String key) {
+            Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
+            Class serviceClass = AopUtils.getTargetClass(service);
+            return AnnotationUtils.findAnnotation(serviceClass, Service.class).enableTx();
+        }
     });
+    // 服务持有器
+    private final ServicesHolder servicesHolder;
 
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
