@@ -40,9 +40,9 @@ public final class Apps {
     public static void initApp(String appId) {
         app = new App();
         app.appId = appId;
-        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_KEY, "/var/apps/config/" + appId);
-        app.dataPath = PropertyUtils.getProperty(DATA_PATH_KEY, "/var/apps/data/" + appId);
-        app.logPath = PropertyUtils.getProperty(LOG_PATH_KEY, "/var/apps/log/" + appId);
+        app.configPath = PropertyUtils.getProperty(CONFIG_PATH_KEY, String.format("/var/apps/%s/config", appId));
+        app.dataPath = PropertyUtils.getProperty(DATA_PATH_KEY, String.format("/var/apps/%s/data", appId));
+        app.logPath = PropertyUtils.getProperty(LOG_PATH_KEY, String.format("/var/apps/%s/log", appId));
     }
 
     /**
