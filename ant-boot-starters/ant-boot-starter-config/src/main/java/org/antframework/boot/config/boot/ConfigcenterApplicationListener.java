@@ -22,9 +22,9 @@ import java.io.File;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ConfigcenterApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     // 配置中心使用的应用id--key
-    private static final String APP_ID_KEY = "configcenter.app-id";
+    private static final String APP_ID_KEY = "configcenter.appId";
     // 配置中心缓存目录key
-    private static final String CACHE_DIR_KEY = "configcenter.cache-dir-path";
+    private static final String CACHE_DIR_KEY = "configcenter.cacheDirPath";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
