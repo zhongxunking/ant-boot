@@ -70,8 +70,15 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
     }
 
     @Override
-    public void finished(ConfigurableApplicationContext context, Throwable exception) {
+    public void started(ConfigurableApplicationContext context) {
+    }
 
+    @Override
+    public void running(ConfigurableApplicationContext context) {
+    }
+
+    @Override
+    public void failed(ConfigurableApplicationContext context, Throwable exception) {
     }
 
     // 初始化App
