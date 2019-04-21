@@ -1,40 +1,51 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
 /*
  * 修订记录:
- * @author 钟勋 2017-10-21 12:13 创建
+ * @author 钟勋 2019-04-21 22:19 创建
  */
 package org.antframework.boot.core.util;
 
-import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.boot.bind.PropertiesConfigurationFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.bind.BindHandler;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
+import org.springframework.boot.context.properties.bind.handler.IgnoreErrorsBindHandler;
+import org.springframework.boot.context.properties.bind.handler.IgnoreTopLevelConverterNotFoundBindHandler;
+import org.springframework.boot.context.properties.bind.handler.NoUnboundElementsBindHandler;
+import org.springframework.boot.context.properties.bind.validation.ValidationBindHandler;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
+import org.springframework.boot.context.properties.source.UnboundElementsSourceFilter;
 import org.springframework.cglib.core.ReflectUtils;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.env.PropertySources;
-import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
  * 属性绑定器
  */
-@AllArgsConstructor
 public class PropertiesBinder {
     // 校验器
-    private static final Validator VALIDATOR = new OptionalValidatorFactoryBean() {{
-        afterPropertiesSet();
-    }};
-    // 转换器
-    private static final ConversionService CONVERSION_SERVICE = new DefaultConversionService();
+    private static final Validator VALIDATOR;
 
-    // 属性资源
-    private final PropertySources propertySources;
+    static {
+        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+        validator.afterPropertiesSet();
+        VALIDATOR = validator;
+    }
+
+    // 绑定器
+    private final Binder binder;
+
+    public PropertiesBinder(PropertySources propertySources) {
+        binder = new Binder(ConfigurationPropertySources.from(propertySources),
+                new PropertySourcesPlaceholdersResolver(propertySources));
+    }
 
     /**
      * 构建属性对象
@@ -46,7 +57,7 @@ public class PropertiesBinder {
         T target = (T) ReflectUtils.newInstance(targetClass);
         ConfigurationProperties annotation = AnnotatedElementUtils.findMergedAnnotation(targetClass, ConfigurationProperties.class);
         if (annotation != null) {
-            bind(target, annotation.prefix(), annotation.ignoreInvalidFields(), annotation.ignoreNestedProperties(), annotation.ignoreUnknownFields());
+            bind(target, annotation.prefix(), annotation.ignoreInvalidFields(), annotation.ignoreUnknownFields());
         } else {
             bind(target, null);
         }
@@ -60,32 +71,40 @@ public class PropertiesBinder {
      * @param prefix 属性前缀
      */
     public void bind(Object target, String prefix) {
-        bind(target, prefix, false, false, true);
+        bind(target, prefix, false, true);
     }
 
     /**
      * 绑定属性
      *
-     * @param target                 目标对象
-     * @param prefix                 属性前缀
-     * @param ignoreInvalidFields    是否忽略类型不匹配的字段
-     * @param ignoreNestedProperties 是否忽略内嵌型的属性
-     * @param ignoreUnknownFields    是否忽略未知字段
+     * @param target              目标对象
+     * @param prefix              属性前缀
+     * @param ignoreInvalidFields 是否忽略无效的字段
+     * @param ignoreUnknownFields 是否忽略未知字段
      */
-    public void bind(Object target, String prefix, boolean ignoreInvalidFields, boolean ignoreNestedProperties, boolean ignoreUnknownFields) {
-        PropertiesConfigurationFactory factory = new PropertiesConfigurationFactory(target);
-        factory.setPropertySources(propertySources);
-        factory.setValidator(VALIDATOR);
-        factory.setConversionService(CONVERSION_SERVICE);
-        factory.setTargetName(prefix);
-        factory.setIgnoreInvalidFields(ignoreInvalidFields);
-        factory.setIgnoreNestedProperties(ignoreNestedProperties);
-        factory.setIgnoreUnknownFields(ignoreUnknownFields);
-
-        try {
-            factory.bindPropertiesToTarget();
-        } catch (BindException e) {
-            ExceptionUtils.rethrow(e);
+    public void bind(Object target, String prefix, boolean ignoreInvalidFields, boolean ignoreUnknownFields) {
+        Validated annotation = AnnotatedElementUtils.findMergedAnnotation(target.getClass(), Validated.class);
+        Bindable bindable = Bindable.ofInstance(target);
+        if (annotation != null) {
+            bindable = bindable.withAnnotations(annotation);
         }
+        BindHandler handler = buildBindHandler(ignoreInvalidFields, ignoreUnknownFields, annotation != null);
+        binder.bind(prefix, bindable, handler);
+    }
+
+    // 构建绑定处理器
+    private BindHandler buildBindHandler(boolean ignoreInvalidFields, boolean ignoreUnknownFields, boolean validate) {
+        BindHandler handler = new IgnoreTopLevelConverterNotFoundBindHandler();
+        if (ignoreInvalidFields) {
+            handler = new IgnoreErrorsBindHandler(handler);
+        }
+        if (!ignoreUnknownFields) {
+            UnboundElementsSourceFilter filter = new UnboundElementsSourceFilter();
+            handler = new NoUnboundElementsBindHandler(handler, filter);
+        }
+        if (validate) {
+            handler = new ValidationBindHandler(handler, VALIDATOR);
+        }
+        return handler;
     }
 }
