@@ -8,16 +8,16 @@
  */
 package org.antframework.boot.logging;
 
-import org.antframework.boot.logging.core.LogContext;
+import org.antframework.boot.logging.core.LoggingContext;
 
 /**
  * 日志初始化器（实现类必须具有默认构造函数）
  */
-public interface LogInitializer {
+public interface LoggingInitializer {
     /**
      * 初始化
      *
-     * @param logContext 日志上下文
+     * @param context 日志上下文
      */
-    void initialize(LogContext logContext);
+    void init(LoggingContext context);
 }

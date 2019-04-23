@@ -15,33 +15,33 @@ import lombok.Getter;
 import lombok.Setter;
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
-import org.antframework.boot.logging.LogInitializer;
-import org.antframework.boot.logging.core.LogContext;
-import org.hibernate.validator.constraints.NotBlank;
+import org.antframework.boot.logging.LoggingInitializer;
+import org.antframework.boot.logging.core.LoggingContext;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotBlank;
 import java.io.File;
 
 /**
  * 日志文件初始化器
  */
-@Order(1)
-public class FileLogInitializer implements LogInitializer {
+@Order(10)
+public class FileAppenderInitializer implements LoggingInitializer {
     /**
      * appender名称
      */
     public static final String APPENDER_NAME = "file";
 
     @Override
-    public void initialize(LogContext logContext) {
-        FileLogProperties properties = Contexts.buildProperties(FileLogProperties.class);
+    public void init(LoggingContext context) {
+        FileAppenderProperties properties = Contexts.buildProperties(FileAppenderProperties.class);
         if (!properties.isEnable()) {
             return;
         }
         // 构建格式化器
-        Encoder encoder = LogUtils.buildEncoder(logContext, properties.getPattern());
+        Encoder encoder = LogUtils.buildEncoder(context, properties.getPattern());
         // 构建滚动策略
         RollingPolicy policy = LogUtils.buildSizeAndTimeBasedRollingPolicy(
                 Apps.getLogPath() + File.separator + properties.getRollingFileName(),
@@ -49,27 +49,23 @@ public class FileLogInitializer implements LogInitializer {
                 properties.getMaxHistory(),
                 properties.getTotalSizeCap());
         // 构建appender
-        Appender appender = LogUtils.buildRollingFileAppender(logContext,
+        Appender appender = LogUtils.buildRollingFileAppender(context,
                 APPENDER_NAME,
                 encoder,
                 Apps.getLogPath() + File.separator + properties.getFileName(),
                 policy);
-        // 将在appender配置到root下
-        logContext.getConfigurator().root(null, appender);
+        // 将appender配置到root下
+        context.getConfigurator().root(null, appender);
     }
 
     /**
-     * 日志文件的属性
+     * 日志文件的配置
      */
-    @ConfigurationProperties(FileLogProperties.PREFIX)
+    @ConfigurationProperties("ant.logging.file")
     @Validated
     @Getter
     @Setter
-    public static class FileLogProperties {
-        /**
-         * 属性前缀
-         */
-        public static final String PREFIX = "ant.logging.file";
+    public static class FileAppenderProperties {
         /**
          * 默认的日志格式
          */

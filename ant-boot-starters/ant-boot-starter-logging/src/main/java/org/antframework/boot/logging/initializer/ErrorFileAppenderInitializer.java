@@ -16,33 +16,33 @@ import lombok.Getter;
 import lombok.Setter;
 import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
-import org.antframework.boot.logging.LogInitializer;
-import org.antframework.boot.logging.core.LogContext;
-import org.hibernate.validator.constraints.NotBlank;
+import org.antframework.boot.logging.LoggingInitializer;
+import org.antframework.boot.logging.core.LoggingContext;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotBlank;
 import java.io.File;
 
 /**
  * error日志文件初始化器
  */
-@Order(1)
-public class ErrorFileLogInitializer implements LogInitializer {
+@Order(10)
+public class ErrorFileAppenderInitializer implements LoggingInitializer {
     /**
      * appender名称
      */
     public static final String APPENDER_NAME = "error-file";
 
     @Override
-    public void initialize(LogContext logContext) {
-        ErrorFileLogProperties properties = Contexts.buildProperties(ErrorFileLogProperties.class);
+    public void init(LoggingContext context) {
+        ErrorFileAppenderProperties properties = Contexts.buildProperties(ErrorFileAppenderProperties.class);
         if (!properties.isEnable()) {
             return;
         }
         // 构建格式化器
-        Encoder encoder = LogUtils.buildEncoder(logContext, properties.getPattern());
+        Encoder encoder = LogUtils.buildEncoder(context, properties.getPattern());
         // 构建滚动策略
         RollingPolicy policy = LogUtils.buildSizeAndTimeBasedRollingPolicy(
                 Apps.getLogPath() + File.separator + properties.getRollingFileName(),
@@ -50,28 +50,24 @@ public class ErrorFileLogInitializer implements LogInitializer {
                 properties.getMaxHistory(),
                 properties.getTotalSizeCap());
         // 构建appender
-        Appender appender = LogUtils.buildRollingFileAppender(logContext,
+        Appender appender = LogUtils.buildRollingFileAppender(context,
                 APPENDER_NAME,
                 encoder,
                 Apps.getLogPath() + File.separator + properties.getFileName(),
                 policy,
-                LogUtils.buildThresholdFilter(logContext, Level.ERROR));
+                LogUtils.buildThresholdFilter(context, Level.ERROR));
         // 将appender配置到root下
-        logContext.getConfigurator().root(null, appender);
+        context.getConfigurator().root(null, appender);
     }
 
     /**
-     * error日志文件的属性
+     * error日志文件的配置
      */
-    @ConfigurationProperties(ErrorFileLogProperties.PREFIX)
+    @ConfigurationProperties("ant.logging.error-file")
     @Validated
     @Getter
     @Setter
-    public static class ErrorFileLogProperties {
-        /**
-         * 属性前缀
-         */
-        public static final String PREFIX = "ant.logging.error-file";
+    public static class ErrorFileAppenderProperties {
         /**
          * 默认的日志格式
          */

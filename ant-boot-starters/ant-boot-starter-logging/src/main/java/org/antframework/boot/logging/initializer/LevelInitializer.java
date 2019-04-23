@@ -9,45 +9,31 @@
 package org.antframework.boot.logging.initializer;
 
 import ch.qos.logback.classic.Level;
-import org.antframework.boot.logging.LogInitializer;
-import org.antframework.boot.logging.core.LogContext;
+import org.antframework.boot.logging.LoggingInitializer;
 import org.antframework.boot.logging.core.LogbackConfigurator;
-import org.springframework.boot.logging.logback.LevelRemappingAppender;
+import org.antframework.boot.logging.core.LoggingContext;
 import org.springframework.core.annotation.Order;
 
 /**
  * 日志级别初始化器
  */
 @Order(0)
-public class LevelLogInitializer implements LogInitializer {
+public class LevelInitializer implements LoggingInitializer {
     @Override
-    public void initialize(LogContext logContext) {
-        LogbackConfigurator config = logContext.getConfigurator();
-
+    public void init(LoggingContext context) {
+        LogbackConfigurator config = context.getConfigurator();
         // 设置root为info级别（可以通过属性logging.level.root覆盖）
         config.root(Level.INFO);
-
         // 设置特定logger级别
         config.logger("org.apache.zookeeper", Level.WARN);
         config.logger("org.apache.curator", Level.WARN);
         // 参考：DefaultLogbackConfiguration#base
-        LevelRemappingAppender debugRemapAppender = new LevelRemappingAppender(
-                "org.springframework.boot");
-        config.start(debugRemapAppender);
-        config.appender("DEBUG_LEVEL_REMAPPER", debugRemapAppender);
         config.logger("org.apache.catalina.startup.DigesterFactory", Level.ERROR);
         config.logger("org.apache.catalina.util.LifecycleBase", Level.ERROR);
         config.logger("org.apache.coyote.http11.Http11NioProtocol", Level.WARN);
         config.logger("org.apache.sshd.common.util.SecurityUtils", Level.WARN);
         config.logger("org.apache.tomcat.util.net.NioSelectorPool", Level.WARN);
-        config.logger("org.crsh.plugin", Level.WARN);
-        config.logger("org.crsh.ssh", Level.WARN);
         config.logger("org.eclipse.jetty.util.component.AbstractLifeCycle", Level.ERROR);
         config.logger("org.hibernate.validator.internal.util.Version", Level.WARN);
-        config.logger("org.springframework.boot.actuate.autoconfigure."
-                + "CrshAutoConfiguration", Level.WARN);
-        config.logger("org.springframework.boot.actuate.endpoint.jmx", null, false,
-                debugRemapAppender);
-        config.logger("org.thymeleaf", null, false, debugRemapAppender);
     }
 }

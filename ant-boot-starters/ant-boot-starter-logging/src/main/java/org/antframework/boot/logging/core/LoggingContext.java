@@ -16,17 +16,17 @@ import org.springframework.core.env.Environment;
  * 日志上下文
  */
 @Getter
-public class LogContext {
-    // logback的logger上下文
-    private final LoggerContext context;
+public class LoggingContext {
+    // logback上下文
+    private final LoggerContext loggerContext;
     // spring环境
     private final Environment environment;
-    // 易用的logback配置器
+    // logback配置器
     private final LogbackConfigurator configurator;
 
-    public LogContext(LoggerContext context, Environment environment) {
-        this.context = context;
+    public LoggingContext(LoggerContext loggerContext, Environment environment) {
+        this.loggerContext = loggerContext;
         this.environment = environment;
-        this.configurator = new LogbackConfigurator(context);
+        this.configurator = new LogbackConfigurator(loggerContext);
     }
 }

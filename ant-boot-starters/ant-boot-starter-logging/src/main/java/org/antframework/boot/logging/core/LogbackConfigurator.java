@@ -51,7 +51,7 @@ public class LogbackConfigurator {
         Map<String, String> registry = (Map<String, String>) this.context
                 .getObject(CoreConstants.PATTERN_RULE_REGISTRY);
         if (registry == null) {
-            registry = new HashMap<String, String>();
+            registry = new HashMap<>();
             this.context.putObject(CoreConstants.PATTERN_RULE_REGISTRY, registry);
         }
         registry.put(conversionWord, converterClass.getName());

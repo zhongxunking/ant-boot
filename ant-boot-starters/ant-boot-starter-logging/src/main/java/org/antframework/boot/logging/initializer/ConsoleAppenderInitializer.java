@@ -14,59 +14,56 @@ import ch.qos.logback.core.encoder.Encoder;
 import lombok.Getter;
 import lombok.Setter;
 import org.antframework.boot.core.Contexts;
-import org.antframework.boot.logging.LogInitializer;
-import org.antframework.boot.logging.core.LogContext;
-import org.hibernate.validator.constraints.NotBlank;
+import org.antframework.boot.logging.LoggingInitializer;
+import org.antframework.boot.logging.core.LoggingContext;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 控制台日志初始化器
  */
-@Order(1)
-public class ConsoleLogInitializer implements LogInitializer {
+@Order(10)
+public class ConsoleAppenderInitializer implements LoggingInitializer {
     /**
      * appender名称
      */
     public static final String APPENDER_NAME = "console";
 
     @Override
-    public void initialize(LogContext logContext) {
-        ConsoleLogProperties properties = Contexts.buildProperties(ConsoleLogProperties.class);
+    public void init(LoggingContext context) {
+        ConsoleAppenderProperties properties = Contexts.buildProperties(ConsoleAppenderProperties.class);
         if (!properties.isEnable()) {
             return;
         }
         // 构建格式化器
-        Encoder encoder = LogUtils.buildEncoder(logContext, properties.getPattern());
+        Encoder encoder = LogUtils.buildEncoder(context, properties.getPattern());
         // 构建appender
-        Appender appender = buildAppender(logContext, encoder);
+        Appender appender = buildAppender(context, encoder);
         // 将appender配置到root下
-        logContext.getConfigurator().root(null, appender);
+        context.getConfigurator().root(null, appender);
     }
 
     // 构建appender
-    private Appender buildAppender(LogContext logContext, Encoder encoder) {
+    private Appender buildAppender(LoggingContext context, Encoder encoder) {
         ConsoleAppender appender = new ConsoleAppender();
         appender.setName(APPENDER_NAME);
         appender.setEncoder(encoder);
-        logContext.getConfigurator().start(appender);
+        context.getConfigurator().start(appender);
 
         return appender;
     }
 
     /**
-     * 控制台日志属性
+     * 控制台日志的配置
      */
-    @ConfigurationProperties(ConsoleLogProperties.PREFIX)
+    @ConfigurationProperties("ant.logging.console")
     @Validated
     @Getter
     @Setter
-    public static class ConsoleLogProperties {
-        /**
-         * 属性前缀
-         */
-        public static final String PREFIX = "ant.logging.console";
+    public static class ConsoleAppenderProperties {
         /**
          * 默认的日志格式
          */
