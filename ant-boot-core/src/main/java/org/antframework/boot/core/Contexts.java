@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.core;
 
+import org.antframework.boot.core.env.listener.support.ConfigListeners;
 import org.antframework.boot.core.util.PropertiesBinder;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
@@ -22,10 +23,19 @@ import java.util.List;
  * 上下文持有器
  */
 public final class Contexts {
+    // 配置监听器注册器
+    private static final ConfigListeners CONFIG_LISTENERS = new ConfigListeners();
     // spring环境
     private static ConfigurableEnvironment environment;
     // spring容器
     private static ConfigurableApplicationContext applicationContext;
+
+    /**
+     * 获取配置监听器注册器
+     */
+    public static ConfigListeners getConfigListeners() {
+        return CONFIG_LISTENERS;
+    }
 
     /**
      * 设置spring环境
