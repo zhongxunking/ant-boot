@@ -14,7 +14,6 @@ import ch.qos.logback.core.encoder.Encoder;
 import ch.qos.logback.core.rolling.RollingPolicy;
 import lombok.Getter;
 import lombok.Setter;
-import org.antframework.boot.core.Apps;
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.logging.LoggingInitializer;
 import org.antframework.boot.logging.core.LoggingContext;
@@ -45,7 +44,7 @@ public class ErrorFileAppenderInitializer implements LoggingInitializer {
         Encoder encoder = LogUtils.buildEncoder(context, properties.getPattern());
         // 构建滚动策略
         RollingPolicy policy = LogUtils.buildSizeAndTimeBasedRollingPolicy(
-                Apps.getLogPath() + File.separator + properties.getRollingFileName(),
+                properties.getRollingFilePath(),
                 properties.getMaxFileSize(),
                 properties.getMaxHistory(),
                 properties.getTotalSizeCap());
@@ -53,7 +52,7 @@ public class ErrorFileAppenderInitializer implements LoggingInitializer {
         Appender appender = LogUtils.buildRollingFileAppender(context,
                 APPENDER_NAME,
                 encoder,
-                Apps.getLogPath() + File.separator + properties.getFileName(),
+                properties.getFilePath(),
                 policy,
                 LogUtils.buildThresholdFilter(context, Level.ERROR));
         // 将appender配置到root下
@@ -83,15 +82,15 @@ public class ErrorFileAppenderInitializer implements LoggingInitializer {
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
         /**
-         * 选填：文件名（默认${appId}-error.log）
+         * 选填：文件路径（默认${app.home}/${appId}-error.log）
          */
         @NotBlank
-        private String fileName = Apps.getAppId() + "-error.log";
+        private String filePath = Contexts.getHome() + File.separator + Contexts.getAppId() + "-error.log";
         /**
-         * 选填：滚动文件名（默认${appId}-error.log.%d{yyyyMMdd}-%i）
+         * 选填：滚动文件路径（默认${app.home}/${appId}-error.log.%d{yyyyMMdd}-%i）
          */
         @NotBlank
-        private String rollingFileName = Apps.getAppId() + "-error.log.%d{yyyyMMdd}-%i";
+        private String rollingFilePath = Contexts.getHome() + File.separator + Contexts.getAppId() + "-error.log.%d{yyyyMMdd}-%i";
         /**
          * 选填：单个文件最大容量
          */
