@@ -10,7 +10,6 @@ package org.antframework.boot.lang.boot;
 
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.lang.AntBootApplication;
-import org.antframework.boot.lang.Apps;
 import org.antframework.common.util.file.FileUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
@@ -73,14 +72,9 @@ public class LangApplicationRunListener implements SpringApplicationRunListener 
             }
         }
         Assert.notNull(annotation, "sources中无@AntBootApplication注解");
-        // 初始化App
-        Apps.initApp(annotation.appId());
-        // 创建配置、数据、日志目录（如果不存在）
-        String[] dirPaths = {Apps.getConfigPath(), Apps.getDataPath(), Apps.getLogPath()};
-        for (String dirPath : dirPaths) {
-            FileUtils.createDirIfAbsent(dirPath);
-        }
-        // 向系统属性设置应用名
-        System.setProperty(Contexts.APP_ID_KEY, Apps.getAppId());
+        // 设置应用id
+        System.setProperty(Contexts.APP_ID_KEY, annotation.appId());
+        // 创建应用home目录（如果不存在）
+        FileUtils.createDirIfAbsent(Contexts.getHome());
     }
 }

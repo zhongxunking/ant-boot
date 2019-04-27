@@ -9,12 +9,13 @@
 package org.antframework.boot.core;
 
 import org.antframework.boot.core.util.PropertiesBinder;
+import org.antframework.common.util.other.PropertyUtils;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -26,10 +27,14 @@ public final class Contexts {
      * 应用id的key
      */
     public static final String APP_ID_KEY = "spring.application.name";
+    /**
+     * 应用home目录的key
+     */
+    public static final String HOME_KEY = "app.home";
     // spring环境
-    private static ConfigurableEnvironment environment;
+    private static ConfigurableEnvironment environment = null;
     // spring容器
-    private static ConfigurableApplicationContext applicationContext;
+    private static ConfigurableApplicationContext applicationContext = null;
 
     /**
      * 设置spring环境
@@ -46,10 +51,39 @@ public final class Contexts {
     }
 
     /**
+     * 获取应用的home目录
+     */
+    public static String getHome() {
+        String home = getProperty(HOME_KEY);
+        if (home == null) {
+            home = "/var/apps/" + getAppId();
+        }
+        return home;
+    }
+
+    /**
      * 获取应用id
      */
     public static String getAppId() {
-        return getEnvironment().getProperty(APP_ID_KEY);
+        String appId = getProperty(APP_ID_KEY);
+        if (appId == null) {
+            throw new IllegalStateException(String.format("未配置应用id[%s]", APP_ID_KEY));
+        }
+        return appId;
+    }
+
+    /**
+     * 获取配置value
+     *
+     * @param key 配置key
+     * @return 配置value
+     */
+    public static String getProperty(String key) {
+        if (getEnvironment() == null) {
+            return getEnvironment().getProperty(key);
+        } else {
+            return PropertyUtils.getProperty(key);
+        }
     }
 
     /**
@@ -71,31 +105,22 @@ public final class Contexts {
     }
 
     /**
-     * 获取被自动扫描的包路径
+     * 获取自动扫描的包路径
      */
     public static String[] getBasePackages() {
+        Assert.notNull(getApplicationContext(), "过早的获取自动扫描的包路径");
         List<String> basePackages = AutoConfigurationPackages.get(getApplicationContext());
         return basePackages.toArray(new String[basePackages.size()]);
     }
 
     /**
-     * 获取当前环境
-     */
-    public static String getProfile() {
-        String[] profiles = getEnvironment().getActiveProfiles();
-        if (profiles.length != 1) {
-            throw new IllegalStateException(String.format("当前环境[%s]必须设置，且必须为一个", AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME));
-        }
-        return profiles[0];
-    }
-
-    /**
-     * 根据environment构建属性对象
+     * 构建配置对象
      *
      * @param targetClass 目标类型
      * @return 属性对象
      */
     public static <T> T buildProperties(Class<T> targetClass) {
+        Assert.notNull(getEnvironment(), "过早的构建配置对象");
         PropertiesBinder binder = new PropertiesBinder(((ConfigurableEnvironment) getEnvironment()).getPropertySources());
         return binder.build(targetClass);
     }
