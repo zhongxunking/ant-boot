@@ -65,11 +65,7 @@ public final class Contexts {
      * 获取应用id
      */
     public static String getAppId() {
-        String appId = getProperty(APP_ID_KEY);
-        if (appId == null) {
-            throw new IllegalStateException(String.format("未配置应用id[%s]", APP_ID_KEY));
-        }
-        return appId;
+        return getProperty(APP_ID_KEY);
     }
 
     /**
