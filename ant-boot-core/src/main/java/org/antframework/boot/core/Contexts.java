@@ -76,9 +76,9 @@ public final class Contexts {
      */
     public static String getProperty(String key) {
         if (getEnvironment() == null) {
-            return getEnvironment().getProperty(key);
-        } else {
             return PropertyUtils.getProperty(key);
+        } else {
+            return getEnvironment().getProperty(key);
         }
     }
 
