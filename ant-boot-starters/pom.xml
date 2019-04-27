@@ -16,6 +16,7 @@
         <module>ant-boot-starter-config</module>
         <module>ant-boot-starter-id</module>
         <module>ant-boot-starter-jpa</module>
+        <module>ant-boot-starter-lang</module>
         <module>ant-boot-starter-logging</module>
         <module>ant-boot-starter-parent</module>
     </modules>
