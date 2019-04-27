@@ -12,5 +12,10 @@
     <artifactId>ant-boot-starter-logging</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.antframework.boot</groupId>
+            <artifactId>ant-boot-starter-env</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 </project>
