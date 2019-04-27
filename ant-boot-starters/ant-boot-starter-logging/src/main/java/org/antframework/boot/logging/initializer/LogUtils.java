@@ -85,12 +85,12 @@ public class LogUtils {
      * @return 策略
      */
     public static SizeAndTimeBasedRollingPolicy buildSizeAndTimeBasedRollingPolicy(String rollingFilePath,
-                                                                                   String maxFileSize,
+                                                                                   FileSize maxFileSize,
                                                                                    Integer maxHistory,
                                                                                    String totalSizeCap) {
         SizeAndTimeBasedRollingPolicy policy = new SizeAndTimeBasedRollingPolicy();
         policy.setFileNamePattern(rollingFilePath);
-        policy.setMaxFileSize(FileSize.valueOf(maxFileSize));
+        policy.setMaxFileSize(maxFileSize);
         if (maxHistory != null) {
             policy.setMaxHistory(maxHistory);
         }
