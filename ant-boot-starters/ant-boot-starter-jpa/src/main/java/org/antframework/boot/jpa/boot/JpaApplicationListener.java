@@ -16,15 +16,24 @@ import org.springframework.context.ApplicationListener;
  * jpa应用监听器
  */
 public class JpaApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
-    // 命名策略属性名
-    private static final String STRATEGY_PROPERTY_NAME = "spring.jpa.hibernate.naming.physical-strategy";
+    // open-in-view的key
+    private static final String OPEN_IN_VIEW_KEY = "spring.jpa.open-in-view";
+    // 物理命名策略的key
+    private static final String PHYSICAL_STRATEGY_KEY = "spring.jpa.hibernate.naming.physical-strategy";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        boolean existing = event.getEnvironment().containsProperty(STRATEGY_PROPERTY_NAME);
-        if (!existing) {
+        // open-in-view
+        boolean openInViewExisting = event.getEnvironment().containsProperty(OPEN_IN_VIEW_KEY);
+        if (!openInViewExisting) {
+            // 如果未设置，则默认关闭open-in-view
+            System.setProperty(OPEN_IN_VIEW_KEY, Boolean.FALSE.toString());
+        }
+        // 物理命名策略
+        boolean physicalStrategyExisting = event.getEnvironment().containsProperty(PHYSICAL_STRATEGY_KEY);
+        if (!physicalStrategyExisting) {
             // 如果未指定命名策略，则使用PhysicalNamingStrategyStandardImpl（表明、字段名与entity类定义的一致）
-            System.setProperty(STRATEGY_PROPERTY_NAME, PhysicalNamingStrategyStandardImpl.class.getName());
+            System.setProperty(PHYSICAL_STRATEGY_KEY, PhysicalNamingStrategyStandardImpl.class.getName());
         }
     }
 }
