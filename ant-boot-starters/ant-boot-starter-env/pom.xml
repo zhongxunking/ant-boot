@@ -12,5 +12,9 @@
     <artifactId>ant-boot-starter-env</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.bekit</groupId>
+            <artifactId>event</artifactId>
+        </dependency>
     </dependencies>
 </project>
