@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 管理日志级别的监听器
+ * 日志级别监听器
  */
 @ConfigListener
-public class LoggingLevelApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+public class LoggingLevelListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     // 当前日志级别
     private Map<String, LogLevel> levels = new HashMap<>();
 
@@ -47,6 +47,7 @@ public class LoggingLevelApplicationListener implements ApplicationListener<Appl
         LevelProperties properties = Contexts.buildProperties(LevelProperties.class);
         // 构建最新的日志级别
         Map<String, LogLevel> nextLevels = new HashMap<>();
+        // root默认为info级别
         nextLevels.put(LoggingSystem.ROOT_LOGGER_NAME, LogLevel.INFO);
         properties.getLevel().forEach((name, level) -> {
             if (properties.getGroup().containsKey(name)) {

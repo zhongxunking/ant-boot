@@ -1,10 +1,10 @@
 org.springframework.context.ApplicationListener=\
   org.antframework.boot.logging.boot.AntLoggingApplicationListener,\
-  org.antframework.boot.logging.boot.LoggingLevelApplicationListener
+  org.antframework.boot.logging.boot.LoggingLevelListener
 org.antframework.boot.logging.LoggingInitializer=\
   org.antframework.boot.logging.initializer.LevelInitializer,\
   org.antframework.boot.logging.initializer.ConsoleAppenderInitializer,\
   org.antframework.boot.logging.initializer.FileAppenderInitializer,\
   org.antframework.boot.logging.initializer.ErrorFileAppenderInitializer
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.antframework.boot.logging.boot.LoggingLevelApplicationListener
+  org.antframework.boot.logging.boot.LoggingLevelListener
