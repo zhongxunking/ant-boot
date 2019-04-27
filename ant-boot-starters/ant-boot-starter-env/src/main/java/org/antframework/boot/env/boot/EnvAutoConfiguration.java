@@ -6,12 +6,12 @@
  * 修订记录:
  * @author 钟勋 2019-04-25 00:00 创建
  */
-package org.antframework.boot.core.boot;
+package org.antframework.boot.env.boot;
 
 import lombok.AllArgsConstructor;
-import org.antframework.boot.core.Contexts;
-import org.antframework.boot.core.env.listener.ConfigListener;
-import org.antframework.boot.core.env.listener.support.DefaultConfigListener;
+import org.antframework.boot.env.Envs;
+import org.antframework.boot.env.listener.ConfigListener;
+import org.antframework.boot.env.listener.support.DefaultConfigListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @Configuration
 @Import(DefaultConfigListener.class)
 @AllArgsConstructor
-public class AntAutoConfiguration {
+public class EnvAutoConfiguration {
     // 配置监听器
     private List<ConfigListener> listeners;
 
@@ -33,7 +33,7 @@ public class AntAutoConfiguration {
     public void init() {
         // 注册所有配置监听器
         for (ConfigListener listener : listeners) {
-            Contexts.getConfigListeners().addListener(listener);
+            Envs.getConfigListeners().addListener(listener);
         }
     }
 }

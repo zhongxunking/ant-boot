@@ -6,11 +6,11 @@
  * 修订记录:
  * @author 钟勋 2017-10-02 15:32 创建
  */
-package org.antframework.boot.core.env.listener.annotation;
+package org.antframework.boot.env.listener.annotation;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.antframework.boot.core.env.listener.ChangedProperty;
+import org.antframework.boot.env.listener.ChangedProperty;
 
 import java.util.List;
 

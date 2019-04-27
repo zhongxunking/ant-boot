@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-08-21 21:47 创建
  */
-package org.antframework.boot.core;
+package org.antframework.boot.lang;
 
 import org.antframework.common.util.other.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;

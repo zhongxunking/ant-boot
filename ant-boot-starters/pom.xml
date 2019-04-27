@@ -14,6 +14,7 @@
     <modules>
         <module>ant-boot-starter-bekit</module>
         <module>ant-boot-starter-config</module>
+        <module>ant-boot-starter-env</module>
         <module>ant-boot-starter-id</module>
         <module>ant-boot-starter-jpa</module>
         <module>ant-boot-starter-lang</module>

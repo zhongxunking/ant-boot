@@ -6,10 +6,10 @@
  * 修订记录:
  * @author 钟勋 2017-10-02 16:01 创建
  */
-package org.antframework.boot.core.env.listener.annotation;
+package org.antframework.boot.env.listener.annotation;
 
-import org.antframework.boot.core.Apps;
-import org.antframework.boot.core.env.listener.ChangedProperty;
+import org.antframework.boot.core.Contexts;
+import org.antframework.boot.env.listener.ChangedProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.bekit.event.extension.ListenResolver;
 import org.springframework.core.ResolvableType;
@@ -40,7 +40,10 @@ public class ListenConfigChangedResolver implements ListenResolver {
         // 计算被监听的应用id
         String appId = configListenerAnnotation.appId();
         if (StringUtils.isEmpty(appId)) {
-            appId = Apps.getAppId();
+            appId = Contexts.getAppId();
+            if (appId == null) {
+                throw new IllegalStateException(String.format("未配置当前应用的应用id[%s]", Contexts.APP_ID_KEY));
+            }
         }
         // 校验入参
         Class[] parameterTypes = listenMethod.getParameterTypes();

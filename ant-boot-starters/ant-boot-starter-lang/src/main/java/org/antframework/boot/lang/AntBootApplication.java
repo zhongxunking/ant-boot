@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-08-21 21:42 创建
  */
-package org.antframework.boot.core;
+package org.antframework.boot.lang;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

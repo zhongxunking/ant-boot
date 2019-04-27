@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-09-11 13:54 创建
  */
-package org.antframework.boot.core.env.listener;
+package org.antframework.boot.env.listener;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

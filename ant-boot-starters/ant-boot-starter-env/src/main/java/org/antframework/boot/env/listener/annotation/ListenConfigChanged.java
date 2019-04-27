@@ -6,7 +6,7 @@
  * 修订记录:
  * @author 钟勋 2017-10-02 15:59 创建
  */
-package org.antframework.boot.core.env.listener.annotation;
+package org.antframework.boot.env.listener.annotation;
 
 import org.bekit.event.annotation.listener.Listen;
 import org.springframework.core.annotation.AliasFor;

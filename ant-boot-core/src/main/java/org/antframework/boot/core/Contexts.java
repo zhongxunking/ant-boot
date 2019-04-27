@@ -8,7 +8,6 @@
  */
 package org.antframework.boot.core;
 
-import org.antframework.boot.core.env.listener.support.ConfigListeners;
 import org.antframework.boot.core.util.PropertiesBinder;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
@@ -23,19 +22,14 @@ import java.util.List;
  * 上下文持有器
  */
 public final class Contexts {
-    // 配置监听器注册器
-    private static final ConfigListeners CONFIG_LISTENERS = new ConfigListeners();
+    /**
+     * 应用id的key
+     */
+    public static final String APP_ID_KEY = "spring.application.name";
     // spring环境
     private static ConfigurableEnvironment environment;
     // spring容器
     private static ConfigurableApplicationContext applicationContext;
-
-    /**
-     * 获取配置监听器注册器
-     */
-    public static ConfigListeners getConfigListeners() {
-        return CONFIG_LISTENERS;
-    }
 
     /**
      * 设置spring环境
@@ -49,6 +43,13 @@ public final class Contexts {
      */
     public static void setApplicationContext(ConfigurableApplicationContext applicationContext) {
         Contexts.applicationContext = applicationContext;
+    }
+
+    /**
+     * 获取应用id
+     */
+    public static String getAppId() {
+        return getEnvironment().getProperty(APP_ID_KEY);
     }
 
     /**

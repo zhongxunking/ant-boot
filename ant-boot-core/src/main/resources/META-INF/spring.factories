@@ -1,4 +1,2 @@
 org.springframework.boot.SpringApplicationRunListener=\
   org.antframework.boot.core.boot.AntApplicationRunListener
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.antframework.boot.core.boot.AntAutoConfiguration
