@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 配置监听器注册器
+ * 配置监听器的管理器
  */
 public class ConfigListeners {
     // 监听器
@@ -50,7 +50,7 @@ public class ConfigListeners {
     }
 
     /**
-     * 配置变更触发监听器
+     * 配置变更后通知监听器
      *
      * @param appId             配置变更的应用id
      * @param changedProperties 变更的配置
