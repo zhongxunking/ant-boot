@@ -62,7 +62,7 @@ public final class Contexts {
     }
 
     /**
-     * 获取应用id
+     * 获取应用id（如果未配置应用Id，则返回null）
      */
     public static String getAppId() {
         return getProperty(APP_ID_KEY);

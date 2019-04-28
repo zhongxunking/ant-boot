@@ -41,9 +41,6 @@ public class ListenConfigChangedResolver implements ListenResolver {
         String appId = configListenerAnnotation.appId();
         if (StringUtils.isEmpty(appId)) {
             appId = Contexts.getAppId();
-            if (appId == null) {
-                throw new IllegalStateException(String.format("未配置当前应用的应用id[%s]", Contexts.APP_ID_KEY));
-            }
         }
         // 校验入参
         Class[] parameterTypes = listenMethod.getParameterTypes();
