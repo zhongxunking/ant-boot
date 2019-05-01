@@ -8,8 +8,7 @@
  */
 package org.antframework.boot.lang;
 
-import org.antframework.common.util.other.PropertyUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.antframework.boot.core.Contexts;
 import org.springframework.core.env.AbstractEnvironment;
 
 /**
@@ -20,7 +19,7 @@ public class Apps {
      * 如果profile未被设置，则设置profile
      */
     public static void setProfileIfAbsent(String profile) {
-        if (StringUtils.isEmpty(PropertyUtils.getProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME))) {
+        if (Contexts.getProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME) == null) {
             System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, profile);
         }
     }

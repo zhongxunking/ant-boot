@@ -50,7 +50,7 @@ public class CommonQueryService {
         Class daoClass = context.getAttachmentAttr(CommonQueries.DAO_CLASS_KEY);
         Assert.notNull(daoClass, "附件中缺少" + CommonQueries.DAO_CLASS_KEY);
         // 查询
-        Pageable pageable = new PageRequest(order.getPageNo() - 1, order.getPageSize(), context.getAttachmentAttr(CommonQueries.SORT_KEY));
+        Pageable pageable = PageRequest.of(order.getPageNo() - 1, order.getPageSize(), context.getAttachmentAttr(CommonQueries.SORT_KEY));
         Page page = queryExecutorsCache.get(daoClass).execute(QueryParams.parse(order), pageable);
         // 设置查询结果
         result.setPageExtractor(new FacadeUtils.SpringDataPageExtractor(page));

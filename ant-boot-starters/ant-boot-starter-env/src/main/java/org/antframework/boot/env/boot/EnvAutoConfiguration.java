@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
- * ant自动配置类
+ * 环境自动配置类
  */
 @Configuration
 @Import(DefaultConfigListener.class)

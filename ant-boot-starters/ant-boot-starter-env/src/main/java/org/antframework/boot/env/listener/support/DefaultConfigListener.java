@@ -60,10 +60,10 @@ public class DefaultConfigListener implements ConfigListener {
             nextCps.add(nextCp);
         }
         // 将分拣过的配置通过递归继续分拣
-        for (String prefix : dispatchedCps.keySet()) {
+        dispatchedCps.forEach((prefix, nextCps) -> {
             String nextPrefixKey = prefixKey == null ? prefix : prefixKey + KEY_SEPARATOR + prefix;
-            dispatch(appId, nextPrefixKey, dispatchedCps.get(prefix));
-        }
+            dispatch(appId, nextPrefixKey, nextCps);
+        });
         // 发送事件
         eventPublisher.publish(new ConfigChangedEvent(appId, prefixKey, cps));
     }

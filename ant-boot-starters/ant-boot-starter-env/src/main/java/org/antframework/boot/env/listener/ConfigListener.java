@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * 配置监听器
  */
+@FunctionalInterface
 public interface ConfigListener {
     /**
      * 当配置变更时调用本方法

@@ -21,7 +21,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.Assert;
 
 /**
- * ant应用RunListener
+ * Lang RunListener
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class LangApplicationRunListener implements SpringApplicationRunListener {

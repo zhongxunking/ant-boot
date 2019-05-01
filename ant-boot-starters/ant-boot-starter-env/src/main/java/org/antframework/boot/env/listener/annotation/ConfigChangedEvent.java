@@ -11,6 +11,7 @@ package org.antframework.boot.env.listener.annotation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.antframework.boot.env.listener.ChangedProperty;
+import org.antframework.common.util.tostring.ToString;
 
 import java.util.List;
 
@@ -26,4 +27,9 @@ public final class ConfigChangedEvent {
     private final String prefix;
     // 被修改的配置
     private final List<ChangedProperty> changedProperties;
+
+    @Override
+    public String toString() {
+        return ToString.toString(this);
+    }
 }
