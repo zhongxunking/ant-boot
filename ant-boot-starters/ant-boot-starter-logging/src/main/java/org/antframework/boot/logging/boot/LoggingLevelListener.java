@@ -23,6 +23,7 @@ import org.springframework.context.ApplicationListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 日志级别监听器
@@ -79,6 +80,6 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
         // 级别
         private Map<String, LogLevel> level = new HashMap<>();
         // 分组
-        private Map<String, String[]> group = new HashMap<>();
+        private Map<String, Set<String>> group = new HashMap<>();
     }
 }
