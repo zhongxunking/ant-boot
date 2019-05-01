@@ -21,6 +21,11 @@
         <dependencies>
             <dependency>
                 <groupId>org.antframework.boot</groupId>
+                <artifactId>ant-boot-core</artifactId>
+                <version>1.3.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.antframework.boot</groupId>
                 <artifactId>ant-boot-starter-bekit</artifactId>
                 <version>1.3.0.RELEASE</version>
             </dependency>
