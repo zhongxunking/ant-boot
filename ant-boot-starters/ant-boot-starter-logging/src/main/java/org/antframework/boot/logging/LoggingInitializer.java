@@ -13,6 +13,7 @@ import org.antframework.boot.logging.core.LoggingContext;
 /**
  * 日志初始化器（实现类必须具有默认构造函数）
  */
+@FunctionalInterface
 public interface LoggingInitializer {
     /**
      * 初始化
