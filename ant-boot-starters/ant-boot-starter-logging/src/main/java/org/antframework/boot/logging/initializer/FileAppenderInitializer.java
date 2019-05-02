@@ -83,15 +83,15 @@ public class FileAppenderInitializer implements LoggingInitializer {
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
         /**
-         * 选填：文件路径（默认${app.home}/${appId}.log）
+         * 选填：文件路径（默认${app.home}/logs/${appId}.log）
          */
         @NotBlank
-        private String filePath = Contexts.getHome() + File.separator + Contexts.getAppId() + ".log";
+        private String filePath = Contexts.getHome() + File.separator + "logs" + File.separator + Contexts.getAppId() + ".log";
         /**
-         * 选填：滚动文件路径（默认${app.home}/${appId}.log.%d{yyyyMMdd}-%i）
+         * 选填：滚动文件路径（默认${app.home}/logs/${appId}.log.%d{yyyyMMdd}-%i）
          */
         @NotBlank
-        private String rollingFilePath = Contexts.getHome() + File.separator + Contexts.getAppId() + ".log.%d{yyyyMMdd}-%i";
+        private String rollingFilePath = Contexts.getHome() + File.separator + "logs" + File.separator + Contexts.getAppId() + ".log.%d{yyyyMMdd}-%i";
         /**
          * 选填：单个文件最大容量（默认1GB）
          */
