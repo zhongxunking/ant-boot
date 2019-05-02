@@ -74,7 +74,7 @@ public class ConsoleAppenderInitializer implements LoggingInitializer {
          */
         private boolean enable = true;
         /**
-         * 选填：日志格式
+         * 选填：日志格式（默认%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%level) %clr([%thread]){faint} %clr(%logger{0}){cyan}%clr(:%L){faint}%clr(-){red} %msg%n%wEx）
          */
         @NotBlank
         private String pattern = DEFAULT_PATTERN;
