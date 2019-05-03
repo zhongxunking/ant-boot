@@ -9,6 +9,7 @@
 package org.antframework.boot.core;
 
 import org.antframework.boot.core.util.PropertiesBinder;
+import org.antframework.boot.core.util.PropertiesBinderV1;
 import org.antframework.common.util.other.PropertyUtils;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
@@ -16,6 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 
 import java.util.List;
 
@@ -117,7 +119,13 @@ public final class Contexts {
      */
     public static <T> T buildProperties(Class<T> targetClass) {
         Assert.notNull(getEnvironment(), "过早的构建配置对象");
-        PropertiesBinder binder = new PropertiesBinder(((ConfigurableEnvironment) getEnvironment()).getPropertySources());
-        return binder.build(targetClass);
+        if (ClassUtils.isPresent("org.springframework.boot.context.properties.bind.Binder", Contexts.class.getClassLoader())) {
+            PropertiesBinder binder = new PropertiesBinder(((ConfigurableEnvironment) getEnvironment()).getPropertySources());
+            return binder.build(targetClass);
+        } else {
+            // 兼容SpringBoot1.x
+            PropertiesBinderV1 binderV1 = new PropertiesBinderV1(((ConfigurableEnvironment) getEnvironment()).getPropertySources());
+            return binderV1.build(targetClass);
+        }
     }
 }
