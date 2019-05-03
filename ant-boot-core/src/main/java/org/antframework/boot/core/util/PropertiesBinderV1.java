@@ -71,7 +71,6 @@ public class PropertiesBinderV1 {
         ReflectionUtils.makeAccessible(SET_IGNORE_UNKNOWN_FIELDS);
         BIND_PROPERTIES_TO_TARGET = ReflectionUtils.findMethod(FACTORY_CLASS, "bindPropertiesToTarget");
         ReflectionUtils.makeAccessible(BIND_PROPERTIES_TO_TARGET);
-
     }
 
     // 属性资源
