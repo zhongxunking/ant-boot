@@ -62,12 +62,10 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
             }
         });
         // 判断root日志级别
-        long rootCount = nextLevels.keySet().stream().filter(LoggingSystem.ROOT_LOGGER_NAME::equalsIgnoreCase).count();
-        if (rootCount < 1) {
+        boolean rootExisting = nextLevels.keySet().stream().anyMatch(LoggingSystem.ROOT_LOGGER_NAME::equalsIgnoreCase);
+        if (!rootExisting) {
             // root默认为info级别
             nextLevels.put(LoggingSystem.ROOT_LOGGER_NAME, LogLevel.INFO);
-        } else if (rootCount > 1) {
-            throw new IllegalArgumentException("root设置了多个日志级别，请删除多余的配置后再重试");
         }
         // 重设日志级别
         LoggingSystem system = LoggingSystem.get(getClass().getClassLoader());
@@ -79,7 +77,7 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
         });
         // 删除多余的日志级别
         LEVELS.forEach((name, level) -> {
-            if (!nextLevels.containsKey(name)) {
+            if (!nextLevels.containsKey(name) && !LoggingSystem.ROOT_LOGGER_NAME.equalsIgnoreCase(name)) {
                 system.setLogLevel(name, null);
             }
         });
