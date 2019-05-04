@@ -19,11 +19,9 @@ import org.antframework.boot.logging.LoggingInitializer;
 import org.antframework.boot.logging.core.LoggingContext;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.annotation.Order;
-import org.springframework.util.unit.DataSize;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.File;
 
 /**
@@ -47,7 +45,7 @@ public class FileAppenderInitializer implements LoggingInitializer {
         // 构建滚动策略
         RollingPolicy policy = LogUtils.buildSizeAndTimeBasedRollingPolicy(
                 properties.getRollingFilePath(),
-                new FileSize(properties.getMaxFileSize().toBytes()),
+                FileSize.valueOf(properties.getMaxFileSize()),
                 properties.getMaxHistory(),
                 properties.getTotalSizeCap());
         // 构建appender
@@ -95,8 +93,8 @@ public class FileAppenderInitializer implements LoggingInitializer {
         /**
          * 选填：单个文件最大容量（默认1GB）
          */
-        @NotNull
-        private DataSize maxFileSize = DataSize.ofGigabytes(1);
+        @NotBlank
+        private String maxFileSize = "1GB";
         /**
          * 选填：最多保存的文件个数（默认不限制）
          */
