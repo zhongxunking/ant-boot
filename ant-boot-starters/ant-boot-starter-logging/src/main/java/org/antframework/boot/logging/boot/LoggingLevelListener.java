@@ -31,20 +31,24 @@ import java.util.Set;
 @ConfigListener
 public class LoggingLevelListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     // 当前日志级别
-    private Map<String, LogLevel> levels = new HashMap<>();
+    private static Map<String, LogLevel> LEVELS = new HashMap<>();
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        refreshLevels();
+        synchronized (LoggingLevelListener.class) {
+            refreshLevels();
+        }
     }
 
     @ListenConfigChanged(prefix = "logging")
     public void onChange(List<ChangedProperty> changedProperties) {
-        refreshLevels();
+        synchronized (LoggingLevelListener.class) {
+            refreshLevels();
+        }
     }
 
     // 刷新日志级别
-    private synchronized void refreshLevels() {
+    private void refreshLevels() {
         LevelProperties properties = Contexts.buildProperties(LevelProperties.class);
         // 构建最新的日志级别
         Map<String, LogLevel> nextLevels = new HashMap<>();
@@ -74,13 +78,13 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
             system.setLogLevel(name, level);
         });
         // 删除多余的日志级别
-        levels.forEach((name, level) -> {
+        LEVELS.forEach((name, level) -> {
             if (!nextLevels.containsKey(name)) {
                 system.setLogLevel(name, null);
             }
         });
 
-        levels = nextLevels;
+        LEVELS = nextLevels;
     }
 
     // 日志级别配置
