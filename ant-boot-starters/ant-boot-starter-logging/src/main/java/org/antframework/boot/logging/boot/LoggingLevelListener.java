@@ -67,7 +67,12 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
         }
         // 重设日志级别
         LoggingSystem system = LoggingSystem.get(getClass().getClassLoader());
-        nextLevels.forEach(system::setLogLevel);
+        nextLevels.forEach((name, level) -> {
+            if (LoggingSystem.ROOT_LOGGER_NAME.equalsIgnoreCase(name)) {
+                name = LoggingSystem.ROOT_LOGGER_NAME;
+            }
+            system.setLogLevel(name, level);
+        });
         // 删除多余的日志级别
         levels.forEach((name, level) -> {
             if (!nextLevels.containsKey(name)) {
