@@ -63,7 +63,7 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
         });
         // 判断root日志级别
         long rootCount = nextLevels.keySet().stream().filter(LoggingSystem.ROOT_LOGGER_NAME::equalsIgnoreCase).count();
-        if (rootCount < 0) {
+        if (rootCount < 1) {
             // root默认为info级别
             nextLevels.put(LoggingSystem.ROOT_LOGGER_NAME, LogLevel.INFO);
         } else if (rootCount > 1) {
