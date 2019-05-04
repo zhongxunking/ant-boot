@@ -48,8 +48,6 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
         LevelProperties properties = Contexts.buildProperties(LevelProperties.class);
         // 构建最新的日志级别
         Map<String, LogLevel> nextLevels = new HashMap<>();
-        // root默认为info级别
-        nextLevels.put(LoggingSystem.ROOT_LOGGER_NAME, LogLevel.INFO);
         properties.getLevel().forEach((name, level) -> {
             if (properties.getGroup().containsKey(name)) {
                 for (String groupedName : properties.getGroup().get(name)) {
@@ -59,6 +57,14 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
                 nextLevels.put(name, level);
             }
         });
+        // 判断root日志级别
+        long rootCount = nextLevels.keySet().stream().filter(LoggingSystem.ROOT_LOGGER_NAME::equalsIgnoreCase).count();
+        if (rootCount < 0) {
+            // root默认为info级别
+            nextLevels.put(LoggingSystem.ROOT_LOGGER_NAME, LogLevel.INFO);
+        } else if (rootCount > 1) {
+            throw new IllegalArgumentException("root设置了多个日志级别，请删除多余的配置后再重试");
+        }
         // 重设日志级别
         LoggingSystem system = LoggingSystem.get(getClass().getClassLoader());
         nextLevels.forEach(system::setLogLevel);
