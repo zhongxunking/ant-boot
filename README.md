@@ -18,7 +18,7 @@
 <parent>
     <groupId>org.antframework.boot</groupId>
     <artifactId>ant-boot-starter-parent</artifactId>
-    <version>1.3.0.RELEASE</version>
+    <version>1.4.0.RELEASE</version>
 </parent>
 ```
 
