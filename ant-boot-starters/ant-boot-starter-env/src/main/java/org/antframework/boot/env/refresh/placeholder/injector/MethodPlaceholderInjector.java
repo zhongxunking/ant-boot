@@ -9,6 +9,7 @@
 package org.antframework.boot.env.refresh.placeholder.injector;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.util.ReflectionUtils;
 
@@ -18,6 +19,7 @@ import java.lang.reflect.Method;
  * 方法类型占位符注射器
  */
 @AllArgsConstructor
+@Slf4j
 public class MethodPlaceholderInjector implements PlaceholderInjector {
     // 占位符
     private final String placeholder;
@@ -33,8 +35,13 @@ public class MethodPlaceholderInjector implements PlaceholderInjector {
 
     @Override
     public void inject(ConfigurableBeanFactory beanFactory) {
-        String strVal = beanFactory.resolveEmbeddedValue(placeholder);
-        Object value = beanFactory.getTypeConverter().convertIfNecessary(strVal, method.getParameterTypes()[0]);
-        ReflectionUtils.invokeMethod(method, target, value);
+        try {
+            String strVal = beanFactory.resolveEmbeddedValue(placeholder);
+            Object value = beanFactory.getTypeConverter().convertIfNecessary(strVal, method.getParameterTypes()[0]);
+            ReflectionUtils.invokeMethod(method, target, value);
+            log.info("刷新@Value方法成功，method={}，placeholder={}", method, placeholder);
+        } catch (Throwable e) {
+            log.error("刷新@Value方法出错，method={}，placeholder={}", method, placeholder, e);
+        }
     }
 }

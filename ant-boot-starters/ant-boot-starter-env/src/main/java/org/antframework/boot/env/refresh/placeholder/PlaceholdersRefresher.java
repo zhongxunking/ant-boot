@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.env.refresh.placeholder;
 
+import lombok.extern.slf4j.Slf4j;
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.env.listener.ChangedProperty;
 import org.antframework.boot.env.listener.ConfigListener;
@@ -34,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 占位符刷新器
  */
 @Order(PlaceholdersRefresher.ORDER)
+@Slf4j
 public class PlaceholdersRefresher implements BeanFactoryAware, BeanPostProcessor, ConfigListener {
     /**
      * 优先级
@@ -94,6 +96,7 @@ public class PlaceholdersRefresher implements BeanFactoryAware, BeanPostProcesso
         if (!Objects.equals(appId, Contexts.getAppId())) {
             return;
         }
+        log.info("刷新@Value占位符");
         changedProperties.stream()
                 .map(changedProperty -> keyInjectors.get(changedProperty.getKey()))
                 .filter(Objects::nonNull)
