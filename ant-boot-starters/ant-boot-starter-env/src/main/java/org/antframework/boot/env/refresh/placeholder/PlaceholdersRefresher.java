@@ -40,7 +40,7 @@ public class PlaceholdersRefresher implements BeanFactoryAware, BeanPostProcesso
     /**
      * 优先级
      */
-    public static final int ORDER = DefaultConfigListener.ORDER - 10;
+    public static final int ORDER = DefaultConfigListener.ORDER - 20;
 
     // 配置key及对应的占位符注射器
     private final Map<String, Set<PlaceholderInjector>> keyInjectors = new ConcurrentHashMap<>();

@@ -13,6 +13,8 @@ import org.antframework.boot.env.Envs;
 import org.antframework.boot.env.listener.ConfigListener;
 import org.antframework.boot.env.listener.support.DefaultConfigListener;
 import org.antframework.boot.env.refresh.placeholder.PlaceholdersRefresher;
+import org.antframework.boot.env.refresh.properties.PropertiesTargetSourceCreator;
+import org.antframework.boot.env.refresh.properties.PropertiesTargetSourceCreatorInitializer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -46,5 +48,14 @@ public class EnvAutoConfiguration {
     @ConditionalOnProperty(name = "ant.env.refresh-placeholders.enable", havingValue = "true", matchIfMissing = true)
     @Import(PlaceholdersRefresher.class)
     public static class PlaceholdersRefresherConfiguration {
+    }
+
+    /**
+     * Properties刷新配置类
+     */
+    @Configuration
+    @ConditionalOnProperty(name = "ant.env.refresh-properties.enable", havingValue = "true", matchIfMissing = true)
+    @Import({PropertiesTargetSourceCreator.class, PropertiesTargetSourceCreatorInitializer.class})
+    public static class PropertiesTargetSourceCreatorConfiguration {
     }
 }

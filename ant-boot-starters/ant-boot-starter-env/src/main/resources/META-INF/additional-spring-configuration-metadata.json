@@ -3,7 +3,14 @@
     {
       "sourceType": "org.antframework.boot.env.boot.EnvAutoConfiguration",
       "name": "ant.env.refresh-placeholders.enable",
-      "description": "选填：是否开启刷新占位符（默认为开启）",
+      "description": "选填：是否开启刷新@Value占位符（默认为开启）",
+      "type": "java.lang.Boolean",
+      "defaultValue": true
+    },
+    {
+      "sourceType": "org.antframework.boot.env.boot.EnvAutoConfiguration",
+      "name": "ant.env.refresh-properties.enable",
+      "description": "选填：是否开启刷新@ConfigurationProperties（默认为开启）",
       "type": "java.lang.Boolean",
       "defaultValue": true
     }
