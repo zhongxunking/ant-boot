@@ -33,9 +33,9 @@ public class PropertiesTargetSource implements TargetSource {
     public void refresh() {
         try {
             target = Contexts.buildProperties(targetClass);
-            log.info("刷新@ConfigurationProperties配置成功：class={}", targetClass);
+            log.info("刷新@ConfigurationProperties配置成功：class={}", targetClass.getName());
         } catch (Throwable e) {
-            log.error("刷新@ConfigurationProperties配置失败：class={}", targetClass, e);
+            log.error("刷新@ConfigurationProperties配置失败：class={}", targetClass.getName(), e);
         }
     }
 
