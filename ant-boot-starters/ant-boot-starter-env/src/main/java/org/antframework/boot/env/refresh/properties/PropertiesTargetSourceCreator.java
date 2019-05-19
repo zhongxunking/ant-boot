@@ -38,12 +38,24 @@ public class PropertiesTargetSourceCreator implements TargetSourceCreator, Confi
     private final Map<String, Set<PropertiesTargetSource>> prefixTargetSources = new ConcurrentHashMap<>();
     // 配置
     private final RefreshProperties properties = Contexts.buildProperties(RefreshProperties.class);
+    // 需忽略的bean
+    private Set<String> ignoredBeanNames = new HashSet<>();
+
+    /**
+     * 设置需忽略的bean
+     *
+     * @param ignoredBeanNames 需忽略的bean
+     */
+    public void setIgnoredBeanNames(Set<String> ignoredBeanNames) {
+        this.ignoredBeanNames = ignoredBeanNames;
+    }
 
     @Override
     public TargetSource getTargetSource(Class<?> beanClass, String beanName) {
         ConfigurationProperties propertiesAnnotation = AnnotatedElementUtils.findMergedAnnotation(beanClass, ConfigurationProperties.class);
         Refreshable refreshableAnnotation = AnnotatedElementUtils.findMergedAnnotation(beanClass, Refreshable.class);
-        if (propertiesAnnotation == null
+        if (ignoredBeanNames.contains(beanName)
+                || propertiesAnnotation == null
                 || (refreshableAnnotation == null && !properties.getRefreshableClasses().contains(beanClass.getName()))) {
             return null;
         }

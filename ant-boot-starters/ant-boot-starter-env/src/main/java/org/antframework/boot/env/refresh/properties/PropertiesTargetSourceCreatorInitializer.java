@@ -17,9 +17,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 配置TargetSource创建器--初始化器
@@ -45,8 +43,25 @@ public class PropertiesTargetSourceCreatorInitializer implements BeanFactoryPost
         if (existingCreators != null) {
             creators.addAll(Arrays.asList(existingCreators));
         }
-        // 新增PropertiesTargetSourceCreator
-        creators.add(beanFactory.getBean(PropertiesTargetSourceCreator.class));
+        // 添加PropertiesTargetSourceCreator
+        PropertiesTargetSourceCreator creator = beanFactory.getBean(PropertiesTargetSourceCreator.class);
+        creator.setIgnoredBeanNames(getIgnoredBeanNames(beanFactory));
+        creators.add(creator);
+        // 重新设置creator
         beanDefinition.getPropertyValues().add(TARGET_SOURCE_CREATORS_PROPERTY_NAME, creators.toArray(new TargetSourceCreator[0]));
+    }
+
+    // 获取需忽略的bean
+    private Set<String> getIgnoredBeanNames(ConfigurableListableBeanFactory beanFactory) {
+        Set<String> ignoredBeanNames = new HashSet<>();
+        for (String beanName : beanFactory.getBeanDefinitionNames()) {
+            BeanDefinition definition = beanFactory.getBeanDefinition(beanName);
+            String method = definition.getFactoryMethodName();
+            String name = definition.getFactoryBeanName();
+            if (method != null || name != null) {
+                ignoredBeanNames.add(beanName);
+            }
+        }
+        return ignoredBeanNames;
     }
 }
