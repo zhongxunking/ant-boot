@@ -10,6 +10,7 @@ package org.antframework.boot.env.refresh.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.env.listener.ChangedProperty;
 import org.antframework.boot.env.listener.ConfigListener;
@@ -28,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 配置TargetSource创建器
  */
 @Order(PropertiesTargetSourceCreator.ORDER)
+@Slf4j
 public class PropertiesTargetSourceCreator implements TargetSourceCreator, ConfigListener {
     /**
      * 优先级
@@ -75,6 +77,7 @@ public class PropertiesTargetSourceCreator implements TargetSourceCreator, Confi
         if (!Objects.equals(appId, Contexts.getAppId())) {
             return;
         }
+        log.info("刷新@ConfigurationProperties配置");
         changedProperties.stream()
                 .map(ChangedProperty::getKey)
                 .map(this::getMatchedTargetSources)

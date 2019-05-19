@@ -8,12 +8,14 @@
  */
 package org.antframework.boot.env.refresh.properties;
 
+import lombok.extern.slf4j.Slf4j;
 import org.antframework.boot.core.Contexts;
 import org.springframework.aop.TargetSource;
 
 /**
  * 配置TargetSource
  */
+@Slf4j
 public class PropertiesTargetSource implements TargetSource {
     // 目标类型
     private final Class<?> targetClass;
@@ -29,7 +31,12 @@ public class PropertiesTargetSource implements TargetSource {
      * 刷新配置
      */
     public void refresh() {
-        target = Contexts.buildProperties(targetClass);
+        try {
+            target = Contexts.buildProperties(targetClass);
+            log.info("刷新@ConfigurationProperties配置成功：class={}", targetClass);
+        } catch (Throwable e) {
+            log.error("刷新@ConfigurationProperties配置失败：class={}", targetClass, e);
+        }
     }
 
     @Override

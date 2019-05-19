@@ -39,9 +39,9 @@ public class MethodPlaceholderInjector implements PlaceholderInjector {
             String strVal = beanFactory.resolveEmbeddedValue(placeholder);
             Object value = beanFactory.getTypeConverter().convertIfNecessary(strVal, method.getParameterTypes()[0]);
             ReflectionUtils.invokeMethod(method, target, value);
-            log.info("刷新@Value方法成功，method={}，placeholder={}", method, placeholder);
+            log.info("刷新@Value方法成功：method={}，placeholder={}", method, placeholder);
         } catch (Throwable e) {
-            log.error("刷新@Value方法出错，method={}，placeholder={}", method, placeholder, e);
+            log.error("刷新@Value方法出错：method={}，placeholder={}", method, placeholder, e);
         }
     }
 }

@@ -39,9 +39,9 @@ public class FieldPlaceholderInjector implements PlaceholderInjector {
             String strVal = beanFactory.resolveEmbeddedValue(placeholder);
             Object value = beanFactory.getTypeConverter().convertIfNecessary(strVal, field.getType());
             ReflectionUtils.setField(field, target, value);
-            log.info("刷新@Value字段成功，field={}，placeholder={}", field, placeholder);
+            log.info("刷新@Value字段成功：field={}，placeholder={}", field, placeholder);
         } catch (Throwable e) {
-            log.error("刷新@Value字段出错，field={}，placeholder={}", field, placeholder, e);
+            log.error("刷新@Value字段出错：field={}，placeholder={}", field, placeholder, e);
         }
     }
 }
