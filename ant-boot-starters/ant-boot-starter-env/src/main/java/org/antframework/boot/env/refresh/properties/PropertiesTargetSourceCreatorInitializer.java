@@ -8,12 +8,14 @@
  */
 package org.antframework.boot.env.refresh.properties;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.config.AopConfigUtils;
 import org.springframework.aop.framework.autoproxy.TargetSourceCreator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import java.util.List;
 /**
  * 配置TargetSource创建器--初始化器
  */
+@Slf4j
 public class PropertiesTargetSourceCreatorInitializer implements BeanFactoryPostProcessor {
     // TargetSource创建器的属性名
     private static final String TARGET_SOURCE_CREATORS_PROPERTY_NAME = "customTargetSourceCreators";
@@ -29,7 +32,11 @@ public class PropertiesTargetSourceCreatorInitializer implements BeanFactoryPost
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         if (!beanFactory.containsBeanDefinition(AopConfigUtils.AUTO_PROXY_CREATOR_BEAN_NAME)) {
-            return;
+            if (!(beanFactory instanceof BeanDefinitionRegistry)) {
+                log.warn("无法刷新@ConfigurationProperties配置");
+                return;
+            }
+            AopConfigUtils.registerAutoProxyCreatorIfNecessary((BeanDefinitionRegistry) beanFactory);
         }
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition(AopConfigUtils.AUTO_PROXY_CREATOR_BEAN_NAME);
         List<TargetSourceCreator> creators = new ArrayList<>();
