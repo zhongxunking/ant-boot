@@ -98,7 +98,8 @@ public class PlaceholdersRefresher implements BeanFactoryAware, BeanPostProcesso
         }
         log.info("刷新@Value占位符");
         changedProperties.stream()
-                .map(changedProperty -> keyInjectors.get(changedProperty.getKey()))
+                .map(ChangedProperty::getKey)
+                .map(keyInjectors::get)
                 .filter(Objects::nonNull)
                 .flatMap(Set::stream)
                 .distinct()
