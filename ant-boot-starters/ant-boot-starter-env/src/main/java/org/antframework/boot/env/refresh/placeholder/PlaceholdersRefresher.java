@@ -105,4 +105,10 @@ public class PlaceholdersRefresher implements BeanFactoryAware, BeanPostProcesso
                 .distinct()
                 .forEach(injector -> injector.inject(beanFactory));
     }
+
+    // 兼容SpringBoot1.x
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        return bean;
+    }
 }
