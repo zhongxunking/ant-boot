@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.antframework.boot</groupId>
         <artifactId>ant-boot-starters</artifactId>
-        <version>1.4.2.RELEASE</version>
+        <version>1.4.3.RELEASE</version>
     </parent>
 
     <artifactId>ant-boot-starter-bekit</artifactId>
