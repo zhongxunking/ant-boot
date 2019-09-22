@@ -22,6 +22,8 @@ public class JpaApplicationListener implements ApplicationListener<ApplicationEn
     private static final String USE_NEW_ID_GENERATOR_MAPPINGS_KEY = "spring.jpa.hibernate.use-new-id-generator-mappings";
     // 物理命名策略的key
     private static final String PHYSICAL_STRATEGY_KEY = "spring.jpa.hibernate.naming.physical-strategy";
+    // hibernate自动生成的表使用的存储引擎的key
+    private static final String ENGINE_KEY = "hibernate.dialect.storage_engine";
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
@@ -42,6 +44,10 @@ public class JpaApplicationListener implements ApplicationListener<ApplicationEn
         if (!physicalStrategyExisting) {
             // 默认使用PhysicalNamingStrategyStandardImpl（表明、字段名与entity类定义的一致）
             System.setProperty(PHYSICAL_STRATEGY_KEY, PhysicalNamingStrategyStandardImpl.class.getName());
+        }
+        // 默认使用innodb引擎
+        if (System.getProperty(ENGINE_KEY) == null) {
+            System.setProperty(ENGINE_KEY, "innodb");
         }
     }
 }
