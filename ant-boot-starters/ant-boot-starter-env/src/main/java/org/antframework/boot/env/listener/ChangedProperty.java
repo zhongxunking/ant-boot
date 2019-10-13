@@ -26,10 +26,10 @@ public final class ChangedProperty implements Serializable {
     // key
     private final String key;
     // 旧值
-    @Mask(allMask = true)
+    @Mask(secureMask = true)
     private final String oldValue;
     // 新值
-    @Mask(allMask = true)
+    @Mask(secureMask = true)
     private final String newValue;
 
     @Override
