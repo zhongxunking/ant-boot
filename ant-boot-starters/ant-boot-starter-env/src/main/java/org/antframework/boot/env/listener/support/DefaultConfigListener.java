@@ -13,7 +13,7 @@ import org.antframework.boot.env.listener.ConfigListener;
 import org.antframework.boot.env.listener.annotation.ConfigChangedEvent;
 import org.antframework.boot.env.listener.annotation.ConfigListenerType;
 import org.bekit.event.EventPublisher;
-import org.bekit.event.bus.EventBusesHolder;
+import org.bekit.event.bus.EventBusHub;
 import org.bekit.event.publisher.DefaultEventPublisher;
 import org.springframework.core.annotation.Order;
 
@@ -37,8 +37,8 @@ public class DefaultConfigListener implements ConfigListener {
     // 事件发布器
     private final EventPublisher eventPublisher;
 
-    public DefaultConfigListener(EventBusesHolder eventBusesHolder) {
-        eventPublisher = new DefaultEventPublisher(eventBusesHolder.getEventBus(ConfigListenerType.class));
+    public DefaultConfigListener(EventBusHub eventBusHub) {
+        eventPublisher = new DefaultEventPublisher(eventBusHub.getEventBus(ConfigListenerType.class));
     }
 
     @Override

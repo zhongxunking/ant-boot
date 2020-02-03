@@ -14,12 +14,13 @@ import org.antframework.boot.bekit.IgnoreGateLogging;
 import org.antframework.common.util.facade.BizException;
 import org.antframework.common.util.other.Cache;
 import org.bekit.event.annotation.Listen;
+import org.bekit.event.listener.PriorityType;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.annotation.service.Service;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceExceptionEvent;
 import org.bekit.service.event.ServiceFinishEvent;
-import org.bekit.service.service.ServicesHolder;
+import org.bekit.service.service.ServiceRegistrar;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
@@ -36,7 +37,7 @@ public class GateLogger {
     private final Cache<String, Boolean> ignoreLoggingCache = new Cache<>(new Function<String, Boolean>() {
         @Override
         public Boolean apply(String key) {
-            Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
+            Object service = serviceRegistrar.get(key).getService();
             Class serviceClass = AopUtils.getTargetClass(service);
             return AnnotationUtils.findAnnotation(serviceClass, IgnoreGateLogging.class) != null;
         }
@@ -45,13 +46,13 @@ public class GateLogger {
     private final Cache<String, Boolean> enableTxCache = new Cache<>(new Function<String, Boolean>() {
         @Override
         public Boolean apply(String key) {
-            Object service = servicesHolder.getRequiredServiceExecutor(key).getService();
+            Object service = serviceRegistrar.get(key).getService();
             Class serviceClass = AopUtils.getTargetClass(service);
             return AnnotationUtils.findAnnotation(serviceClass, Service.class).enableTx();
         }
     });
     // 服务持有器
-    private final ServicesHolder servicesHolder;
+    private final ServiceRegistrar serviceRegistrar;
 
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
@@ -59,13 +60,13 @@ public class GateLogger {
             return;
         }
         if (isInfoLevel(event.getService())) {
-            log.info(calcIndent() + "收到请求：service={}, order={}", event.getService(), event.getServiceContext().getOrder());
+            log.info(calcIndent() + "收到请求：service={}, order={}", event.getService(), event.getContext().getOrder());
         } else {
-            log.debug(calcIndent() + "收到请求：service={}, order={}", event.getService(), event.getServiceContext().getOrder());
+            log.debug(calcIndent() + "收到请求：service={}, order={}", event.getService(), event.getContext().getOrder());
         }
     }
 
-    @Listen(priorityAsc = false)
+    @Listen(priorityType = PriorityType.DESC)
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
         Throwable throwable = event.getThrowable();
         if (!(throwable instanceof BizException)) {
@@ -80,15 +81,15 @@ public class GateLogger {
         }
     }
 
-    @Listen(priorityAsc = false)
+    @Listen(priorityType = PriorityType.DESC)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
         if (ignoreLoggingCache.get(event.getService())) {
             return;
         }
         if (isInfoLevel(event.getService())) {
-            log.info(calcIndent() + "执行结果：service={}, result={}", event.getService(), event.getServiceContext().getResult());
+            log.info(calcIndent() + "执行结果：service={}, result={}", event.getService(), event.getContext().getResult());
         } else {
-            log.debug(calcIndent() + "执行结果：service={}, result={}", event.getService(), event.getServiceContext().getResult());
+            log.debug(calcIndent() + "执行结果：service={}, result={}", event.getService(), event.getContext().getResult());
         }
     }
 

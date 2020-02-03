@@ -10,6 +10,7 @@ package org.antframework.boot.bekit.servicelistener;
 
 import org.antframework.common.util.facade.*;
 import org.bekit.event.annotation.Listen;
+import org.bekit.event.listener.PriorityType;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceExceptionEvent;
@@ -21,15 +22,15 @@ import org.bekit.service.event.ServiceExceptionEvent;
 public class ResultMaintainServiceListener {
     @Listen
     public void listenServiceApplyEvent(ServiceApplyEvent event) {
-        Object result = event.getServiceContext().getResult();
+        Object result = event.getContext().getResult();
         if (result instanceof AbstractResult) {
             FacadeUtils.initSuccess((AbstractResult) result);
         }
     }
 
-    @Listen(priorityAsc = false)
+    @Listen(priorityType = PriorityType.DESC)
     public void listenServiceExceptionEvent(ServiceExceptionEvent event) {
-        Object result = event.getServiceContext().getResult();
+        Object result = event.getContext().getResult();
         if (result instanceof AbstractResult) {
             Throwable throwable = event.getThrowable();
             if (throwable instanceof BizException) {

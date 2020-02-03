@@ -74,7 +74,7 @@ public class ListenConfigChangedResolver implements ListenResolver {
     }
 
     @Override
-    public Object[] resolveArgs(Object event) {
+    public Object[] resolveParams(Object event) {
         List<ChangedProperty> changedProperties = ((ConfigChangedEvent) event).getChangedProperties();
         Object param;
         if (!singleKey) {

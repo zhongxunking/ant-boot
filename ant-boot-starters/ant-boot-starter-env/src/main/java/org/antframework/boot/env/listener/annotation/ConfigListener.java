@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Listener(type = ConfigListenerType.class)
+@Listener(type = ConfigListenerType.class, priority = Integer.MAX_VALUE)
 public @interface ConfigListener {
     /**
      * 被监听的应用id（默认为当前应用）

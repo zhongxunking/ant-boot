@@ -44,7 +44,7 @@ public final class CommonQueries {
     @Setter
     public static final class CommonQueryResult extends AbstractResult {
         // 页面提取器
-        private FacadeUtils.PageExtractor pageExtractor;
+        private FacadeUtils.PageExtractor<?> pageExtractor;
 
         /**
          * 转换为指定的目标类型

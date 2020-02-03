@@ -9,6 +9,7 @@
 package org.antframework.boot.bekit.servicelistener;
 
 import org.bekit.event.annotation.Listen;
+import org.bekit.event.listener.PriorityType;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceFinishEvent;
@@ -23,7 +24,7 @@ public class ServiceStackServiceListener {
         ServiceStacks.push();
     }
 
-    @Listen(priorityAsc = false)
+    @Listen(priorityType = PriorityType.DESC)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
         ServiceStacks.pop();
     }

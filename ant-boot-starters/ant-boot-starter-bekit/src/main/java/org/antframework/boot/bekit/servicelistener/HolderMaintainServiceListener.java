@@ -10,6 +10,7 @@ package org.antframework.boot.bekit.servicelistener;
 
 import org.antframework.boot.bekit.CodeMessageHolder;
 import org.bekit.event.annotation.Listen;
+import org.bekit.event.listener.PriorityType;
 import org.bekit.service.annotation.listener.ServiceListener;
 import org.bekit.service.event.ServiceApplyEvent;
 import org.bekit.service.event.ServiceFinishEvent;
@@ -26,7 +27,7 @@ public class HolderMaintainServiceListener {
         CodeMessageHolder.remove();
     }
 
-    @Listen(priorityAsc = false)
+    @Listen(priorityType = PriorityType.DESC)
     public void listenServiceFinishEvent(ServiceFinishEvent event) {
         // 出栈结果码、描述
         CodeMessageHolder.set((CodeMessageHolder.CodeMessage) ServiceStacks.peek().remove(CodeMessageHolder.class));

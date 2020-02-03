@@ -9,6 +9,7 @@
 package org.antframework.boot.env.listener.annotation;
 
 import org.bekit.event.annotation.listener.Listen;
+import org.bekit.event.listener.PriorityType;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -19,7 +20,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Listen(resolver = ListenConfigChangedResolver.class)
+@Listen(resolver = ListenConfigChangedResolver.class, priorityType = PriorityType.ASC)
 public @interface ListenConfigChanged {
     /**
      * 被监听的配置key前缀（默认监听所有配置key）
@@ -27,8 +28,8 @@ public @interface ListenConfigChanged {
     String prefix() default "";
 
     /**
-     * 是否按照优先级升序
+     * 优先级类型
      */
-    @AliasFor(annotation = Listen.class, attribute = "priorityAsc")
-    boolean priorityAsc() default true;
+    @AliasFor(annotation = Listen.class, attribute = "priorityType")
+    PriorityType priorityType() default PriorityType.ASC;
 }
