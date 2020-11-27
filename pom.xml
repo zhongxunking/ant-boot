@@ -10,7 +10,7 @@
 
     <groupId>org.antframework.boot</groupId>
     <artifactId>ant-boot</artifactId>
-    <version>2.2.1.RELEASE</version>
+    <version>2.4.0</version>
     <packaging>pom</packaging>
 
     <name>ant-boot</name>
