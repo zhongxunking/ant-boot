@@ -33,11 +33,11 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         this.arguments = new DefaultApplicationArguments(args);
     }
 
-    //    @Override
+    // 兼容低版本SpringBoot
     public void starting() {
     }
 
-    //    @Override
+    // 兼容低版本SpringBoot
     public void environmentPrepared(ConfigurableEnvironment environment) {
         Contexts.setEnvironment(environment);
     }
@@ -63,7 +63,7 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
     }
 
-    // 兼容SpringBoot1.x
+    // 兼容低版本SpringBoot
     public void finished(ConfigurableApplicationContext context, Throwable exception) {
     }
 }

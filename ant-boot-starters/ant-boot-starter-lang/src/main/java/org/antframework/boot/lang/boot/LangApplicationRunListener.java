@@ -30,11 +30,11 @@ public class LangApplicationRunListener implements SpringApplicationRunListener 
         initApp(springApplication);
     }
 
-    //    @Override
+    // 兼容低版本SpringBoot
     public void starting() {
     }
 
-    //    @Override
+    // 兼容低版本SpringBoot
     public void environmentPrepared(ConfigurableEnvironment environment) {
     }
 
