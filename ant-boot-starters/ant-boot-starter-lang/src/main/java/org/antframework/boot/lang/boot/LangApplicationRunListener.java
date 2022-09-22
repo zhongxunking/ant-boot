@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -30,11 +30,11 @@ public class LangApplicationRunListener implements SpringApplicationRunListener 
         initApp(springApplication);
     }
 
-    @Override
+    //    @Override
     public void starting() {
     }
 
-    @Override
+    //    @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
     }
 

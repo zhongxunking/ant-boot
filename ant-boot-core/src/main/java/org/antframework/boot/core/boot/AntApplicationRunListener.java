@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -33,11 +33,11 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         this.arguments = new DefaultApplicationArguments(args);
     }
 
-    @Override
+    //    @Override
     public void starting() {
     }
 
-    @Override
+    //    @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
         Contexts.setEnvironment(environment);
     }
