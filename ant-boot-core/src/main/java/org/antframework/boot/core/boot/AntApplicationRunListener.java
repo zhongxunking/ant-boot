@@ -9,10 +9,7 @@
 package org.antframework.boot.core.boot;
 
 import org.antframework.boot.core.Contexts;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.DefaultApplicationArguments;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringApplicationRunListener;
+import org.springframework.boot.*;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -39,6 +36,11 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
 
     // 兼容低版本SpringBoot
     public void environmentPrepared(ConfigurableEnvironment environment) {
+        Contexts.setEnvironment(environment);
+    }
+
+    @Override
+    public void environmentPrepared(ConfigurableBootstrapContext bootstrapContext, ConfigurableEnvironment environment) {
         Contexts.setEnvironment(environment);
     }
 
