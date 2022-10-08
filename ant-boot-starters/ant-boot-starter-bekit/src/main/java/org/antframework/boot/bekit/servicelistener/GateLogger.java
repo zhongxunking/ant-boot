@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antframework.boot.bekit.IgnoreGateLogging;
 import org.antframework.common.util.facade.BizException;
-import org.antframework.common.util.other.Cache;
+import org.antframework.common.util.kit.Cache;
 import org.bekit.event.annotation.Listen;
 import org.bekit.event.listener.PriorityType;
 import org.bekit.service.annotation.listener.ServiceListener;
