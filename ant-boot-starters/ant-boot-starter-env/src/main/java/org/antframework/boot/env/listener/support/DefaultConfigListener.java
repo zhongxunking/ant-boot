@@ -11,7 +11,7 @@ package org.antframework.boot.env.listener.support;
 import org.antframework.boot.env.listener.ChangedProperty;
 import org.antframework.boot.env.listener.ConfigListener;
 import org.antframework.boot.env.listener.annotation.ConfigChangedEvent;
-import org.antframework.boot.env.listener.annotation.ConfigListenerType;
+import org.antframework.boot.env.listener.annotation.ConfigDataType;
 import org.antframework.event.EventPublisher;
 import org.antframework.event.bus.EventBusHub;
 import org.antframework.event.publisher.DefaultEventPublisher;
@@ -38,7 +38,7 @@ public class DefaultConfigListener implements ConfigListener {
     private final EventPublisher eventPublisher;
 
     public DefaultConfigListener(EventBusHub eventBusHub) {
-        eventPublisher = new DefaultEventPublisher(eventBusHub.getEventBus(ConfigListenerType.class));
+        eventPublisher = new DefaultEventPublisher(eventBusHub.getEventBus(ConfigDataType.class));
     }
 
     @Override

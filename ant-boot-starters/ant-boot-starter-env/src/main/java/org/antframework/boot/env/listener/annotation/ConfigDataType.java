@@ -13,7 +13,7 @@ import org.antframework.event.listener.DataType;
 /**
  * 配置监听器类型
  */
-public class ConfigListenerType implements DataType {
+public class ConfigDataType implements DataType {
     @Override
     public EventTypeResolver getResolver() {
         return ConfigEventTypeResolver.INSTANCE;
