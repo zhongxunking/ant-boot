@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -8,13 +8,12 @@
  */
 package org.antframework.boot.env.listener.annotation;
 
-import org.bekit.event.extension.EventTypeResolver;
-import org.bekit.event.extension.ListenerType;
+import org.antframework.event.listener.DataType;
 
 /**
  * 配置监听器类型
  */
-public class ConfigListenerType implements ListenerType {
+public class ConfigListenerType implements DataType {
     @Override
     public EventTypeResolver getResolver() {
         return ConfigEventTypeResolver.INSTANCE;

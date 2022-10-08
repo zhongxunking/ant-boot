@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -10,8 +10,8 @@ package org.antframework.boot.env.listener.annotation;
 
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.env.listener.ChangedProperty;
+import org.antframework.event.annotation.listener.ListenResolver;
 import org.apache.commons.lang3.StringUtils;
-import org.bekit.event.extension.ListenResolver;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ClassUtils;

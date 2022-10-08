@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.bekit</groupId>
+            <groupId>org.antframework.event</groupId>
             <artifactId>event</artifactId>
         </dependency>
     </dependencies>

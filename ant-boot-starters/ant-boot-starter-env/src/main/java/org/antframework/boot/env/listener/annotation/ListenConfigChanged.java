@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -8,8 +8,8 @@
  */
 package org.antframework.boot.env.listener.annotation;
 
-import org.bekit.event.annotation.listener.Listen;
-import org.bekit.event.listener.PriorityType;
+import org.antframework.event.annotation.listener.Listen;
+import org.antframework.event.listener.PriorityType;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
