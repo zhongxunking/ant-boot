@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -51,7 +51,7 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
         loggerContext.setPackagingDataEnabled(true);
     }
 
-    // 基本配置（参考：DefaultLogbackConfiguration#base）
+    // 基本配置（参考：DefaultLogbackConfiguration#defaults）
     private void baseConfig(LogbackConfigurator config) {
         config.conversionRule("clr", ColorConverter.class);
         config.conversionRule("wex", WhitespaceThrowableProxyConverter.class);
@@ -69,10 +69,34 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
     }
 
     //------ 以下方法由于在LogbackLoggingSystem中是私有的，不能调用，所以拷贝过来 ------
+    private void stopAndReset(LoggerContext loggerContext) {
+        loggerContext.stop();
+        loggerContext.reset();
+        if (isBridgeHandlerInstalled()) {
+            addLevelChangePropagator(loggerContext);
+        }
+    }
+
+    private boolean isBridgeHandlerInstalled() {
+        if (!isBridgeHandlerAvailable()) {
+            return false;
+        }
+        java.util.logging.Logger rootLogger = LogManager.getLogManager().getLogger("");
+        Handler[] handlers = rootLogger.getHandlers();
+        return handlers.length == 1 && handlers[0] instanceof SLF4JBridgeHandler;
+    }
+
+    private void addLevelChangePropagator(LoggerContext loggerContext) {
+        LevelChangePropagator levelChangePropagator = new LevelChangePropagator();
+        levelChangePropagator.setResetJUL(true);
+        levelChangePropagator.setContext(loggerContext);
+        loggerContext.addListener(levelChangePropagator);
+    }
+
     private LoggerContext getLoggerContext() {
         ILoggerFactory factory = StaticLoggerBinder.getSingleton().getLoggerFactory();
         Assert.isInstanceOf(LoggerContext.class, factory,
-                String.format(
+                () -> String.format(
                         "LoggerFactory is not a Logback LoggerContext but Logback is on "
                                 + "the classpath. Either remove Logback or the competing "
                                 + "implementation (%s loaded from %s). If you are using "
@@ -93,29 +117,5 @@ public class AntLogbackLoggingSystem extends LogbackLoggingSystem {
             // Unable to determine location
         }
         return "unknown location";
-    }
-
-    private void stopAndReset(LoggerContext loggerContext) {
-        loggerContext.stop();
-        loggerContext.reset();
-        if (isBridgeHandlerInstalled()) {
-            addLevelChangePropagator(loggerContext);
-        }
-    }
-
-    private boolean isBridgeHandlerInstalled() {
-        if (!isBridgeHandlerAvailable()) {
-            return false;
-        }
-        java.util.logging.Logger rootLogger = LogManager.getLogManager().getLogger("");
-        Handler[] handlers = rootLogger.getHandlers();
-        return handlers.length == 1 && SLF4JBridgeHandler.class.isInstance(handlers[0]);
-    }
-
-    private void addLevelChangePropagator(LoggerContext loggerContext) {
-        LevelChangePropagator levelChangePropagator = new LevelChangePropagator();
-        levelChangePropagator.setResetJUL(true);
-        levelChangePropagator.setContext(loggerContext);
-        loggerContext.addListener(levelChangePropagator);
     }
 }
