@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -31,24 +31,20 @@ import java.util.Set;
 @ConfigListener
 public class LoggingLevelListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     // 当前日志级别
-    private static Map<String, LogLevel> LEVELS = new HashMap<>();
+    private static volatile Map<String, LogLevel> LEVELS = new HashMap<>();
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        synchronized (LoggingLevelListener.class) {
-            refreshLevels();
-        }
+        refreshLevels();
     }
 
     @ListenConfigChanged(prefix = "logging")
     public void onChange(List<ChangedProperty> changedProperties) {
-        synchronized (LoggingLevelListener.class) {
-            refreshLevels();
-        }
+        refreshLevels();
     }
 
     // 刷新日志级别
-    private void refreshLevels() {
+    private static synchronized void refreshLevels() {
         LevelProperties properties = Contexts.buildProperties(LevelProperties.class);
         // 构建最新的日志级别
         Map<String, LogLevel> nextLevels = new HashMap<>();
@@ -68,7 +64,7 @@ public class LoggingLevelListener implements ApplicationListener<ApplicationEnvi
             nextLevels.put(LoggingSystem.ROOT_LOGGER_NAME, LogLevel.INFO);
         }
         // 重设日志级别
-        LoggingSystem system = LoggingSystem.get(getClass().getClassLoader());
+        LoggingSystem system = LoggingSystem.get(LoggingLevelListener.class.getClassLoader());
         nextLevels.forEach((name, level) -> {
             if (LoggingSystem.ROOT_LOGGER_NAME.equalsIgnoreCase(name)) {
                 name = LoggingSystem.ROOT_LOGGER_NAME;
