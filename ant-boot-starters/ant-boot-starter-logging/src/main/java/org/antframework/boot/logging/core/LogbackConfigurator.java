@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -17,7 +17,6 @@ import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.pattern.Converter;
 import ch.qos.logback.core.spi.ContextAware;
 import ch.qos.logback.core.spi.LifeCycle;
-import ch.qos.logback.core.spi.PropertyContainer;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
@@ -35,7 +34,7 @@ public class LogbackConfigurator {
         this.context = context;
     }
 
-    public PropertyContainer getContext() {
+    public LoggerContext getContext() {
         return this.context;
     }
 
@@ -44,8 +43,7 @@ public class LogbackConfigurator {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public void conversionRule(String conversionWord,
-                               Class<? extends Converter> converterClass) {
+    public void conversionRule(String conversionWord, Class<? extends Converter> converterClass) {
         Assert.hasLength(conversionWord, "Conversion word must not be empty");
         Assert.notNull(converterClass, "Converter class must not be null");
         Map<String, String> registry = (Map<String, String>) this.context
@@ -70,8 +68,7 @@ public class LogbackConfigurator {
         logger(name, level, additive, null);
     }
 
-    public void logger(String name, Level level, boolean additive,
-                       Appender<ILoggingEvent> appender) {
+    public void logger(String name, Level level, boolean additive, Appender<ILoggingEvent> appender) {
         Logger logger = this.context.getLogger(name);
         if (level != null) {
             logger.setLevel(level);

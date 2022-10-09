@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -27,7 +27,7 @@ public class LevelInitializer implements LoggingInitializer {
         // 设置特定logger级别
         config.logger("org.apache.zookeeper", Level.WARN);
         config.logger("org.apache.curator", Level.WARN);
-        // 参考：DefaultLogbackConfiguration#base
+        // 参考：DefaultLogbackConfiguration#defaults
         config.logger("org.apache.catalina.startup.DigesterFactory", Level.ERROR);
         config.logger("org.apache.catalina.util.LifecycleBase", Level.ERROR);
         config.logger("org.apache.coyote.http11.Http11NioProtocol", Level.WARN);
@@ -35,5 +35,6 @@ public class LevelInitializer implements LoggingInitializer {
         config.logger("org.apache.tomcat.util.net.NioSelectorPool", Level.WARN);
         config.logger("org.eclipse.jetty.util.component.AbstractLifeCycle", Level.ERROR);
         config.logger("org.hibernate.validator.internal.util.Version", Level.WARN);
+        config.logger("org.springframework.boot.actuate.endpoint.jmx", Level.WARN);
     }
 }
