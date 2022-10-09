@@ -31,7 +31,7 @@ import java.util.Set;
 @ConfigListener
 public class LoggingLevelListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
     // 当前日志级别
-    private static volatile Map<String, LogLevel> LEVELS = new HashMap<>();
+    private static Map<String, LogLevel> LEVELS = new HashMap<>();
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
