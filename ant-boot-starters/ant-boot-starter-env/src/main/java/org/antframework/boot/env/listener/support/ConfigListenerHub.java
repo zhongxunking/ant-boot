@@ -29,7 +29,8 @@ public class ConfigListenerHub {
      */
     public synchronized void addListener(ConfigListener listener) {
         if (!listeners.contains(listener)) {
-            List<ConfigListener> nextListeners = new ArrayList<>(listeners);
+            List<ConfigListener> nextListeners = new ArrayList<>(listeners.size() + 1);
+            nextListeners.addAll(listeners);
             nextListeners.add(listener);
             AnnotationAwareOrderComparator.sort(nextListeners);
             listeners = nextListeners;
