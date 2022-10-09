@@ -36,7 +36,7 @@ public class EnvAutoConfiguration implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         // 注册所有配置监听器
         for (ConfigListener listener : listeners) {
-            Envs.getConfigListeners().addListener(listener);
+            Envs.getConfigListenerHub().addListener(listener);
         }
     }
 
