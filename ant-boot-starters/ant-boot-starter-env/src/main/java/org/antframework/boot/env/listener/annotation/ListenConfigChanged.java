@@ -8,6 +8,7 @@
  */
 package org.antframework.boot.env.listener.annotation;
 
+import org.antframework.boot.env.listener.annotation.support.ListenConfigChangedResolver;
 import org.antframework.event.annotation.listener.Listen;
 import org.antframework.event.listener.PriorityType;
 import org.springframework.core.annotation.AliasFor;
