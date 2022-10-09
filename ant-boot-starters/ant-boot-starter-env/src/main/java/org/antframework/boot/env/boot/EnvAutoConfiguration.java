@@ -35,8 +35,10 @@ public class EnvAutoConfiguration implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         // 注册所有配置监听器
-        for (ConfigListener listener : listeners) {
-            Envs.getConfigListenerHub().addListener(listener);
+        if (listeners != null) {
+            for (ConfigListener listener : listeners) {
+                Envs.getConfigListenerHub().addListener(listener);
+            }
         }
     }
 
