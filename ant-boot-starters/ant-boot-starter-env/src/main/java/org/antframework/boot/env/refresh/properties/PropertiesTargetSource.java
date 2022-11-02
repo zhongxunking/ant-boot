@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -20,11 +20,11 @@ public class PropertiesTargetSource implements TargetSource {
     // 目标类型
     private final Class<?> targetClass;
     // 目标对象
-    private Object target;
+    private volatile Object target;
 
     public PropertiesTargetSource(Class<?> targetClass) {
         this.targetClass = targetClass;
-        refresh();
+        this.target = Contexts.buildProperties(targetClass);
     }
 
     /**

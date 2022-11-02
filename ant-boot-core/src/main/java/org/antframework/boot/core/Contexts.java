@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -10,7 +10,7 @@ package org.antframework.boot.core;
 
 import org.antframework.boot.core.util.PropertiesBinder;
 import org.antframework.boot.core.util.PropertiesBinderV1;
-import org.antframework.common.util.other.PropertyUtils;
+import org.antframework.common.util.kit.PropertyUtils;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;

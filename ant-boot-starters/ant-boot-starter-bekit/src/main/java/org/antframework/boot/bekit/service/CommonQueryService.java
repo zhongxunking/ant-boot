@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -13,7 +13,7 @@ import org.antframework.boot.bekit.CommonQueries;
 import org.antframework.boot.jpa.QueryRepository;
 import org.antframework.common.util.facade.AbstractQueryOrder;
 import org.antframework.common.util.facade.FacadeUtils;
-import org.antframework.common.util.other.Cache;
+import org.antframework.common.util.kit.Cache;
 import org.antframework.common.util.query.QueryParam;
 import org.antframework.common.util.query.annotation.QueryParams;
 import org.bekit.service.annotation.service.Service;

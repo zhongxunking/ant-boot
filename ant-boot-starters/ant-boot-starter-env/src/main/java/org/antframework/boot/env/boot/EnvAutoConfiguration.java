@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -15,11 +15,11 @@ import org.antframework.boot.env.listener.support.DefaultConfigListener;
 import org.antframework.boot.env.refresh.placeholder.PlaceholdersRefresher;
 import org.antframework.boot.env.refresh.properties.PropertiesTargetSourceCreator;
 import org.antframework.boot.env.refresh.properties.PropertiesTargetSourceCreatorInitializer;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -28,16 +28,17 @@ import java.util.List;
 @Configuration
 @Import(DefaultConfigListener.class)
 @AllArgsConstructor
-public class EnvAutoConfiguration {
+public class EnvAutoConfiguration implements InitializingBean {
     // 配置监听器
-    private List<ConfigListener> listeners;
+    private final List<ConfigListener> listeners;
 
-    // 初始化
-    @PostConstruct
-    public void init() {
+    @Override
+    public void afterPropertiesSet() throws Exception {
         // 注册所有配置监听器
-        for (ConfigListener listener : listeners) {
-            Envs.getConfigListeners().addListener(listener);
+        if (listeners != null) {
+            for (ConfigListener listener : listeners) {
+                Envs.getConfigListenerHub().addListener(listener);
+            }
         }
     }
 

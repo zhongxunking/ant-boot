@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -9,10 +9,7 @@
 package org.antframework.boot.core.boot;
 
 import org.antframework.boot.core.Contexts;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.DefaultApplicationArguments;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringApplicationRunListener;
+import org.springframework.boot.*;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -33,12 +30,17 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
         this.arguments = new DefaultApplicationArguments(args);
     }
 
-    @Override
+    // 兼容低版本SpringBoot
     public void starting() {
     }
 
-    @Override
+    // 兼容低版本SpringBoot
     public void environmentPrepared(ConfigurableEnvironment environment) {
+        Contexts.setEnvironment(environment);
+    }
+
+    @Override
+    public void environmentPrepared(ConfigurableBootstrapContext bootstrapContext, ConfigurableEnvironment environment) {
         Contexts.setEnvironment(environment);
     }
 
@@ -63,7 +65,7 @@ public class AntApplicationRunListener implements SpringApplicationRunListener {
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
     }
 
-    // 兼容SpringBoot1.x
+    // 兼容低版本SpringBoot
     public void finished(ConfigurableApplicationContext context, Throwable exception) {
     }
 }

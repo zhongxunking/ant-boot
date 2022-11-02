@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -6,12 +6,14 @@
  * 修订记录:
  * @author 钟勋 2017-10-02 16:01 创建
  */
-package org.antframework.boot.env.listener.annotation;
+package org.antframework.boot.env.listener.annotation.support;
 
 import org.antframework.boot.core.Contexts;
 import org.antframework.boot.env.listener.ChangedProperty;
+import org.antframework.boot.env.listener.annotation.ConfigListener;
+import org.antframework.boot.env.listener.annotation.ListenConfigChanged;
+import org.antframework.event.annotation.listener.ListenResolver;
 import org.apache.commons.lang3.StringUtils;
-import org.bekit.event.extension.ListenResolver;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ClassUtils;

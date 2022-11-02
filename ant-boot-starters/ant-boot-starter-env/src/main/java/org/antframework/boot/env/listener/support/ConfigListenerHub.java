@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 配置监听器的管理器
+ * 配置监听器中心
  */
-public class ConfigListeners {
+public class ConfigListenerHub {
     // 监听器
     private List<ConfigListener> listeners = new ArrayList<>();
 
@@ -29,7 +29,8 @@ public class ConfigListeners {
      */
     public synchronized void addListener(ConfigListener listener) {
         if (!listeners.contains(listener)) {
-            List<ConfigListener> nextListeners = new ArrayList<>(listeners);
+            List<ConfigListener> nextListeners = new ArrayList<>(listeners.size() + 1);
+            nextListeners.addAll(listeners);
             nextListeners.add(listener);
             AnnotationAwareOrderComparator.sort(nextListeners);
             listeners = nextListeners;

@@ -1,4 +1,4 @@
-/* 
+/*
  * 作者：钟勋 (e-mail:zhongxunking@163.com)
  */
 
@@ -8,7 +8,8 @@
  */
 package org.antframework.boot.env.listener.annotation;
 
-import org.bekit.event.annotation.listener.Listener;
+import org.antframework.boot.env.listener.annotation.support.ConfigDataType;
+import org.antframework.event.annotation.listener.Listener;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -19,7 +20,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Listener(type = ConfigListenerType.class, priority = Integer.MAX_VALUE)
+@Listener(dataType = ConfigDataType.class, priority = Integer.MAX_VALUE)
 public @interface ConfigListener {
     /**
      * 被监听的应用id（默认为当前应用）
